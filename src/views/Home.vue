@@ -1,8 +1,11 @@
 <template>
-  <!--Hero-->
+  <!--Hero ../assets/images/galaxy_s21.png-->
 <div class="pt-24">
+  <div class="h-64 hidden sm:block md:bg-cover sm:bg-contain -mt-5 bg-no-repeat" :style="'background-image: url('+header_bg+')'">
+    header
+  </div>
   <div class="bg-gray-200 text-black p-4 flex">
-    <div class="border-red-800 border-r-2 w-1/4 p-2 h-96 overflow-auto">
+    <div class="border-red-800 border-r-2 w-1/4 p-2 h-96 overflow-auto relative overflow-x-hidden hidden md:block">
       <category-list :categories = "getCategories"></category-list>
     </div>
     
@@ -14,7 +17,7 @@
       <div class="w-full mb-4">
         <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
       </div>
-      <div v-for="num in [{name: 2},{name: 2},{name: 2},{name: 2},{name: 2},{name: 2},{name: 2},{name: 2}]" v-bind:key="num.name" class="w-full sm:w-1/2 md:w-1/3 p-3 flex flex-col flex-shrink">
+      <div v-for="num in [{name: 2},{name: 2},{name: 2},{name: 2},{name: 2},{name: 2},{name: 2},{name: 2}]" v-bind:key="num.index" class="w-full sm:w-1/2 md:w-1/3 p-3 flex flex-col flex-shrink bg-blue-50 ">
         <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-md">
           <a href="" class="flex flex-wrap no-underline hover:no-underline">
             <div class="m-auto w-full"> 
@@ -42,12 +45,12 @@
     <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
       <!--Left Col-->
       <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
-        <p class="uppercase tracking-loose w-full">What do you want to buy?</p>
+        <p class="uppercase tracking-loose w-full"></p>
         <h1 class="my-4 text-5xl font-bold leading-tight">
           We Got You Covered. Fast, Easy and Cost Effective!
         </h1>
         <p class="leading-normal text-2xl mb-8">
-          Register and start making orders
+          Register and start posting Ads for FREE!
         </p>
         <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
           Register Now
@@ -55,7 +58,7 @@
       </div>
       <!--Right Col-->
       <div class="w-full md:w-3/5 py-6 text-center">
-        <img class="w-full md:w-4/5 z-50 rounded-lg" src="" />
+        <img class="w-full md:w-4/5 z-50 rounded-lg md:float-right" src="../assets/images/galaxy_s21.png" />
       </div>
     </div>
   </div>
@@ -102,12 +105,13 @@
           </p>
         </div>
         <div class="w-full sm:w-1/2 p-6">
-          <img class="w-full sm:h-64 mx-auto" viewBox="0 0 1177 598.5" src="" alt="">
+          <img class="w-full sm:h-64 mx-auto" viewBox="0 0 1177 598.5" src="../assets/images/galaxy_s21.png" alt="">
         </div>
       </div>
       <div class="flex flex-wrap flex-col-reverse sm:flex-row">
         <div class="w-full sm:w-1/2 p-6 mt-6">
-          <svg class="w-5/6 sm:h-64 mx-auto" viewBox="0 0 1176.60617 873.97852" xmlns="http://www.w3.org/2000/svg">
+          <img class="w-5/6 sm:h-64 mx-auto"  src="../assets/images/map_of_nigeria.png" alt="">
+          <!-- <svg class="w-5/6 sm:h-64 mx-auto" viewBox="0 0 1176.60617 873.97852" xmlns="http://www.w3.org/2000/svg">
             <title>connected world</title>
             <path
               transform="translate(-11.697 -13.011)"
@@ -253,7 +257,7 @@
             <circle cx="780.7" cy="309" r="11.968" fill="#ff6347" />
             <circle cx="991.17" cy="607.78" r="11.968" fill="#ff6347" />
             <circle cx="600.35" cy="480.68" r="11.968" fill="#ff6347" />
-          </svg>
+          </svg> -->
         </div>
         <div class="w-full sm:w-1/2 p-6 mt-6">
           <div class="align-middle">
@@ -397,6 +401,7 @@
 import CategoryList from "@/components/CategoryList.vue";
 import {mapActions, mapState} from "vuex";
 import store from '../store';
+import header_bg from '@/assets/images/header_bg.png';
 
 export default {
   name: "Home",
@@ -408,6 +413,7 @@ export default {
       name: "Don",
       age: this.$store.state.age,
       categories: null,
+      header_bg: header_bg
     };
   },
   methods: {

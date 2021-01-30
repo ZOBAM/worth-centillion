@@ -34,7 +34,7 @@
             id="navAction"
             class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out relative"
           >
-            Cart 
+            Cheap Data! 
           </button>
         </div>
       </div>
@@ -192,7 +192,7 @@ export default {
 
 <style lang="scss">
 .gradient {
-        background: linear-gradient(90deg, #014A7F 0%, #312a99 100%);
+        background: linear-gradient(90deg, #014A7F 0%, #2A84CC 100%);
       }
 /* #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
