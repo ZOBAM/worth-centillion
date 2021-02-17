@@ -1,79 +1,138 @@
 <template>
   <!--Hero ../assets/images/galaxy_s21.png-->
-<div class="pt-24">
-  <div class="h-64 hidden sm:block md:bg-cover sm:bg-contain -mt-5 bg-no-repeat" :style="'background-image: url('+header_bg+')'">
-    header
-  </div>
-  <div class="bg-gray-200 text-black p-4 flex">
-    <div class="border-red-800 border-r-2 w-1/4 p-2 h-96 overflow-auto relative overflow-x-hidden hidden md:block">
-      <category-list :categories = "getCategories"></category-list>
+  <div class="pt-24 relative">
+    <div
+      class="sm:h-36 md:h-64 hidden sm:flex justify-center items-center md:bg-cover sm:bg-cover -mt-5 bg-no-repeat"
+      :style="'background-image: url(' + header_bg + ')'"
+    >
+    <search></search>
     </div>
-    
-  <section class="bg-white border-b py-8">
-    <div class="container mx-auto flex flex-wrap pt-4 pb-12">
-      <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
-        Hot Deals
-      </h1>
-      <div class="w-full mb-4">
-        <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
+    <location v-if="displayLocation"></location>
+    <div class="bg-gray-200 text-black p-1 flex">
+      <div
+        class="border-blue-200 border-r-2 w-1/4 p-2 h-96 overflow-auto relative overflow-x-hidden hidden md:block"
+      >
+        <category-list :categories="getCategories"></category-list>
       </div>
-      <div v-for="num in [{name: 2},{name: 2},{name: 2},{name: 2},{name: 2},{name: 2},{name: 2},{name: 2}]" v-bind:key="num.index" class="w-full sm:w-1/2 md:w-1/3 p-3 flex flex-col flex-shrink bg-blue-50 ">
-        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-md">
-          <a href="" class="flex flex-wrap no-underline hover:no-underline">
-            <div class="m-auto w-full"> 
-              <img class="block w-full m-auto max-h-48" src="https://www.gizmochina.com/wp-content/uploads/2020/04/TECNO-Camon-15-Premier-500x500.jpg" alt="">
+      <div v-if="showCategories"
+        class="border-blue-200 bg-gray-200 border-r-2 w-3/4 p-2 overflow-y-scroll fixed bottom-12 overflow-x-hidden z-20 md:hidden" style="height:75vh"
+      >
+        <category-list :categories="getCategories"></category-list>
+      </div>
+
+      <section class="bg-white border-b py-8 md:w-3/4">
+        <div class="container mx-auto flex flex-wrap pt-4 pb-12 relative">
+          <h1
+            class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800"
+          >
+            Hot Deals
+          </h1>
+          <div class="w-full mb-4">
+            <div
+              class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"
+            ></div>
+          </div>
+          <loading v-if="loading"></loading>
+          <div
+            v-for="ad in ads"
+            v-bind:key="ad.index"
+            class="w-1/2 sm:w-1/3 md:w-1/4 p-2 flex flex-col flex-shrink bg-blue-50"
+          >
+            <div
+              class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-md relative"
+            >
+              <router-link :to="'/ads/'+ad.id" class="flex flex-wrap no-underline hover:no-underline">
+                <div class="m-auto w-full">
+                  <img
+                    class="block w-full m-auto max-h-36 sm:max-h-48"
+                    :src="ad.ad_img"
+                    alt=""
+                  />
+                </div>
+                <div class="w-full absolute bottom-0 bg-gray-200 opacity-90">
+                  <div class="w-full font-bold text-xs text-gray-800 px-2 sm:px-3 line-clamp-1 pt-1">
+                    {{ ad.title }}
+                  </div>
+                  <p class="w-full text-blue-800 text-xs md:text-sm px-6">
+                    <span class="float-right">₦{{ad.price}}</span>
+                  </p>
+                </div>
+              </router-link>
             </div>
-            <div class="w-full font-bold text-sm text-gray-800 px-6">
-              Tecno Camon 15 Air {{num.name}}
-            </div>
-            <p class="w-full text-gray-600 text-xs md:text-sm px-6">
-                ₦2344
-            </p>
-          </a>
-        </div>
-        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow px-6">
-          <div class="flex items-center justify-start">
-            <!-- <button class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+            <div
+              class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow px-6"
+            >
+              <div class="flex items-center justify-start">
+                <!-- <button class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
               Add to Cart
             </button> -->
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
-  </section>
-  </div>
-    <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+    <div
+      class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center"
+    >
       <!--Left Col-->
-      <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
+      <div
+        class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left"
+      >
         <p class="uppercase tracking-loose w-full"></p>
         <h1 class="my-4 text-5xl font-bold leading-tight">
-          We Got You Covered. Fast, Easy and Cost Effective!
+          <span class="text-gray-300">WC</span> Got You Covered. Fast, Easy and Cost Effective!
         </h1>
         <p class="leading-normal text-2xl mb-8">
           Register and start posting Ads for FREE!
         </p>
-        <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+        <button
+          class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+        >
           Register Now
         </button>
       </div>
       <!--Right Col-->
       <div class="w-full md:w-3/5 py-6 text-center">
-        <img class="w-full md:w-4/5 z-50 rounded-lg md:float-right" src="../assets/images/galaxy_s21.png" />
+        <img
+          class="w-full md:w-4/5 z-50 rounded-lg md:float-right"
+          src="../assets/images/mobile_purchase.png"
+        />
       </div>
     </div>
   </div>
   <div class="relative -mt-12 lg:-mt-24">
-    <svg viewBox="0 0 1428 174" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <svg
+      viewBox="0 0 1428 174"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+    >
       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g transform="translate(-2.000000, 44.000000)" fill="#FFFFFF" fill-rule="nonzero">
-          <path d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496" opacity="0.100000001"></path>
+        <g
+          transform="translate(-2.000000, 44.000000)"
+          fill="#FFFFFF"
+          fill-rule="nonzero"
+        >
+          <path
+            d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496"
+            opacity="0.100000001"
+          ></path>
           <path
             d="M100,104.708498 C277.413333,72.2345949 426.147877,52.5246657 546.203633,45.5787101 C666.259389,38.6327546 810.524845,41.7979068 979,55.0741668 C931.069965,56.122511 810.303266,74.8455141 616.699903,111.243176 C423.096539,147.640838 250.863238,145.462612 100,104.708498 Z"
             opacity="0.100000001"
           ></path>
-          <path d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z" id="Path-4" opacity="0.200000003"></path>
+          <path
+            d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z"
+            id="Path-4"
+            opacity="0.200000003"
+          ></path>
         </g>
-        <g transform="translate(-4.000000, 76.000000)" fill="#FFFFFF" fill-rule="nonzero">
+        <g
+          transform="translate(-4.000000, 76.000000)"
+          fill="#FFFFFF"
+          fill-rule="nonzero"
+        >
           <path
             d="M0.457,34.035 C57.086,53.198 98.208,65.809 123.822,71.865 C181.454,85.495 234.295,90.29 272.033,93.459 C311.355,96.759 396.635,95.801 461.025,91.663 C486.76,90.01 518.727,86.372 556.926,80.752 C595.747,74.596 622.372,70.008 636.799,66.991 C663.913,61.324 712.501,49.503 727.605,46.128 C780.47,34.317 818.839,22.532 856.324,15.904 C922.689,4.169 955.676,2.522 1011.185,0.432 C1060.705,1.477 1097.39,3.129 1121.236,5.387 C1161.703,9.219 1208.621,17.821 1235.4,22.304 C1285.855,30.748 1354.351,47.432 1440.886,72.354 L1441.191,104.352 L1.121,104.031 L0.457,34.035 Z"
           ></path>
@@ -83,11 +142,15 @@
   </div>
   <section class="bg-white border-b py-8">
     <div class="container max-w-5xl mx-auto m-8">
-      <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
+      <h1
+        class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800"
+      >
         Latest
       </h1>
       <div class="w-full mb-4">
-        <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
+        <div
+          class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"
+        ></div>
       </div>
       <div class="flex flex-wrap">
         <div class="w-5/6 sm:w-1/2 p-6">
@@ -95,8 +158,13 @@
             Galaxy S21 Ultra 5G
           </h3>
           <p class="text-gray-600 mb-8">
-            Introducing Galaxy S21 Ultra 5G. Designed with a unique contour-cut camera to create a revolution in photography
-            Never miss that perfect shot again. Meet Galaxy S21 5G and S21+ 5G. Designed to revolutionize video and photography, with beyond cinematic 8K resolution so you can snap epic photos right out of video. It has it all in two sizes: 64MP, our fastest chip and a massive all-day battery. Things just got epic.
+            Introducing Galaxy S21 Ultra 5G. Designed with a unique contour-cut
+            camera to create a revolution in photography Never miss that perfect
+            shot again. Meet Galaxy S21 5G and S21+ 5G. Designed to
+            revolutionize video and photography, with beyond cinematic 8K
+            resolution so you can snap epic photos right out of video. It has it
+            all in two sizes: 64MP, our fastest chip and a massive all-day
+            battery. Things just got epic.
             <br />
 
             <!-- Images from:
@@ -105,12 +173,21 @@
           </p>
         </div>
         <div class="w-full sm:w-1/2 p-6">
-          <img class="w-full sm:h-64 mx-auto" viewBox="0 0 1177 598.5" src="../assets/images/galaxy_s21.png" alt="">
+          <img
+            class="w-full sm:h-64 mx-auto"
+            viewBox="0 0 1177 598.5"
+            src="../assets/images/galaxy_s21.png"
+            alt=""
+          />
         </div>
       </div>
       <div class="flex flex-wrap flex-col-reverse sm:flex-row">
         <div class="w-full sm:w-1/2 p-6 mt-6">
-          <img class="w-5/6 sm:h-64 mx-auto"  src="../assets/images/map_of_nigeria.png" alt="">
+          <img
+            class="w-5/6 sm:h-64 mx-auto"
+            src="../assets/images/map_of_nigeria.png"
+            alt=""
+          />
           <!-- <svg class="w-5/6 sm:h-64 mx-auto" viewBox="0 0 1176.60617 873.97852" xmlns="http://www.w3.org/2000/svg">
             <title>connected world</title>
             <path
@@ -265,12 +342,12 @@
               Our Reach is Broad
             </h3>
             <p class="text-gray-600 mb-8">
-              Shop from anywhere whether at work, on vacation. From the nearest point to the farthest, it is the same bliss of service.
-              <!-- <br />
-              <br />
-              Images from:
-
-              <a class="text-pink-500 underline" href="https://undraw.co/">undraw.co</a> -->
+              Deal from anywhere whether at work, on vacation. From the nearest
+              point to the farthest, it is the same bliss of service.
+            </p>
+            <p class="text-gray-600 mb-8">
+              Deal from anywhere whether at work, on vacation. From the nearest
+              point to the farthest, it is the same bliss of service.
             </p>
           </div>
         </div>
@@ -359,7 +436,13 @@
     </div>
   </section> -->
   <!-- Change the colour #f8fafc to match the previous section colour -->
-  <svg class="wave-top" viewBox="0 0 1439 147" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <svg
+    class="wave-top"
+    viewBox="0 0 1439 147"
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+  >
     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
       <g transform="translate(-1.000000, -14.000000)" fill-rule="nonzero">
         <g class="wave" fill="#f8fafc">
@@ -368,29 +451,43 @@
           ></path>
         </g>
         <g transform="translate(1.000000, 15.000000)" fill="#FFFFFF">
-          <g transform="translate(719.500000, 68.500000) rotate(-180.000000) translate(-719.500000, -68.500000) ">
-            <path d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496" opacity="0.100000001"></path>
+          <g
+            transform="translate(719.500000, 68.500000) rotate(-180.000000) translate(-719.500000, -68.500000) "
+          >
+            <path
+              d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496"
+              opacity="0.100000001"
+            ></path>
             <path
               d="M100,104.708498 C277.413333,72.2345949 426.147877,52.5246657 546.203633,45.5787101 C666.259389,38.6327546 810.524845,41.7979068 979,55.0741668 C931.069965,56.122511 810.303266,74.8455141 616.699903,111.243176 C423.096539,147.640838 250.863238,145.462612 100,104.708498 Z"
               opacity="0.100000001"
             ></path>
-            <path d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z" opacity="0.200000003"></path>
+            <path
+              d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z"
+              opacity="0.200000003"
+            ></path>
           </g>
         </g>
       </g>
     </g>
   </svg>
   <section class="container mx-auto text-center py-6 mb-12">
-    <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">
+    <h1
+      class="w-full my-2 text-5xl font-bold leading-tight text-center text-white"
+    >
       Need a guide?
     </h1>
     <div class="w-full mb-4">
-      <div class="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"></div>
+      <div
+        class="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"
+      ></div>
     </div>
     <h3 class="my-4 text-3xl leading-tight">
       Follow the link below to see how seamless the process is.
     </h3>
-    <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+    <button
+      class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+    >
       How it Works
     </button>
   </section>
@@ -399,57 +496,69 @@
 <script>
 // @ is an alias to /src
 import CategoryList from "@/components/CategoryList.vue";
-import {mapActions, mapState} from "vuex";
-import store from '../store';
-import header_bg from '@/assets/images/header_bg.png';
+import Loading from "@/components/Loading.vue";
+import { mapActions, mapState } from "vuex";
+import store from "../store";
+import header_bg from "@/assets/images/header_bg.png";
+import Search from '../components/Search.vue';
+import Location from '../components/Location.vue';
 
 export default {
   name: "Home",
   components: {
     CategoryList,
+    Loading,
+    Search,
+    Location,
   },
   data() {
     return {
       name: "Don",
       age: this.$store.state.age,
       categories: null,
-      header_bg: header_bg
+      header_bg: header_bg,
+      ads: [],
+      loading: true,
     };
   },
   methods: {
     growUp() {
-      store.dispatch('increment',{age: 2});
+      store.dispatch("increment", { age: 2 });
       alert(this.$store.state.age);
-    },
-    callMe() {
-      alert(this.age);
-    },
+    }
   },
   computed: {
-    ...mapActions([
-      'increment',
-    ]),
-    ...mapState([
-      'isLoggedIn',
-      'user'
-    ]),
-    getCategories(){
+    ...mapActions(["increment"]),
+    ...mapState(["isLoggedIn", "user", "displayLocation", "displayCategory"]),
+    getCategories() {
       return this.categories;
+    },
+    showCategories(){
+      return this.displayCategory;
     }
   },
   mounted() {
-    //M.toast({html: 'I am a toast!'});
+    //get the list of categories from the server
     let _this = this;
-    this.axios.get('http://www.api.worthcentillion.net/api/ads/get_categories').then(function(response){
-      //alert("Categories fetched");
-      _this.categories = response.data;
-      console.log(_this.categories);
+    this.axios
+      .get(process.env.VUE_APP_APIURL+"/ads/get_categories")
+      .then(function (response) {
+        //alert("Categories fetched");
+        _this.categories = response.data;
+        store.dispatch('setProps',{name: "categories", value: _this.categories});
+        console.log(_this.categories);
+      });
+    //get ads from the server
+    this.axios.get(process.env.VUE_APP_APIURL+"/ads").then(function(response){
+      _this.ads = response.data[0];
+      _this.loading = false;
+      store.dispatch('setProps',{name: "ads", value: _this.ads});
+      store.dispatch('setProps',{name: "states", value: response.data[1]});
+      console.log(_this.ads);
     })
   },
 };
 </script>
 <style lang="scss" scoped>
-.container {
-  width: 90%;
-}
+
 </style>

@@ -4,14 +4,19 @@
         <nav id="header" class="fixed w-full z-30 top-0 text-white">
       <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
         <div class="pl-4 flex items-center">
-          <a class="toggleColour text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="">
+          <router-link to="/" class="toggleColour text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl">
             <!--Icon from: http://www.potlabicons.com/ -->
             <img class="plane-take-off w-12" src="./assets/logo.png" alt="">
             <!-- BUYSPOT -->
-          </a>
+          </router-link>
         </div>
+        <div class="toggleColour lg:pl-16 text-sm" @click="showLocations()">
+          <span class="mdi mdi-map-marker text-xl"></span> 
+          <span class="border-b-2 border-blue-500 cursor-pointer hover:bg-blue-300 sm:p-2">All Nigeria</span>
+        </div>
+        <div class="toggleColour sm:hidden text-sm" @click="searchOn()"><span class="mdi mdi-search-web text-xl"></span> Search</div>
         <div class="block lg:hidden pr-4">
-          <button id="nav-toggle" class="flex items-center p-1 text-pink-800 hover:text-gray-900 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+          <button id="nav-toggle" class="flex items-center p-1 text-gray-300 hover:text-gray-900 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
             <svg class="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <title class="bg">Menu</title>
               <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
@@ -20,77 +25,122 @@
         </div>
         <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent text-black p-4 lg:p-0 z-20" id="nav-content">
           <ul class="list-reset lg:flex justify-end flex-1 items-center">
-            <li class="mr-3">
-              <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="">User Area</a>
-            </li>
-            <li class="mr-3">
-              <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="">Login</a>
-            </li>
-            <li class="mr-3">
-              <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="">Register</a>
-            </li>
+            <template v-if="isLoggedIn">
+              <li class="mr-3">
+                <router-link to="/userarea" class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4">User Area</router-link>
+              </li>
+              <li class="mr-3">
+                <router-link to="/" @click="logout" class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4">Logout</router-link>
+              </li>
+            </template>
+            <template v-else>
+              <li class="mr-3">
+                <router-link to="/user/login" class="inline-block py-2 px-4 text-black no-underline">Login</router-link>
+              </li>
+              <li class="mr-3">
+                <router-link to="/user/register" class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4">Register</router-link>
+              </li>
+            </template>
           </ul>
           <button
             id="navAction"
-            class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out relative"
+            class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 p-4 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out relative"
           >
             Cheap Data! 
           </button>
         </div>
       </div>
-      <hr class="border-b border-gray-100 opacity-25 my-0 py-0" />
+      <hr class="border-b border-blue-500 opacity-25 my-0 py-0" />
     </nav>
 
-    <div v-if="searchIsOn" class="">
-      <div class="row">
-        <form class="col s12">
-          <div class="row">
-            <div class="input-field col s12">
-              <i class="material-icons prefix" @click="showLocations()"
-                >location_on</i
-              >
-              <input id="search" type="text" class="validate" />
-              <button class="btn waves-effect waves-light blue darken-1">
-                Search<i class="material-icons right">send</i>
-              </button>
-              <label for="search">Search</label>
-            </div>
-          </div>
-        </form>
+    <div v-if="searchIsOn" class="pt-24 flex justify-center items-center">
+      <div class="">
+        <search></search>
       </div>
     </div>
     <router-view />
     <pageFooter></pageFooter>
+    <div class="flex fixed text-white bottom-0 justify-between w-full md:hidden h-12 text-center">
+      <div class="px-4 w-1/3 bg-gray-800 rounded-tr-md" @click="showCategory()"><span class="mdi mdi-menu"></span> <br> Categories</div>
+      <div class="w-1/3 gradient rounded-t-md" @click="navigate('/')"><span class="mdi mdi-home text-2xl"></span></div>
+      <div class="px-4 w-1/3 bg-gray-800 rounded-tl-md"><span class="mdi mdi-plus"></span>  <br>Post Ad</div>
+    </div>
+    <div class="fixed bottom-0 bg-gray-900 p-4" v-if="showCookieMsg">
+      <p class="text-center">
+        Please note that we use cookies to build a more engaging and effective service to our visitors by understanding their interests and to help us run this website more effectively. By continuing to use WorthCentillion website and it's associated subdomains, you agree to our use of cookies and privacy policy.        
+      </p>
+      <span class="flex justify-center items-center">
+        <button @click="showCookieMsg = !showCookieMsg" class="m-4 bg-blue-900 py-2 px-8 text-xl rounded-xl border border-indigo-200">OK, I'm in</button>
+      </span>
+    </div>
   </div>
 </template>
 
 <script>
-import M from "materialize-css";
 import pageFooter from "@/components/page-footer";
+import Search from "@/components/Search";
 import store from "../src/store";
 import { mapState, mapActions } from "vuex";
+import router from './router';
 
 export default {
   components: {
     pageFooter,
+    Search,
   },
   data() {
     return {
       searchIsOn: false,
       bearerToken: "",
-      loginData: { email: "donzoby@email.com", password: "123eeefffs" },
+      showCookieMsg: true,
     };
   },
-  compuuted: {
-    ...mapActions(["login"]),
-    ...mapState(["user"]),
+  computed: {
+    ...mapActions(["login", "checkLogin"]),
+    ...mapState(["user", "isLoggedIn", "displayLocation", "displayCategory"]),
+    loggedIn: function(){
+      return "Hello";
+    }
+  },
+  methods: {
+    showCategory(){
+      store.dispatch('setProps',{name: "displayCategory", value: !this.displayCategory});
+      //alert("about showing categories");
+    },
+    loginUser: function () {
+      store.dispatch("login", this.loginData);
+    },
+    navigate(address){
+      address;
+      router.push('/');
+    },
+    logout(){
+      store.dispatch("logout");
+    },
+    getUsers: function () {
+      console.log("About to fetch users");
+      this.axios.withCredentials = true;
+      this.axios
+        .get("http://www.api.worthcentillion.net/api/user")
+        .then((response) => {
+          console.log(response);
+        });
+    },
+    searchOn: function () {
+      this.searchIsOn = !this.searchIsOn;
+    },
+    showLocations: function () {
+      store.dispatch("setProps", {name: "displayLocation", value: !this.displayLocation});
+    }/* ,
+    showLocationStatus(){
+      alert("about to show locatioin");
+    } */
   },
   mounted() {
-    //let header = document.getElementById('headerX');
-    //header.style.backgroundColor = 'red';
-    //M.AutoInit();
-    M.toast({ html: "Programmatic toast 2!" });
-
+    console.log(process.env.VUE_APP_LOGINURL);
+    console.log(process.env.VUE_APP_USERADSURL);
+    console.log(process.env.VUE_APP_APIURL);
+    store.dispatch('checkLogin');
     var scrollpos = window.scrollY;
       var header = document.getElementById("header");
       var navcontent = document.getElementById("nav-content");
@@ -167,26 +217,6 @@ export default {
         return false;
       }
   },
-  methods: {
-    loginUser: function () {
-      store.dispatch("login", this.loginData);
-    },
-    getUsers: function () {
-      console.log("About to fetch users");
-      this.axios.withCredentials = true;
-      this.axios
-        .get("http://www.api.worthcentillion.net/api/user")
-        .then((response) => {
-          console.log(response);
-        });
-    },
-    searchOn: function () {
-      this.searchIsOn = !this.searchIsOn;
-    },
-    showLocations: function () {
-      alert("Showing locations");
-    },
-  },
 };
 </script>
 
@@ -194,6 +224,10 @@ export default {
 .gradient {
         background: linear-gradient(90deg, #014A7F 0%, #2A84CC 100%);
       }
+  .router-link-active{
+    background: #52a7e7;
+    font-weight: bolder;
+  }
 /* #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -1,11 +1,29 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
+import User from "../views/User.vue";
+import UserArea from "../views/UserArea.vue";
+import AdDetails from "../views/AdDetails.vue";
 
 const routes = [
   {
     path: "/",
     name: "Home",
     component: Home
+  },
+  {
+    path: "/user/:action",
+    name: "User",
+    component: User
+  },
+  {
+    path: "/userarea",
+    name: "UserArea",
+    component: UserArea
+  },
+  {
+    path: "/ads/:id",
+    name: "AdDetails",
+    component: AdDetails
   },
   {
     path: "/about",

@@ -8,8 +8,9 @@ import store from "./store";
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 
+//console.log(store.state);
+//axios.defaults.headers.common['Authorization'] = "Bearer 17|byQyAjKMbrk1HM4Ka0S6D7dJBNoNSEQtTdEX4pAi";
 //axios.defaults.withCredentials = true;
-axios.defaults.headers.common['Authorization'] = "Bearer 41|cZiiK8k3WHhxAdSAXO8JlW5ebbn6of143T17FiNK";
 createApp(App)
   .use(store)
   .use(router)

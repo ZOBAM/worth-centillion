@@ -1,12 +1,12 @@
 <template>
   <div>
     <ul v-if="categories">
-      <li v-for="category in catCount()" v-bind:key="category.index" class="flex border-b-2 border-white py-2 cursor-pointer" @click="getSubcategory(category)">
+      <li v-for="category in catCount()" v-bind:key="category.index" class="flex border-b-2 border-white py-2 cursor-pointer" @click="getSubcategory(category.split(':')[0])">
         <span class="flex justify-center items-center">
-          <i class="material-icons text-white bg-gray-400 rounded-lg mr-2">blur_on</i> 
+          <i :class="category.split(':')[1]" class=" text-blue-400 rounded-lg mr-2"></i> 
         </span>
         <span class="flex justify-center items-center">
-          {{category}}
+          {{category.split(':')[0]}}
         </span>
       </li>
     </ul> 
@@ -17,7 +17,7 @@
     <div v-if="viewSubcategory" class="absolute top-1 bg-blue-500 z-20 w-full">
       <div class="px-3">{{currentCategory}} <span class="float-right cursor-pointer" @click="viewSubcategory = false">X</span> </div>
       <ul class="bg-blue-50 p-4">
-        <li class="py-2 border border-gray-200 border-b-2" v-for="subcategory in subcategories" v-bind:key="subcategory.index">
+        <li class="py-2 border border-gray-200 border-b-2" v-for="subcategory in subcategories" v-bind:key="subcategory.index" @click="setSubcategory(subcategory)">
           {{subcategory}}
         </li>
       </ul>
@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import store from '../store';
+import {mapActions} from 'vuex';
 export default {
   name: "CategoryList",
   props: {
@@ -41,11 +43,14 @@ export default {
       currentCategory: ''
     }
   },
+  computed:{
+    ...mapActions(['setProps']),
+  },
   methods: {
     catCount: function(){
       if(this.categories != null && !this.categoryList.length){
         for(let category in this.categories){
-          this.categoryList.push(category);
+          this.categoryList.push(category + ':mdi mdi-' + this.categories[category][0]);
         }
       }
       //console.log(this.categories.fashion.length);
@@ -53,10 +58,22 @@ export default {
       return this.categoryList;
     },
     getSubcategory: function(selectedCategory){
+      if(selectedCategory.toLowerCase() == 'fundme'){
+        window.location = 'http://www.fundme.worthcentillion.com';
+        return;
+      }
       this.currentCategory = selectedCategory;
-      this.subcategories = this.categories[selectedCategory]
+      this.subcategories = this.categories[selectedCategory];
+      this.subcategories.shift();
       this.viewSubcategory = true;
+      store.dispatch('setProps', {name: 'category', value: this.currentCategory});
+      alert('from state: '+this.$store.state.category);
       //return this.categories[selectedCategory];
+    },
+    setSubcategory(subcategory){
+      store.dispatch('setProps', {name: 'subcategory', value: subcategory});
+      this.viewSubcategory = false;
+      //alert('from state: '+this.$store.state.subcategory);
     }
   }
 };

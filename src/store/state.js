@@ -1,9 +1,19 @@
 var state = {
   isLoggedIn : false,
   user: {},
+  category: null,
+  categories: null,
+  subcategory: null,
+  ads: null,
+  states: null,
+  displayLocation: false,
+  displayCategory: false,
+  state: null,
+  lga: null,
   userToken: '',
-  age: 44,
-  loginURL: "http://www.api.worthcentillion.net/api/login",
+  userAds: [],
+  //loginURL: process.env.VUE_APP_APIURL+"/login",
+  //userAdsURL: "http://www.api.worthcentillion.net/api/ads",
 };
 
 export { state };
