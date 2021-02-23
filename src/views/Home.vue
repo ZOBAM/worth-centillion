@@ -12,12 +12,12 @@
       <div
         class="border-blue-200 border-r-2 w-1/4 p-2 h-96 overflow-auto relative overflow-x-hidden hidden md:block"
       >
-        <category-list :categories="getCategories"></category-list>
+        <category-list></category-list>
       </div>
       <div v-if="showCategories"
         class="border-blue-200 bg-gray-200 border-r-2 w-3/4 p-2 overflow-y-scroll fixed bottom-12 overflow-x-hidden z-20 md:hidden" style="height:75vh"
       >
-        <category-list :categories="getCategories"></category-list>
+        <category-list></category-list>
       </div>
 
       <section class="bg-white border-b py-8 md:w-3/4">
@@ -31,44 +31,58 @@
             <div
               class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"
             ></div>
+            <!-- display the specified category and subcategory name -->
+          <div v-if="category && ads.length" class="px-4 pt-4 text-xs "> 
+            <span @click="clear('category')" class="cursor-pointer">
+              <span class="mdi mdi-close text-red-600"></span>
+              {{category}} ({{currentCategoryAdsCount}}) 
+            </span>
+            <span v-if="subcategory" @click="clear('subcategory')" class="cursor-pointer"> 
+              <span class="mdi mdi-arrow-right"></span> 
+              <span class="mdi mdi-close text-red-600"></span>{{subcategory}} ({{currentSubcategoryAdsCount}})
+            </span> 
           </div>
-          <loading v-if="loading"></loading>
-          <div
-            v-for="ad in ads"
-            v-bind:key="ad.index"
-            class="w-1/2 sm:w-1/3 md:w-1/4 p-2 flex flex-col flex-shrink bg-blue-50"
-          >
+          </div>
+          <loading v-if="adsIsLoading"></loading>
+          <div v-if="ads != null" class="flex flex-wrap">
             <div
-              class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-md relative"
+              v-for="(ad, index) in ads"
+              v-bind:key="index"
+              class="w-1/2 sm:w-1/3 md:w-1/4 p-2 flex flex-col flex-shrink bg-blue-50"
             >
-              <router-link :to="'/ads/'+ad.id" class="flex flex-wrap no-underline hover:no-underline">
-                <div class="m-auto w-full">
-                  <img
-                    class="block w-full m-auto max-h-36 sm:max-h-48"
-                    :src="ad.ad_img"
-                    alt=""
-                  />
-                </div>
-                <div class="w-full absolute bottom-0 bg-gray-200 opacity-90">
-                  <div class="w-full font-bold text-xs text-gray-800 px-2 sm:px-3 line-clamp-1 pt-1">
-                    {{ ad.title }}
+              <div
+                class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-md relative"
+              >
+                <router-link :to="'/ads/'+ad.id" class="flex flex-wrap no-underline hover:no-underline">
+                  <div class="m-auto w-full">
+                    <img
+                      class="block w-full m-auto max-h-36 sm:max-h-48"
+                      :src="ad.ad_img"
+                      alt=""
+                    />
                   </div>
-                  <p class="w-full text-blue-800 text-xs md:text-sm px-6">
-                    <span class="float-right">₦{{ad.price}}</span>
-                  </p>
+                  <div class="w-full absolute bottom-0 bg-gray-200 opacity-90">
+                    <div class="w-full font-bold text-xs text-gray-800 px-2 sm:px-3 line-clamp-1 pt-1">
+                      {{ ad.title }}
+                    </div>
+                    <p class="w-full text-blue-800 text-xs md:text-sm px-6">
+                      <span class="float-right">₦{{ad.price}}</span>
+                    </p>
+                  </div>
+                </router-link>
+              </div>
+              <div
+                class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow px-6"
+              >
+                <div class="flex items-center justify-start">
+                  <!-- <button class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                Add to Cart
+              </button> -->
                 </div>
-              </router-link>
-            </div>
-            <div
-              class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow px-6"
-            >
-              <div class="flex items-center justify-start">
-                <!-- <button class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-              Add to Cart
-            </button> -->
               </div>
             </div>
           </div>
+          <div v-if="ads != null && !ads.length" class="p-2 md:p-4 text-xl bg-red-100 m-auto">There is no ads in this category and/or location</div>
         </div>
       </section>
     </div>
@@ -515,47 +529,41 @@ export default {
     return {
       name: "Don",
       age: this.$store.state.age,
-      categories: null,
       header_bg: header_bg,
-      ads: [],
       loading: true,
     };
   },
   methods: {
-    growUp() {
-      store.dispatch("increment", { age: 2 });
-      alert(this.$store.state.age);
+    clear(type) {
+      if(type == 'category'){
+        store.dispatch('setProps',{name: 'category', value: null});
+        store.dispatch('setProps',{name: 'subcategory', value: null});
+      }else{
+        store.dispatch('setProps',{name: 'subcategory', value: null});
+      }
+      store.dispatch("fetchData");
     }
   },
   computed: {
     ...mapActions(["increment"]),
-    ...mapState(["isLoggedIn", "user", "displayLocation", "displayCategory"]),
-    getCategories() {
-      return this.categories;
-    },
+    ...mapState([
+      "isLoggedIn", 
+      "user", 
+      "displayLocation", 
+      "displayCategory", 
+      "ads", 
+      "adsIsLoading",
+      "category",
+      "categories",
+      "subcategory",
+      "currentSubcategoryAdsCount",
+      "currentCategoryAdsCount"
+      ]),
     showCategories(){
       return this.displayCategory;
     }
   },
   mounted() {
-    //get the list of categories from the server
-    let _this = this;
-    this.axios
-      .get(process.env.VUE_APP_APIURL+"/ads/get_categories")
-      .then(function (response) {
-        //alert("Categories fetched");
-        _this.categories = response.data;
-        store.dispatch('setProps',{name: "categories", value: _this.categories});
-        console.log(_this.categories);
-      });
-    //get ads from the server
-    this.axios.get(process.env.VUE_APP_APIURL+"/ads").then(function(response){
-      _this.ads = response.data[0];
-      _this.loading = false;
-      store.dispatch('setProps',{name: "ads", value: _this.ads});
-      store.dispatch('setProps',{name: "states", value: response.data[1]});
-      console.log(_this.ads);
-    })
   },
 };
 </script>

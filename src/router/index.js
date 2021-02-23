@@ -3,6 +3,7 @@ import Home from "../views/Home.vue";
 import User from "../views/User.vue";
 import UserArea from "../views/UserArea.vue";
 import AdDetails from "../views/AdDetails.vue";
+import SearchResult from "../views/SearchResult.vue";
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: "/ads/:id",
     name: "AdDetails",
     component: AdDetails
+  },
+  {
+    path: "/searchresult",
+    name: "SearchResult",
+    component: SearchResult
   },
   {
     path: "/about",

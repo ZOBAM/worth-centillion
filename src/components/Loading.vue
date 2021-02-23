@@ -45,13 +45,13 @@ div#pd{
   20%{
     width: 20%;
     text-align: left;;
-    font-size: .5em;
+    font-size: .8em;
     background-color: rgb(226, 250, 240);
   }
   40%{
     width: 40%;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1em;
     background-color: rgb(190, 248, 224);
   }
   60%{
@@ -63,13 +63,13 @@ div#pd{
   80%{
     width: 80%;
     text-align: center;
-    font-size: 1.5em;
+    font-size: .8em;
     background-color: rgb(62, 255, 175);
   }
   100%{
     width: 100%;
     text-align: right;
-    font-size: .5em;
+    font-size: 1em;
     background-color: rgb(0, 252, 147);
   }
 }

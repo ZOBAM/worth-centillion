@@ -1,7 +1,7 @@
 <template>
   <div class="leading-normal tracking-normal text-white gradient w-full p-0" style="font-family: 'Source Sans Pro', sans-serif;">
     <!--Nav-->
-        <nav id="header" class="fixed w-full z-30 top-0 text-white">
+    <nav id="header" class="fixed w-full z-30 top-0 text-white">
       <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
         <div class="pl-4 flex items-center">
           <router-link to="/" class="toggleColour text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl">
@@ -12,7 +12,9 @@
         </div>
         <div class="toggleColour lg:pl-16 text-sm" @click="showLocations()">
           <span class="mdi mdi-map-marker text-xl"></span> 
-          <span class="border-b-2 border-blue-500 cursor-pointer hover:bg-blue-300 sm:p-2">All Nigeria</span>
+          <span class="border-b-2 border-blue-500 cursor-pointer hover:bg-blue-300 sm:p-2">
+            {{location}}<span v-if="lga != null" class="hidden sm:inline">, {{state}} state </span>
+            </span>
         </div>
         <div class="toggleColour sm:hidden text-sm" @click="searchOn()"><span class="mdi mdi-search-web text-xl"></span> Search</div>
         <div class="block lg:hidden pr-4">
@@ -70,7 +72,10 @@
         Please note that we use cookies to build a more engaging and effective service to our visitors by understanding their interests and to help us run this website more effectively. By continuing to use WorthCentillion website and it's associated subdomains, you agree to our use of cookies and privacy policy.        
       </p>
       <span class="flex justify-center items-center">
-        <button @click="showCookieMsg = !showCookieMsg" class="m-4 bg-blue-900 py-2 px-8 text-xl rounded-xl border border-indigo-200">OK, I'm in</button>
+        <button 
+          @click="showCookieMsg = !showCookieMsg" 
+          class="m-4 bg-blue-900 py-2 px-8 text-xl rounded-xl border border-indigo-200 hover:bg-black"
+        >OK, I'm in</button>
       </span>
     </div>
   </div>
@@ -97,9 +102,26 @@ export default {
   },
   computed: {
     ...mapActions(["login", "checkLogin"]),
-    ...mapState(["user", "isLoggedIn", "displayLocation", "displayCategory"]),
+    ...mapState([
+      "user", 
+      "isLoggedIn", 
+      "displayLocation", 
+      "displayCategory",
+      "subcategory",
+      "state",
+      "lga"
+      ]),
     loggedIn: function(){
       return "Hello";
+    },
+    location(){
+      if(this.state){
+        if(this.lga){
+          return this.lga;
+        }
+        return this.state
+      }else
+      return "All Nigeria";
     }
   },
   methods: {
@@ -135,6 +157,20 @@ export default {
     showLocationStatus(){
       alert("about to show locatioin");
     } */
+  },
+  created(){
+    
+    //get the list of categories from the server
+    //let _this = this;
+    /* this.axios
+      .get(process.env.VUE_APP_APIURL+"/ads/get_categories")
+      .then(function (response) {
+        //alert("Categories fetched");
+        let categories = response.data.categories;
+        store.dispatch('setProps',{name: "categories", value: categories});
+        //console.log(_this.categories);
+      }); */
+      store.dispatch('fetchData');
   },
   mounted() {
     console.log(process.env.VUE_APP_LOGINURL);
@@ -228,6 +264,10 @@ export default {
     background: #52a7e7;
     font-weight: bolder;
   }
+@media only screen and (max-width: 768px){
+    nav{
+    }
+}
 /* #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
