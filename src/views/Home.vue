@@ -1,6 +1,6 @@
 <template>
   <!--Hero ../assets/images/galaxy_s21.png-->
-  <div class="pt-24 relative">
+  <div class="relative">
     <div
       class="sm:h-36 md:h-64 hidden sm:flex justify-center items-center md:bg-cover sm:bg-cover -mt-5 bg-no-repeat"
       :style="'background-image: url(' + header_bg + ')'"
@@ -91,7 +91,7 @@
     >
       <!--Left Col-->
       <div
-        class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left"
+        class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left text-white"
       >
         <p class="uppercase tracking-loose w-full"></p>
         <h1 class="my-4 text-5xl font-bold leading-tight">
@@ -496,7 +496,7 @@
         class="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"
       ></div>
     </div>
-    <h3 class="my-4 text-3xl leading-tight">
+    <h3 class="my-4 text-3xl leading-tight text-gray-100">
       Follow the link below to see how seamless the process is.
     </h3>
     <button

@@ -29,18 +29,18 @@
           <ul class="list-reset lg:flex justify-end flex-1 items-center">
             <template v-if="isLoggedIn">
               <li class="mr-3">
-                <router-link to="/userarea" class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4">User Area</router-link>
+                <router-link to="/userarea" class="link-item inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4">User Area</router-link>
               </li>
               <li class="mr-3">
-                <router-link to="/" @click="logout" class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4">Logout</router-link>
+                <router-link to="/" @click="logout" class="link-item inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4">Sign out</router-link>
               </li>
             </template>
             <template v-else>
               <li class="mr-3">
-                <router-link to="/user/login" class="inline-block py-2 px-4 text-black no-underline">Login</router-link>
+                <router-link to="/user/login" class="link-item inline-block py-2 px-4 text-black no-underline">Sign in</router-link>
               </li>
               <li class="mr-3">
-                <router-link to="/user/register" class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4">Register</router-link>
+                <router-link to="/user/register" class="link-item inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4">Sign up</router-link>
               </li>
             </template>
           </ul>
@@ -60,7 +60,9 @@
         <search></search>
       </div>
     </div>
-    <router-view />
+    <main class="about pt-24 text-gray-900">
+      <router-view />
+    </main>
     <pageFooter></pageFooter>
     <div class="flex fixed text-white bottom-0 justify-between w-full md:hidden h-12 text-center">
       <div class="px-4 w-1/3 bg-gray-800 rounded-tr-md" @click="showCategory()"><span class="mdi mdi-menu"></span> <br> Categories</div>
@@ -73,7 +75,7 @@
       </p>
       <span class="flex justify-center items-center">
         <button 
-          @click="showCookieMsg = !showCookieMsg" 
+          @click="seenCookiesMsg()"
           class="m-4 bg-blue-900 py-2 px-8 text-xl rounded-xl border border-indigo-200 hover:bg-black"
         >OK, I'm in</button>
       </span>
@@ -125,6 +127,11 @@ export default {
     }
   },
   methods: {
+    seenCookiesMsg(){
+      this.showCookieMsg = false;
+      //save this in local storage
+      localStorage.setItem('seenCookieMsg', true);
+    },
     showCategory(){
       store.dispatch('setProps',{name: "displayCategory", value: !this.displayCategory});
       //alert("about showing categories");
@@ -170,7 +177,12 @@ export default {
         store.dispatch('setProps',{name: "categories", value: categories});
         //console.log(_this.categories);
       }); */
+      //fetch data from server
       store.dispatch('fetchData');
+      //get seenCookieMsg from local storage
+      if(localStorage.getItem('seenCookieMsg') != null){
+        this.showCookieMsg = false;
+      }
   },
   mounted() {
     console.log(process.env.VUE_APP_LOGINURL);
@@ -243,6 +255,13 @@ export default {
           }
         }
       }
+      let linkItems = document.querySelectorAll('.link-item');
+      for(let linkItem of linkItems){
+        linkItem.addEventListener('click', function(){
+          navMenuDiv.classList.add("hidden");
+        })
+      }
+      //alert(linkItems.length);
       function checkParent(t, elm) {
         while (t.parentNode) {
           if (t == elm) {

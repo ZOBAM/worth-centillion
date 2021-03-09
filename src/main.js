@@ -10,7 +10,7 @@ import VueAxios from 'vue-axios';
 
 //console.log(store.state);
 //axios.defaults.headers.common['Authorization'] = "Bearer 17|byQyAjKMbrk1HM4Ka0S6D7dJBNoNSEQtTdEX4pAi";
-//axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true;
 createApp(App)
   .use(store)
   .use(router)

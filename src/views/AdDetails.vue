@@ -1,5 +1,5 @@
 <template>
-  <div class="about pt-24">
+  <div class="about">
     <div v-if="ad" class="sm:flex">
       <div class="py-4 bg-white sm:w-2/3 flex-col justify-center text-gray-700">
         <div class="mt-8">
@@ -26,10 +26,35 @@
           </ul>
         </div>
       </div>
-      <div class="p-4 bg-blue-200 sm:w-1/3">
-        <div class="bg-blue-800 p-4">
-          <h1 class ="">Seller Details Section</h1>
-          <h1 class ="">Loading . . .</h1>
+      <div class="p-4 bg-blue-50 sm:w-1/3">
+        <div class="p-4 text-gray-800 bg-white">
+          <div 
+            class="text-center bg-blue-500 text-white p-2 font-bold rounded-xl border-4 border-blue-100"
+          >{{ad.seller.first_name +' '+ad.seller.last_name}}</div>
+          <img :src="ad.seller.dp" alt="seller profile picture" class="block m-auto rounded-full mt-4">
+          <div class="flex mt-12 justify-between text-xs text-center">
+            <div class="px-2 py-1 border-b-4 border-blue-100">
+              <span class="mdi mdi-account-plus text-sm"></span> <br>
+              <span class="font-bold">Joined</span>  <br>
+              {{ad.seller.created_at.split(':')[0]}}
+            </div>
+            <div class="bg-blue-500 text-white p-2">
+              <span class="mdi mdi-shopping-outline text-sm"></span> <br>
+              <span class="font-bold">Total Ads</span>  <br>
+              {{ad.seller.ads_count}}
+            </div>
+            <div class="px-2 py-1 border-b-4 border-blue-100">
+              <span class="mdi mdi-eye-check-outline text-sm"></span> <br>
+              <span class="font-bold">Last Seen</span>  <br>
+              {{ad.seller.updated_at.split(':')[0]}}
+            </div>
+          </div>
+          <div class="from-blue-600 via-blue-400 bg-gradient-to-r mt-6 rounded-2xl p-2 relative">
+            <span class="text-white">Call Seller:</span> 
+            <div class="bg-gray-100 rounded-2xl p-2 absolute right-4 bottom-0">
+              {{ad.seller.tel}}
+            </div>
+          </div>
         </div>
       </div>
     </div>

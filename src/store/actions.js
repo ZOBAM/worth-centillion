@@ -3,13 +3,8 @@ import { state } from './state';
 //axios.defaults.headers.common['Authorization'] = "Bearer 41|cZiiK8k3WHhxAdSAXO8JlW5ebbn6of143T17FiNK";
 
 const actions = {
-    login({commit}, credentials){
-        axios.post(process.env.VUE_APP_APIURL+"/login", credentials).then(response => {
-          console.log('User signed in!');
-          commit('setUser', {data: response.data});
-          //this.bearerToken = response.data.access_token;
-          //console.log(response.data);
-        }).catch(error => console.log(error)); // credentials didn't match
+    login({commit}, data){
+          commit('setUser', data);
     },
     checkLogin({commit}){
         commit('checkLogin');
@@ -41,7 +36,7 @@ const actions = {
             commit('setStateProps',{name: "adsIsLoading", value: false});
             totalAdsCount = response.data.total_ads_count;
             if(localStorage.getItem('lastTotalAdsCount') === null){
-                alert("No lastCount in storage");
+                //alert("No lastCount in storage");
                 localStorage.setItem('lastTotalAdsCount', totalAdsCount);
             }else{
                 //alert(localStorage.getItem('lastTotalAdsCount'));

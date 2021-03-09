@@ -1,6 +1,6 @@
 var state = {
   isLoggedIn : false,
-  user: {},
+  user: null,
   categories: localStorage.getItem('categories')? JSON.parse(localStorage.getItem('categories')):null,
   category: null,
   subcategory: null,
@@ -13,7 +13,7 @@ var state = {
   displayCategory: false,
   state: null,
   lga: null,
-  userToken: '',
+  accessToken: null,
   userAds: [],
   //loginURL: process.env.VUE_APP_APIURL+"/login",
   //userAdsURL: "http://www.api.worthcentillion.net/api/ads",

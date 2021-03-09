@@ -5,8 +5,8 @@ var mutations = {
     let currentUser = localStorage.getItem('userData');
     if (currentUser && JSON.parse(currentUser)) {
       currentUser = JSON.parse(currentUser);
-      state.user = currentUser.data.user;
-      state.userToken = currentUser.data.access_token;
+      state.user = currentUser.user;
+      state.accessToken = currentUser.access_token;
       state.isLoggedIn = true;
     }
     console.log("mutate check login");
@@ -15,9 +15,16 @@ var mutations = {
   setUser(state, data) {
     state.isLoggedIn = true;
     state.user = data.user;
-    state.userToken = data.access_token;
+    //alert(data);
+    console.log("data from set user function");
+    console.log(data.user);
+    state.accessToken = data.access_token;
     localStorage.setItem('userData', JSON.stringify(data));
-    router.push("/userarea");
+    if (data.user.email_verified_at) {
+      router.push("/userarea");
+    }else{
+      router.push("/verify_email");
+    }
   },
   setStateProps(state, data) {
     state[data.name] = data.value;

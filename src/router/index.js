@@ -4,6 +4,9 @@ import User from "../views/User.vue";
 import UserArea from "../views/UserArea.vue";
 import AdDetails from "../views/AdDetails.vue";
 import SearchResult from "../views/SearchResult.vue";
+import VerifyEmail from "../views/VerifyEmail.vue";
+import NotFound from "../views/NotFound.vue";
+import store from "../store";
 
 const routes = [
   {
@@ -14,12 +17,47 @@ const routes = [
   {
     path: "/user/:action",
     name: "User",
-    component: User
+    component: User,
+    beforeEnter(to, from, next){
+      if(!store.state.isLoggedIn){
+        //alert("Logged in at route check")
+        next();
+      }else{
+        next({path: "/userarea"});
+      }
+    }
   },
   {
     path: "/userarea",
     name: "UserArea",
-    component: UserArea
+    component: UserArea,
+    beforeEnter(to, from, next){
+      if(store.state.isLoggedIn){
+        if(store.state.user.email_verified_at){
+          next();
+        }else{
+          next({path: "/verify_email"});
+        }
+      }else{
+        next({path: "/user/login"});
+      }
+    }
+  },
+  {
+    path: "/verify_email",
+    name: "Verify_email",
+    component: VerifyEmail,
+    beforeEnter(to, from, next){
+      if(store.state.isLoggedIn){
+        if(store.state.user.email_verified_at){
+          next({path: "/userarea"})
+        }else{
+          next();
+        }
+      }else{
+        next({path: "/user/login"});
+      }
+    }
   },
   {
     path: "/ads/:id",
@@ -39,6 +77,11 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue")
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "NotFound",
+    component: NotFound
   }
 ];
 

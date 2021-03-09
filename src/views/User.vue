@@ -1,5 +1,5 @@
 <template>
-  <div class="about pt-24">
+  <div class="about">
     <div
       class="min-w-screen min-h-screen bg-white flex items-center justify-center px-5 py-5"
     >
