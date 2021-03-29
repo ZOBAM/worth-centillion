@@ -46,10 +46,10 @@
                     </div>
                     <div>
                         <p class="text-center mt-8">Ads with pictures sell faster than others. Ad some to get deal fast.</p>
-                        <div class="flex flex-wrap p-4 bg-gray-100">
-                            <div v-for="(image, index) of adImages" :key="index">
+                        <div class="flex flex-wrap p-4 justify-center items-center  bg-gray-100">
+                            <div v-for="(image, index) of adImages" :key="index" class="self-center">
                                 <figure 
-                                    class="w-28 h-24 overflow-hidden -mt-4 mb-4 relative border-4 hover:border-blue-200 text-center"
+                                    class="w-28 h-24 overflow-hidden relative border-4 hover:border-blue-200 text-center"
                                     >
                                     <img 
                                         class="" 
@@ -66,7 +66,7 @@
                             </div>
                             <div class="inline">
                                 <figure 
-                                class="w-28 h-24 -mt-4 mb-4 cursor-pointer border-8 hover:border-blue-500 text-center"
+                                class="w-28 h-24 overflow-hidden cursor-pointer border-8 hover:border-blue-500 text-center"
                                 @click="$refs.uploadImg.click()"
                                 >
                                 <img 
@@ -143,9 +143,14 @@
                     <div v-for="(field, index) of detailsFields" :key="index" class="w-1/2 bg-white my-0.5 p-2 text-center">
                         <dynamic-field :field = "field" :index = "index"></dynamic-field>
                     </div>
-                    <button>Create Ad</button>
+                    <div class="w-full flex justify-center ">
+                        <button>Create Ad</button>
+                    </div>
                 </form>
-                <button @click="step2 = !step2">Back</button>
+                <div class="flex justify-around">
+                    <button @click="step2 = !step2">Back</button>
+                    <button>Skip & Create Ad</button>
+                </div>
                 <span v-if="loading">Submitting . . . </span>
             </div>
         </section>
