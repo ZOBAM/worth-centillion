@@ -95,7 +95,7 @@
       >
         <p class="uppercase tracking-loose w-full"></p>
         <h1 class="my-4 text-5xl font-bold leading-tight">
-          <span class="text-gray-300">WC</span> Got You Covered. Fast, Easy and Cost Effective!
+          <span class="text-gray-300">Hamsuper</span> Got You Covered. Fast, Easy and Cost Effective!
         </h1>
         <p class="leading-normal text-2xl mb-8">
           Register and start posting Ads for FREE!

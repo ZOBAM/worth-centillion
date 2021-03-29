@@ -67,7 +67,7 @@
     </footer> -->
     <div>
         <p class="text-center font-extralight pb-12 sm:pb-1" style="background-color: #14275F; font-size: .8em">
-          All Rights Reserved (c) WorthCentillion 2021
+          All Rights Reserved (c) Hamsuper 2021
         </p>
     </div>
 </template>

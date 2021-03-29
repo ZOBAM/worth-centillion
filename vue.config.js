@@ -1,5 +1,5 @@
 module.exports = {
     devServer: {
-      host: 'worthcentillion.net'
+      host: 'hamsuper.net'
     }
   }

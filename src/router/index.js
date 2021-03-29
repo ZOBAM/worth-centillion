@@ -6,6 +6,7 @@ import AdDetails from "../views/AdDetails.vue";
 import SearchResult from "../views/SearchResult.vue";
 import VerifyEmail from "../views/VerifyEmail.vue";
 import NotFound from "../views/NotFound.vue";
+import CreateAd from "../views/CreateAd.vue";
 import store from "../store";
 
 const routes = [
@@ -31,6 +32,22 @@ const routes = [
     path: "/userarea",
     name: "UserArea",
     component: UserArea,
+    beforeEnter(to, from, next){
+      if(store.state.isLoggedIn){
+        if(store.state.user.email_verified_at){
+          next();
+        }else{
+          next({path: "/verify_email"});
+        }
+      }else{
+        next({path: "/user/login"});
+      }
+    }
+  },
+  {
+    path: "/create_ad",
+    name: "CreateAd",
+    component: CreateAd,
     beforeEnter(to, from, next){
       if(store.state.isLoggedIn){
         if(store.state.user.email_verified_at){

@@ -46,9 +46,10 @@
           </ul>
           <button
             id="navAction"
+            @click="createAd()"
             class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 p-4 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out relative"
           >
-            Cheap Data! 
+            Sell 4 Free! 
           </button>
         </div>
       </div>
@@ -71,7 +72,7 @@
     </div>
     <div class="fixed bottom-0 bg-gray-900 p-4" v-if="showCookieMsg">
       <p class="text-center">
-        Please note that we use cookies to build a more engaging and effective service to our visitors by understanding their interests and to help us run this website more effectively. By continuing to use WorthCentillion website and it's associated subdomains, you agree to our use of cookies and privacy policy.        
+        Please note that we use cookies to build a more engaging and effective service to our visitors by understanding their interests and to help us run this website more effectively. By continuing to use Hamsuper's website and it's associated subdomains, you agree to our use of cookies and privacy policy.        
       </p>
       <span class="flex justify-center items-center">
         <button 
@@ -127,6 +128,9 @@ export default {
     }
   },
   methods: {
+    createAd(){
+      router.push('/create_ad');
+    },
     seenCookiesMsg(){
       this.showCookieMsg = false;
       //save this in local storage

@@ -100,7 +100,7 @@ export default {
     },
     getSubcategory: function(selectedCategory, adsCount){
       if(selectedCategory.toLowerCase() == 'fundme'){
-        window.location = 'http://www.fundme.worthcentillion.com';
+        window.location = 'http://www.fundme.hamsuper.com';
         return;
       }
       if(adsCount == 0) return; //don't run this function if no ads in subcategory

@@ -14,13 +14,16 @@
         <div class="bg-gray-200 p-4">
           <h1 class ="text-center relative">
             <span class="font-extrabold">₦{{ad.price}} <span v-if="ad.negotiable">(Negotiable)</span> </span>
-            <span class="absolute right-0 font-thin" style="font-size: .8em">12 Feb, 2020</span>
+            <span class="absolute right-0 font-thin" style="font-size: .8em">{{ad.created}}</span>
             </h1>
           <ul class="bg-gray-50 p-4">
             <!-- <li v-for="(value, name, index) in ad" v-bind:key = "index">
               {{name}} : {{value}}
             </li> -->
             <li><strong>Location:</strong> {{ad.place}}, {{ad.state}}</li>
+            <li v-for="(fieldName, index) of adDetails" :key="index">
+              <strong class="capitalize">{{index.replace('_', ' ')}}</strong> {{fieldName}}
+            </li>
             <li><strong>Description:</strong> {{ad.description}}</li>
             <li></li>
           </ul>
@@ -71,6 +74,18 @@ export default {
   data(){
     return{
       ad: null,
+      hiddenFields: ['id', 'ad_id', 'created_at', 'updated_at'],
+    }
+  },
+  computed: {
+    adDetails(){
+      let adDetails = {};
+      for(let fieldName in this.ad.details){
+        if(this.ad.details[fieldName] && !this.hiddenFields.includes(fieldName)){
+          adDetails[fieldName] = this.ad.details[fieldName];
+        }
+      }
+      return adDetails;
     }
   },
   mounted(){
@@ -79,6 +94,9 @@ export default {
     this.axios.get(process.env.VUE_APP_APIURL+"/ads/"+adID).then(function(response){
       _this.ad = response.data;
       console.log(_this.ad);
+    });
+    this.axios.get('http://www.api.hamsuper.net/sanctum/csrf-cookie').then(response => {
+        console.log(response);
     });
   }
 }
