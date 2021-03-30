@@ -133,8 +133,10 @@
                             <Field type="radio" name="promoted" value="gold" /> <strong>Gold Ad</strong> - Stay on top list for 30 days (N7,500.00)
                         </label>
                     </div>
-                    <div class="text-center">
-                        <button >Next <span class="mdi mdi-arrow-right"></span></button>
+                    <div class="text-center mt-8">
+                        <button class="py-3 px-5 border-2 border-gray-100 bg-blue-400 rounded hover:bg-white shadow-lg">
+                            Next
+                        <span class="mdi mdi-arrow-right"></span></button>
                     </div>
                 </Form>
             </div>
@@ -143,13 +145,20 @@
                     <div v-for="(field, index) of detailsFields" :key="index" class="w-1/2 bg-white my-0.5 p-2 text-center">
                         <dynamic-field :field = "field" :index = "index"></dynamic-field>
                     </div>
-                    <div class="w-full flex justify-center ">
-                        <button>Create Ad</button>
+                    <div class="w-full flex justify-center mt-4">
+                        <button class="py-4 px-6 bg-blue-600 text-gray-100 hover:bg-blue-900">Create Ad</button>
                     </div>
                 </form>
-                <div class="flex justify-around">
-                    <button @click="step2 = !step2">Back</button>
-                    <button>Skip & Create Ad</button>
+                <div class="flex justify-around mt-8">
+                    <button @click="step2 = !step2" class="py-3 px-5 border-2 border-gray-500 rounded-xl hover:bg-blue-400">
+                       <span class="mdi mdi-arrow-left"></span> Back
+                    </button>
+                    <button 
+                        class="py-3 px-5 border-2 border-gray-500 rounded-xl hover:bg-blue-400"
+                        @click="onSubmit($event, true)"
+                        >
+                        Skip & Create Ad
+                    </button>
                 </div>
                 <span v-if="loading">Submitting . . . </span>
             </div>
@@ -218,7 +227,7 @@ export default {
     methods:{
         getFormFields(data){
             this.subcategory = data;
-            alert(this.category +' : '+ this.subcategory);
+            //alert(this.category +' : '+ this.subcategory);
             this.axios.post(process.env.VUE_APP_APIURL+"/ads/create/get_form_fields",{category: this.category,subcategory:this.subcategory}).then(response=>{
                 this.detailsFields = response.data;
                 console.log(response.data);
@@ -268,9 +277,9 @@ export default {
             this.step2 = true;
             
         },
-        onSubmit(e){
+        onSubmit(e, skikppedDetails = false){
             this.loading = true;
-            this.adData = new FormData(e.target);
+            this.adData = skikppedDetails? new FormData() : new FormData(e.target);
             for(let field in this.step1Data){
                 this.adData.append(field, this.step1Data[field]);
             }
@@ -278,12 +287,16 @@ export default {
                 console.log(image.uploadImg);
                 this.adData.append('images[]', image.uploadImg);
             }
+            if(skikppedDetails){
+                this.adData.append('skipped_details', true);
+            }
             this.axios.post(process.env.VUE_APP_APIURL+"/ads/create", this.adData).then((response)=>{
                 this.loading = false;
                 console.log(response.data);
             }).catch(error=>{
                 console.log('Something wrong from the server.');
                 console.log(error);
+                this.loading = false;
             })
             //alert('Submitting');
         }

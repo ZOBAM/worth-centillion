@@ -20,11 +20,11 @@
             <!-- <li v-for="(value, name, index) in ad" v-bind:key = "index">
               {{name}} : {{value}}
             </li> -->
-            <li><strong>Location:</strong> {{ad.place}}, {{ad.state}}</li>
+            <li><strong>Location:</strong> {{ad.place.split(':')[0]}}, {{ad.state.split(':')[0]}}</li>
             <li v-for="(fieldName, index) of adDetails" :key="index">
               <strong class="capitalize">{{index.replace('_', ' ')}}</strong> {{fieldName}}
             </li>
-            <li><strong>Description:</strong> {{ad.description}}</li>
+            <li class="overflow-hidden"><strong>Description:</strong> {{ad.description}}</li>
             <li></li>
           </ul>
         </div>
