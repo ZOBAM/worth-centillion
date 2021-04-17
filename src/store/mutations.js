@@ -9,15 +9,15 @@ var mutations = {
       state.accessToken = currentUser.access_token;
       state.isLoggedIn = true;
     }
-    console.log("mutate check login");
-    console.log(state.isLoggedIn);
+    /* console.log("mutate check login");
+    console.log(state.isLoggedIn); */
   },
   setUser(state, data) {
     state.isLoggedIn = true;
     state.user = data.user;
     //alert(data);
-    console.log("data from set user function");
-    console.log(data.user);
+    /* console.log("data from set user function");
+    console.log(data.user); */
     state.accessToken = data.access_token;
     localStorage.setItem('userData', JSON.stringify(data));
     if (data.user.email_verified_at) {

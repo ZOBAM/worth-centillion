@@ -5,7 +5,7 @@
       class="sm:h-36 md:h-64 hidden sm:flex justify-center items-center md:bg-cover sm:bg-cover -mt-5 bg-no-repeat"
       :style="'background-image: url(' + header_bg + ')'"
     >
-    <search></search>
+      <search></search>
     </div>
     <location v-if="displayLocation"></location>
     <div class="bg-gray-200 text-black p-1 flex">
@@ -14,13 +14,16 @@
       >
         <category-list></category-list>
       </div>
-      <div v-if="showCategories"
-        class="border-blue-200 bg-gray-200 border-r-2 w-3/4 p-2 overflow-y-scroll fixed bottom-12 overflow-x-hidden z-20 md:hidden" style="height:75vh"
+      <div
+        v-if="showCategories"
+        class="border-blue-200 bg-gray-200 border-r-2 w-3/4 p-2 overflow-y-scroll fixed bottom-12 overflow-x-hidden z-20 md:hidden"
+        style="height:75vh"
       >
         <category-list></category-list>
       </div>
 
       <section class="bg-white border-b py-8 md:w-3/4">
+        <VTUAd></VTUAd>
         <div class="container mx-auto flex flex-wrap pt-4 pb-12 relative">
           <h1
             class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800"
@@ -32,16 +35,21 @@
               class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"
             ></div>
             <!-- display the specified category and subcategory name -->
-          <div v-if="category && ads.length" class="px-4 pt-4 text-xs "> 
-            <span @click="clear('category')" class="cursor-pointer">
-              <span class="mdi mdi-close text-red-600"></span>
-              {{category}} ({{currentCategoryAdsCount}}) 
-            </span>
-            <span v-if="subcategory" @click="clear('subcategory')" class="cursor-pointer"> 
-              <span class="mdi mdi-arrow-right"></span> 
-              <span class="mdi mdi-close text-red-600"></span>{{subcategory}} ({{currentSubcategoryAdsCount}})
-            </span> 
-          </div>
+            <div v-if="category && ads.length" class="px-4 pt-4 text-xs ">
+              <span @click="clear('category')" class="cursor-pointer">
+                <span class="mdi mdi-close text-red-600"></span>
+                {{ category }} ({{ currentCategoryAdsCount }})
+              </span>
+              <span
+                v-if="subcategory"
+                @click="clear('subcategory')"
+                class="cursor-pointer"
+              >
+                <span class="mdi mdi-arrow-right"></span>
+                <span class="mdi mdi-close text-red-600"></span
+                >{{ subcategory }} ({{ currentSubcategoryAdsCount }})
+              </span>
+            </div>
           </div>
           <loading v-if="adsIsLoading"></loading>
           <div v-if="ads != null" class="flex flex-wrap">
@@ -53,7 +61,10 @@
               <div
                 class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-md relative"
               >
-                <router-link :to="'/ads/'+ad.id" class="flex flex-wrap no-underline hover:no-underline">
+                <router-link
+                  :to="'/ads/' + ad.id"
+                  class="flex flex-wrap no-underline hover:no-underline"
+                >
                   <div class="m-auto w-full">
                     <img
                       class="block w-full m-auto max-h-36 sm:max-h-48"
@@ -62,11 +73,13 @@
                     />
                   </div>
                   <div class="w-full absolute bottom-0 bg-gray-200 opacity-90">
-                    <div class="w-full font-bold text-xs text-gray-800 px-2 sm:px-3 line-clamp-1 pt-1">
+                    <div
+                      class="w-full font-bold text-xs text-gray-800 px-2 sm:px-3 line-clamp-1 pt-1"
+                    >
                       {{ ad.title }}
                     </div>
                     <p class="w-full text-blue-800 text-xs md:text-sm px-6">
-                      <span class="float-right">₦{{ad.price}}</span>
+                      <span class="float-right">₦{{ ad.price }}</span>
                     </p>
                   </div>
                 </router-link>
@@ -82,7 +95,12 @@
               </div>
             </div>
           </div>
-          <div v-if="ads != null && !ads.length" class="p-2 md:p-4 text-xl bg-red-100 m-auto">There is no ads in this category and/or location</div>
+          <div
+            v-if="ads != null && !ads.length"
+            class="p-2 md:p-4 text-xl bg-red-100 m-auto"
+          >
+            There is no ads in this category and/or location
+          </div>
         </div>
       </section>
     </div>
@@ -95,7 +113,8 @@
       >
         <p class="uppercase tracking-loose w-full"></p>
         <h1 class="my-4 text-5xl font-bold leading-tight">
-          <span class="text-gray-300">Hamsuper</span> Got You Covered. Fast, Easy and Cost Effective!
+          <span class="text-gray-300">Hamsuper</span> Got You Covered. Fast,
+          Easy and Cost Effective!
         </h1>
         <p class="leading-normal text-2xl mb-8">
           Register and start posting Ads for FREE!
@@ -511,11 +530,12 @@
 // @ is an alias to /src
 import CategoryList from "@/components/CategoryList.vue";
 import Loading from "@/components/Loading.vue";
+import VTUAd from "@/components/VTUAd";
 import { mapActions, mapState } from "vuex";
 import store from "../store";
 import header_bg from "@/assets/images/header_bg.png";
-import Search from '../components/Search.vue';
-import Location from '../components/Location.vue';
+import Search from "../components/Search.vue";
+import Location from "../components/Location.vue";
 
 export default {
   name: "Home",
@@ -524,6 +544,7 @@ export default {
     Loading,
     Search,
     Location,
+    VTUAd,
   },
   data() {
     return {
@@ -535,38 +556,35 @@ export default {
   },
   methods: {
     clear(type) {
-      if(type == 'category'){
-        store.dispatch('setProps',{name: 'category', value: null});
-        store.dispatch('setProps',{name: 'subcategory', value: null});
-      }else{
-        store.dispatch('setProps',{name: 'subcategory', value: null});
+      if (type == "category") {
+        store.dispatch("setProps", { name: "category", value: null });
+        store.dispatch("setProps", { name: "subcategory", value: null });
+      } else {
+        store.dispatch("setProps", { name: "subcategory", value: null });
       }
       store.dispatch("fetchData");
-    }
+    },
   },
   computed: {
     ...mapActions(["increment"]),
     ...mapState([
-      "isLoggedIn", 
-      "user", 
-      "displayLocation", 
-      "displayCategory", 
-      "ads", 
+      "isLoggedIn",
+      "user",
+      "displayLocation",
+      "displayCategory",
+      "ads",
       "adsIsLoading",
       "category",
       "categories",
       "subcategory",
       "currentSubcategoryAdsCount",
-      "currentCategoryAdsCount"
-      ]),
-    showCategories(){
+      "currentCategoryAdsCount",
+    ]),
+    showCategories() {
       return this.displayCategory;
-    }
+    },
   },
-  mounted() {
-  },
+  mounted() {},
 };
 </script>
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

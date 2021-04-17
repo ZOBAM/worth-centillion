@@ -119,7 +119,7 @@ export default {
       },
       login: function () {
         this.error = false;
-        console.log("submitting to server");
+        //console.log("submitting to server");
         if(this.loading)
         return false;
         this.loading = true;
@@ -127,18 +127,24 @@ export default {
         let loginData = {email: this.email, password: this.password};
         //store.dispatch("login", loginData);
         this.axios.post(process.env.VUE_APP_APIURL+"/login", loginData).then(response => {
-        console.log('User signed in response received from server!');
+          console.log('User signed in response received from server!');
+          this.loading = false;
+          //console.log(response.data);
+          if(response.data.message){
+            //console.log(response.data.message);
+            this.errorMessages.push("The provided credentials are not correct. Please check and try again.");
+            this.error = true;
+            return false;
+          }
+          store.dispatch('login', response.data);
+          //this.bearerToken = response.data.access_token;
+          //console.log(response.data);
+      }).catch(() => {
         this.loading = false;
-        if(response.data.message){
-          console.log(response.data.message);
-          this.errorMessages.push("The provided credentials are not correct. Please check and try again.");
-          this.error = true;
-          return false;
-        }
-        store.dispatch('login', response.data);
-        //this.bearerToken = response.data.access_token;
-        console.log(response.data);
-      }).catch(error => console.log(error)); // credentials didn't match
+        this.errorMessages.push("An error ocurred from the server. Please check and try again.");
+        this.error = true;
+        //console.log(error);
+        }); // credentials didn't match
       },
     }
 };

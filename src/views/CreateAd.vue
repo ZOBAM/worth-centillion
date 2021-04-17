@@ -170,6 +170,7 @@ import { mapState } from 'vuex';
 import { Field, Form, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
 import DynamicField from "@/components/DynamicField.vue"
+import router from '../router';
 
 export default {
     name: "CreateAd",
@@ -221,29 +222,30 @@ export default {
     computed: {
         ...mapState([
             "states",
-            "categories"
+            "categories",
+            "accessToken"
             ])
     },
     methods:{
         getFormFields(data){
             this.subcategory = data;
             //alert(this.category +' : '+ this.subcategory);
-            this.axios.post(process.env.VUE_APP_APIURL+"/ads/create/get_form_fields",{category: this.category,subcategory:this.subcategory}).then(response=>{
+            this.axios.post(process.env.VUE_APP_APIURL+"/ads/create/get_form_fields",{category: this.category,subcategory:this.subcategory}, {headers: {Authorization: `Bearer ${this.accessToken}`}}).then(response=>{
                 this.detailsFields = response.data;
-                console.log(response.data);
+                //console.log(response.data);
             })
         },
         setOption(formValue, optionType = false){
             if(optionType){
-                console.log(formValue);
+                //console.log(formValue);
                 this.subcategories = this.categories[formValue];
                 this.subcategories.shift();this.subcategories.shift();
                 //this.subcategories = subcategories
-                console.log(this.subcategories); /**/
+                //console.log(this.subcategories); /**/
             }else{
                 this.lgas = this.states[formValue];
-                console.log(this.lgas);
-                console.log(this.categories);
+                //console.log(this.lgas);
+                //console.log(this.categories);
             }
         },
         addImage(e){
@@ -252,10 +254,10 @@ export default {
             reader.readAsDataURL(targetImg);
             reader.onload = (e)=>{
                 this.adImages[ this.adImages.length ] = ({previewURL: e.target.result, uploadImg: targetImg, id: this.adImages.length});
-                console.log(targetImg);
+                //console.log(targetImg);
             }
             //alert("About adding new image to the ad ");
-            console.log(this.adImages);
+            //console.log(this.adImages);
         },
         deleteImage(id){
             this.adImages = this.adImages.filter(image => {
@@ -271,7 +273,7 @@ export default {
         },
         postAd(values){
             this.step2 = true;
-            console.log(this.adImages);
+            //console.log(this.adImages);
             //alert("About to post ad to server");
             this.step1Data = values;
             this.step2 = true;
@@ -290,19 +292,20 @@ export default {
             if(skikppedDetails){
                 this.adData.append('skipped_details', true);
             }
-            this.axios.post(process.env.VUE_APP_APIURL+"/ads/create", this.adData).then((response)=>{
+            this.axios.post(process.env.VUE_APP_APIURL+"/ads/create", this.adData, {headers: {Authorization: `Bearer ${this.accessToken}`}}).then(()=>{
                 this.loading = false;
-                console.log(response.data);
-            }).catch(error=>{
+                router.push('/userarea');
+                //console.log(response.data);
+            }).catch(()=>{
                 console.log('Something wrong from the server.');
-                console.log(error);
+                //console.log(error);
                 this.loading = false;
             })
             //alert('Submitting');
         }
     },
     mounted(){
-        console.log(this.states);
+        //console.log(this.states);
     }
 }
 </script>

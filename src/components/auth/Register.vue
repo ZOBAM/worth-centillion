@@ -354,15 +354,15 @@ export default {
         }
         this.errorMessages = [];
         this.axios.post(process.env.VUE_APP_APIURL+"/register", formData).then(response => {
-          console.log('User register response received from server!');
+          //console.log('User register response received from server!');
           this.loading = false;
-          console.log(response.data);
+          //console.log(response.data);
           if(response.data.status == 1){
-            console.log("Registration successful");
-            console.log(`Login credentials are: ${values.email} and ${values.password}`);
+            //console.log("Registration successful");
+            //console.log(`Login credentials are: ${values.email} and ${values.password}`);
             //if user registration succeeds, login the user automatically with provided credential and redirect to email verification page
             this.axios.post(process.env.VUE_APP_APIURL+"/login", values).then((response)=>{
-              console.log(response.data);
+              //console.log(response.data);
               store.dispatch('login', response.data);
               this.$router.push("/verify_email");
             })
@@ -371,8 +371,8 @@ export default {
           // store.dispatch('login', response.data);
           //this.bearerToken = response.data.access_token;
           // console.log(response.data);
-        }).catch(error => {
-          console.log(error);
+        }).catch(() => {
+          //console.log(error);
           this.loading = false;
           this.error = true;
           this.errorMessages.push("Sorry, an error occurred on the server. Try again.");

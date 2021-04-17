@@ -93,10 +93,7 @@ export default {
     let adID = this.$route.params.id;
     this.axios.get(process.env.VUE_APP_APIURL+"/ads/"+adID).then(function(response){
       _this.ad = response.data;
-      console.log(_this.ad);
-    });
-    this.axios.get('http://www.api.hamsuper.net/sanctum/csrf-cookie').then(response => {
-        console.log(response);
+      //console.log(_this.ad);
     });
   }
 }
