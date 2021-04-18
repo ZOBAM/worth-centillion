@@ -9,6 +9,7 @@ import Pay from "../views/Pay.vue";
 import VerifyEmail from "../views/VerifyEmail.vue";
 import NotFound from "../views/NotFound.vue";
 import CreateAd from "../views/CreateAd.vue";
+import SVG from "../views/SVG.vue";
 import store from "../store";
 
 const routes = [
@@ -108,6 +109,11 @@ const routes = [
     path: "/pay",
     name: "Pay",
     component: Pay,
+  },
+  {
+    path: "/svg",
+    name: "SVG",
+    component: SVG,
   },
   {
     path: "/about",
