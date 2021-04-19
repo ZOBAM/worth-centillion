@@ -23,7 +23,7 @@
       </div>
 
       <section class="bg-white border-b py-8 md:w-3/4">
-        <VTUAd></VTUAd>
+        <VTUAd class="-mt-8"></VTUAd>
         <div class="container mx-auto flex flex-wrap pt-4 pb-12 relative">
           <h1
             class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800"

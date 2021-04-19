@@ -12,8 +12,10 @@
         <span class="text-blue-200 font-medium">& airtime</span>
       </span>
     </div>
-    <div class="vtu-title w-1/3 text-gray-300 text-right opacity-0">
-      Hamsupuer VTU
+    <div
+      class="vtu-title w-1/3 text-gray-300 text-right opacity-0 bg-[#ffff33]"
+    >
+      Hamsuper VTU
     </div>
   </div>
 </template>
@@ -31,7 +33,7 @@ export default {
 <style lang="scss" scoped>
 .rate-desc {
   animation-name: rateAnim;
-  animation-duration: 4s;
+  animation-duration: 3s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
   animation-delay: 2s;
@@ -67,7 +69,7 @@ export default {
 .vtu-title {
   animation-name: titleAnim;
   animation-duration: 3s;
-  animation-delay: 4s;
+  animation-delay: 3s;
   animation-fill-mode: forwards;
 }
 @keyframes titleAnim {

@@ -1,6 +1,6 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
+const defaultTheme = require("tailwindcss/defaultTheme");
 module.exports = {
-  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  purge: ["./public/**/*.html", "./src/**/*.{js,jsx,ts,tsx,vue}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
@@ -8,8 +8,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [
-    require('@tailwindcss/line-clamp'),
-    require('@tailwindcss/forms'),
-  ],
-}
+  plugins: [require("@tailwindcss/line-clamp"), require("@tailwindcss/forms")],
+};

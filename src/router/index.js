@@ -5,7 +5,6 @@ import UserArea from "../views/UserArea.vue";
 import AdDetails from "../views/AdDetails.vue";
 import SearchResult from "../views/SearchResult.vue";
 import VTU from "../views/VTU.vue";
-import Pay from "../views/Pay.vue";
 import VerifyEmail from "../views/VerifyEmail.vue";
 import NotFound from "../views/NotFound.vue";
 import CreateAd from "../views/CreateAd.vue";
@@ -104,11 +103,6 @@ const routes = [
         next({ path: "/user/login" });
       }
     },
-  },
-  {
-    path: "/pay",
-    name: "Pay",
-    component: Pay,
   },
   {
     path: "/svg",

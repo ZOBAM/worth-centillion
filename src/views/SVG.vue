@@ -18,6 +18,7 @@
       style="fill:red; stroke: green; stroke-width:8"
     />
   </svg>
+  <div class="bg-[#33ff33]">Hello go</div>
 </template>
 <script>
 export default {
