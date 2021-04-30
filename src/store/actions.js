@@ -1,8 +1,13 @@
 import axios from "axios";
+import router from "../router";
 import { state } from "./state";
 //axios.defaults.headers.common['Authorization'] = "Bearer 41|cZiiK8k3WHhxAdSAXO8JlW5ebbn6of143T17FiNK";
 
 const actions = {
+  moveToDestination({ commit }) {
+    router.push(state.destinationURL);
+    commit("setStateProps", { name: "destinationURL", value: null });
+  },
   login({ commit }, data) {
     commit("setUser", data);
   },

@@ -2,11 +2,12 @@ import router from "../router";
 
 var mutations = {
   checkLogin(state) {
-    let currentUser = localStorage.getItem('userData');
+    let currentUser = localStorage.getItem("userData");
     if (currentUser && JSON.parse(currentUser)) {
       currentUser = JSON.parse(currentUser);
       state.user = currentUser.user;
       state.accessToken = currentUser.access_token;
+      state.userWalletBalance = currentUser.user.balance;
       state.isLoggedIn = true;
     }
     /* console.log("mutate check login");
@@ -15,19 +16,27 @@ var mutations = {
   setUser(state, data) {
     state.isLoggedIn = true;
     state.user = data.user;
+    state.userWalletBalance = data.user.balance;
     //alert(data);
     /* console.log("data from set user function");
     console.log(data.user); */
     state.accessToken = data.access_token;
-    localStorage.setItem('userData', JSON.stringify(data));
+    localStorage.setItem("userData", JSON.stringify(data));
     if (data.user.email_verified_at) {
       router.push("/userarea");
-    }else{
+    } else {
       router.push("/verify_email");
     }
   },
   setStateProps(state, data) {
     state[data.name] = data.value;
+    if (data.name == "userWalletBalance") {
+      state.user.balance = data.value;
+      let currentUser = localStorage.getItem("userData");
+      currentUser = JSON.parse(currentUser);
+      currentUser.user.balance = data.value;
+      localStorage.setItem("userData", JSON.stringify(currentUser));
+    }
     /* switch (data.name) {
       case 'state':
         state.state = data.value;
@@ -43,8 +52,8 @@ var mutations = {
     } */
   },
   logoutUser(state) {
-    localStorage.removeItem('userData');
+    localStorage.removeItem("userData");
     state.isLoggedIn = false;
-  }
+  },
 };
 export { mutations };

@@ -5,13 +5,14 @@ import router from "./router";
 import store from "./store";
 //import "materialize-css";
 //import "materialize-css/dist/css/materialize.css";
-import axios from 'axios';
-import VueAxios from 'vue-axios';
+import axios from "axios";
+import VueAxios from "vue-axios";
 
-setTimeout(()=>{
+setTimeout(() => {
   //console.log(store.state.accessToken);
-  axios.defaults.headers.common['Authorization'] = "Bearer "+store.state.accessToken;
-},100)
+  axios.defaults.headers.common["Authorization"] =
+    "Bearer " + store.state.accessToken;
+}, 100);
 axios.defaults.withCredentials = true;
 createApp(App)
   .use(store)

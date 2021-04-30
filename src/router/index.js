@@ -37,7 +37,11 @@ const routes = [
     beforeEnter(to, from, next) {
       if (store.state.isLoggedIn) {
         if (store.state.user.email_verified_at) {
-          next();
+          if (store.state.destinationURL) {
+            store.dispatch("moveToDestination");
+          } else {
+            next();
+          }
         } else {
           next({ path: "/verify_email" });
         }
@@ -58,6 +62,10 @@ const routes = [
           next({ path: "/verify_email" });
         }
       } else {
+        store.dispatch("setProps", {
+          name: "destinationURL",
+          value: "/create_ad",
+        });
         next({ path: "/user/login" });
       }
     },
@@ -100,6 +108,10 @@ const routes = [
           next({ path: "/verify_email" });
         }
       } else {
+        store.dispatch("setProps", {
+          name: "destinationURL",
+          value: "/vtu",
+        });
         next({ path: "/user/login" });
       }
     },

@@ -1,6 +1,7 @@
 var state = {
   isLoggedIn: false,
   user: null,
+  userWalletBalance: 0,
   categories: localStorage.getItem("categories")
     ? JSON.parse(localStorage.getItem("categories"))
     : null,
@@ -44,6 +45,7 @@ var state = {
   lga: null,
   accessToken: null,
   userAds: [],
+  destinationURL: null,
   //loginURL: process.env.VUE_APP_APIURL+"/login",
   //userAdsURL: "http://www.api.worthcentillion.net/api/ads",
 };
