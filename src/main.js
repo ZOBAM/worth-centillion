@@ -9,7 +9,7 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 
 setTimeout(() => {
-  //console.log(store.state.accessToken);
+  //console.log("this is access token " + store.state.accessToken);
   axios.defaults.headers.common["Authorization"] =
     "Bearer " + store.state.accessToken;
 }, 100);

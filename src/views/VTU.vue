@@ -344,8 +344,9 @@ export default {
           this.paymentData = response.data;
           if (response.data.status == 1) {
             store.dispatch("setProps", {
-              name: "userWalletBalance",
+              name: "balance",
               value: response.data.balance,
+              type: 'user'
             });
           } else {
             alert(response.data.message);

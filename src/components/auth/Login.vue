@@ -13,24 +13,23 @@
       <error-alert v-if="error" :messages="errorMessages"></error-alert>
       <div class="flex -mx-3">
         <div class="w-full px-3 mb-5">
-          <label for="" class="text-xs font-semibold px-1">Email</label>
+          <label for="" class="text-xs font-semibold px-1">Phone No.</label>
           <div class="flex flex-wrap">
             <div
               class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"
             >
-              <i class="mdi mdi-email-outline text-gray-400 text-lg"></i>
+              <i class="mdi mdi-cellphone text-gray-400 text-lg"></i>
             </div>
             <Field
-              type="email"
+              type="text"
               required
-              v-model="email"
-              name="email"
+              v-model="tel"
+              name="tel"
               class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-              placeholder="johnsmith@example.com"
+              placeholder="08033443344"
               @keydown="error = false"
-              :rules="isRequired"
             />
-            <ErrorMessage name="email" class="block text-red-500 text-sm" />
+            <ErrorMessage name="tel" class="block text-red-500 text-sm" />
           </div>
         </div>
       </div>
@@ -105,10 +104,13 @@ export default {
   },
   data: function() {
     const schema = yup.object({
-      email: yup
+      tel: yup
         .string()
         .required()
-        .email(),
+        .matches(
+          /^[+]?(234)?0?[7-9][0-1][0-9]{8}$/,
+          "Phone number format is not valid"
+        ),
       password: yup
         .string()
         .required()
@@ -116,7 +118,7 @@ export default {
     });
     return {
       schema,
-      email: "",
+      tel: "",
       password: "",
       loading: false,
       error: false,
@@ -138,31 +140,20 @@ export default {
         "bg-indigo-500 focus:bg-indigo-700 hover:bg-indigo-700": true,
       };
     },
-    isRequired(value) {
-      if (value && value.trim()) {
-        alert(value.length);
-        if (value.length > 5) {
-          return "Email too long";
-        }
-        return true;
-      }
-
-      return "This is required";
-    },
     login: function() {
       this.error = false;
       //console.log("submitting to server");
       if (this.loading) return false;
       this.loading = true;
       this.errorMessages = [];
-      let loginData = { email: this.email, password: this.password };
+      let loginData = { tel: this.tel, password: this.password };
       //store.dispatch("login", loginData);
       this.axios
         .post(process.env.VUE_APP_APIURL + "/login", loginData)
         .then((response) => {
           console.log("User signed in response received from server!");
           this.loading = false;
-          console.log(response.data);
+          //console.log(response.data);
           if (response.data.message) {
             //console.log(response.data.message);
             this.errorMessages.push(

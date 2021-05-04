@@ -30,11 +30,11 @@ var mutations = {
   },
   setStateProps(state, data) {
     state[data.name] = data.value;
-    if (data.name == "userWalletBalance") {
-      state.user.balance = data.value;
+    if (data.type == "user") {
+      state.user[data.name] = data.value;
       let currentUser = localStorage.getItem("userData");
       currentUser = JSON.parse(currentUser);
-      currentUser.user.balance = data.value;
+      currentUser.user[data.name] = data.value;
       localStorage.setItem("userData", JSON.stringify(currentUser));
     }
     /* switch (data.name) {

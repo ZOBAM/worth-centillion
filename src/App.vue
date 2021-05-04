@@ -1,9 +1,4 @@
 <template>
-  <metainfo>
-    <template v-slot:title="{ content }">{{
-      content ? `${content} | SITE_NAME` : `SITE_NAME`
-    }}</template>
-  </metainfo>
   <div
     class="leading-normal tracking-normal text-white gradient w-full p-0"
     style="font-family: 'Source Sans Pro', sans-serif;"

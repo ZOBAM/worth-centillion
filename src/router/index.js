@@ -5,7 +5,7 @@ import UserArea from "../views/UserArea.vue";
 import AdDetails from "../views/AdDetails.vue";
 import SearchResult from "../views/SearchResult.vue";
 import VTU from "../views/VTU.vue";
-import VerifyEmail from "../views/VerifyEmail.vue";
+import Verify from "../views/Verify.vue";
 import NotFound from "../views/NotFound.vue";
 import CreateAd from "../views/CreateAd.vue";
 import SVG from "../views/SVG.vue";
@@ -36,14 +36,14 @@ const routes = [
     component: UserArea,
     beforeEnter(to, from, next) {
       if (store.state.isLoggedIn) {
-        if (store.state.user.email_verified_at) {
+        if (store.state.user.tel_verified == 1) {
           if (store.state.destinationURL) {
             store.dispatch("moveToDestination");
           } else {
             next();
           }
         } else {
-          next({ path: "/verify_email" });
+          next({ path: "/verify/tel" });
         }
       } else {
         next({ path: "/user/login" });
@@ -56,10 +56,10 @@ const routes = [
     component: CreateAd,
     beforeEnter(to, from, next) {
       if (store.state.isLoggedIn) {
-        if (store.state.user.email_verified_at) {
+        if (store.state.user.tel_verified == 1) {
           next();
         } else {
-          next({ path: "/verify_email" });
+          next({ path: "/verify/tel" });
         }
       } else {
         store.dispatch("setProps", {
@@ -71,12 +71,12 @@ const routes = [
     },
   },
   {
-    path: "/verify_email",
+    path: "/verify/:type",
     name: "Verify_email",
-    component: VerifyEmail,
+    component: Verify,
     beforeEnter(to, from, next) {
       if (store.state.isLoggedIn) {
-        if (store.state.user.email_verified_at) {
+        if (store.state.user.tel_verified == 1) {
           next({ path: "/userarea" });
         } else {
           next();
@@ -102,10 +102,10 @@ const routes = [
     component: VTU,
     beforeEnter(to, from, next) {
       if (store.state.isLoggedIn) {
-        if (store.state.user.email_verified_at) {
+        if (store.state.user.tel_verified == 1) {
           next();
         } else {
-          next({ path: "/verify_email" });
+          next({ path: "/verify/tel" });
         }
       } else {
         store.dispatch("setProps", {

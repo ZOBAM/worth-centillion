@@ -14,7 +14,8 @@
               `${user.first_name} ${user.last_name}`
             }}</span
             ><br />
-            <span>{{ `(${user.email})` }}</span>
+            <span>{{ `(${user.email ? user.email : "."})` }}</span>
+            <span class="block font-serif font-bold">{{ `${user.tel}` }}</span>
           </div>
         </div>
         <div id="action-tabs" class="bg-blue-600 flex justify-around pt-2 mt-8">
