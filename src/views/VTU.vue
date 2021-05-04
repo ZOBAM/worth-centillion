@@ -243,9 +243,7 @@
   </article>
   <div class="shadow-lg bg-gray-800 px-3 py-1 text-green-100 text-center">
     Your wallet balance is
-    <span class="font-bold text-yellow-200 text-lg"
-      >N{{ getWalletBalance }}</span
-    >
+    <span class="font-bold text-yellow-200 text-lg">N{{ user.balance }}</span>
   </div>
 </template>
 <script>
@@ -346,8 +344,9 @@ export default {
             store.dispatch("setProps", {
               name: "balance",
               value: response.data.balance,
-              type: 'user'
+              type: "user",
             });
+            this.transactionHistory = response.data.transaction_history;
           } else {
             alert(response.data.message);
             this.processing_payment = false;
@@ -446,7 +445,9 @@ export default {
         //console.log(error);
       })
       .then(() => {
-        this.loading = false;
+        setTimeout(() => {
+          this.loading = false;
+        }, 2000);
       });
   },
 };
