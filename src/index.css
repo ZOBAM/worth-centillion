@@ -4,6 +4,6 @@
 
 @layer components {
   .btn-primary {
-    @apply py-3 px-6 bg-blue-600 text-gray-100 hover:bg-blue-900;
+    @apply tw-py-3 tw-px-6 tw-bg-blue-600 tw-text-gray-100 hover:tw-bg-blue-900;
   }
 }

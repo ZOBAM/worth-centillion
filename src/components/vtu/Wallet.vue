@@ -5,36 +5,38 @@
     :initial-values="formValues"
   >
     <div class="">
-      <label for="amount" class="text-xs font-semibold px-1">Amount (N)</label>
+      <label for="amount" class="tw-text-xs tw-font-semibold tw-px-1"
+        >Amount (N)</label
+      >
       <Field
         name="amount"
         type="number"
         step="100"
         v-model="amount"
-        class="w-3/5 md:w-2/3 outline-none border-0 border-b-2 border-gray-400 focus:outline-none focus:border-transparent rounded"
+        class="tw-w-3/5 md:tw-w-2/3 outline-none tw-border-0 tw-border-b-2 tw-border-gray-400 focus:outline-none focus:tw-border-transparent rounded"
       />
-      <ErrorMessage name="amount" class="block text-red-500 text-sm" />
+      <ErrorMessage name="amount" class="tw-block tw-text-red-500 tw-text-sm" />
     </div>
-    <section class="w-full md:w-1/2 m-auto p-4 shadow-xl mt-4">
-      <table class="w-full border-2">
+    <section class="tw-w-full md:tw-w-1/2 tw-m-auto tw-p-4 tw-shadow-xl mt-4">
+      <table class="tw-w-full tw-border-2">
         <tr>
-          <td class="text-right pr-4">Amount:</td>
+          <td class="tw-text-right tw-pr-4">Amount:</td>
           <td>{{ getAmount }}</td>
         </tr>
         <tr>
-          <td class="text-right pr-4">Processing Fee:</td>
+          <td class="tw-text-right tw-pr-4">Processing Fee:</td>
           <td>
-            {{ processingFee }} (<span class="font-mono">to Paystack</span>)
+            {{ processingFee }} (<span class="tw-font-mono">to Paystack</span>)
           </td>
         </tr>
-        <tr class="font-bold text-xl">
-          <td class="text-right pr-4">Total:</td>
+        <tr class="tw-font-bold tw-text-xl">
+          <td class="tw-text-right tw-pr-4">Total:</td>
           <td>N{{ total }}</td>
         </tr>
       </table>
     </section>
-    <div class="flex justify-center items-center mt-4">
-      <Button :loading="loading" class="rounded-lg">Fund Wallet</Button>
+    <div class="tw-flex tw-justify-center tw-items-center tw-mt-4">
+      <Button :loading="loading" class="tw-rounded-lg">Fund Wallet</Button>
     </div>
   </Form>
 </template>
@@ -61,12 +63,12 @@ export default {
         .max(100000),
     });
     const formValues = {
-      amount: 1000,
+      amount: 0,
     };
     return {
       schema,
       formValues,
-      amount: 1000,
+      amount: 0,
       loading: false,
     };
   },
@@ -92,6 +94,7 @@ export default {
       this.loading = true;
       let amountID = this.total + "_" + this.user.id;
       //alert(amountID);
+      localStorage.setItem("fundedWallet", true);
       window.location = process.env.VUE_APP_API_BASEURL + "/pay/" + amountID;
     },
   },

@@ -1,10 +1,10 @@
 <template>
-  <div class="about pt-24">
-    <div class="p-0 gradient">
+  <div class="about tw-pt-24">
+    <div class="tw-p-0 gradient">
       <!-- <loading v-if="adsIsLoading"></loading> -->
-      <div class="p-4 bg-white text-gray-800">
+      <div class="tw-p-4 tw-bg-white tw-text-gray-800">
         <h2
-          class="capitalize text-indigo-800 text-center bg-gray-100 font-bold p-2"
+          class="tw-capitalize tw-text-indigo-800 tw-text-center tw-bg-gray-100 tw-p-2 tw-text-2xl tw-font-bold"
         >
           {{ title }}
         </h2>
@@ -16,7 +16,7 @@
         <div class="">
           <p
             v-if="data && data.status == 1"
-            class="text-center text-green-800 p-4"
+            class="tw-text-center tw-text-green-800 tw-p-4"
           >
             {{ data.message }}
           </p>
@@ -26,36 +26,41 @@
             clicking on the <strong>Verify</strong> button below. If you didn't
             receive the SMS, we will gladly send you another one.
           </p>
-          <div class="m-auto text-center">
+          <div class="tw-w-1/2 tw-m-auto tw-text-center input-field">
             <label for="verification_code">Enter Code:</label>
             <input
               type="number"
               name="verification_code"
               id=""
               v-model="verificationCode"
-              class="rounded-md ml-3 mr-2"
+              class="tw-rounded-md tw-ml-3 tw-mr-2"
               @keydown="error = false"
             />
             <Button
-              class="rounded-md"
+              class="tw-rounded-md"
               :loading="loading"
               @click="verify('tel')"
             >
               Verify
             </Button>
-            <span v-if="error" class="text-red-600 block text-center">{{
-              errorMessage
-            }}</span>
+            <span
+              v-if="error"
+              class="tw-text-red-600 tw-block tw-text-center"
+              >{{ errorMessage }}</span
+            >
           </div>
         </div>
         <button
           @click="resend('tel')"
           v-if="!reachedResendLimit"
-          class="border-blue-700 border-2 text-gray-500 p-2 rounded-lg m-auto block mt-8 cursor-pointer hover:bg-blue-900 hover:text-gray-50 text-sm"
+          class="tw-border-blue-700 tw-border-2 tw-text-gray-500 tw-p-2 tw-rounded-lg tw-m-auto tw-block tw-mt-8 tw-cursor-pointer hover:tw-bg-blue-900 hover:tw-text-gray-50 tw-text-sm"
         >
           Resend Verification Code
         </button>
-        <div v-if="reachedResendLimit" class="text-red-600 text-center p-4">
+        <div
+          v-if="reachedResendLimit"
+          class="tw-text-red-600 tw-text-center tw-p-4"
+        >
           {{ resendLimitMessage }}
         </div>
       </div>

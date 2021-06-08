@@ -7,7 +7,6 @@ var mutations = {
       currentUser = JSON.parse(currentUser);
       state.user = currentUser.user;
       state.accessToken = currentUser.access_token;
-      state.userWalletBalance = currentUser.user.balance;
       state.isLoggedIn = true;
     }
     /* console.log("mutate check login");
@@ -16,7 +15,6 @@ var mutations = {
   setUser(state, data) {
     state.isLoggedIn = true;
     state.user = data.user;
-    state.userWalletBalance = data.user.balance;
     //alert(data);
     /* console.log("data from set user function");
     console.log(data.user); */

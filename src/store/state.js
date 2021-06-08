@@ -1,7 +1,6 @@
 var state = {
   isLoggedIn: false,
   user: null,
-  userWalletBalance: 0,
   categories: localStorage.getItem("categories")
     ? JSON.parse(localStorage.getItem("categories"))
     : null,

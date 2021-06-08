@@ -1,17 +1,23 @@
 <template>
-    <div class="bg-white text-red-800 p-2 rounded-xl shadow-md" v-if="messages.length">
-    <span class="h-4 w-4 bg-red-400 inline-block animate-ping rounded-full"> </span>
-    <span class="mdi mdi-information text-red-500 -ml-4"></span> 
+  <div
+    class="tw-bg-white tw-text-red-800 tw-p-2 tw-rounded-xl tw-shadow-md"
+    v-if="messages.length"
+  >
+    <span
+      class="tw-h-4 tw-w-4 tw-bg-red-400 tw-inline-block tw-animate-ping tw-rounded-full"
+    >
+    </span>
+    <span class="mdi mdi-information tw-text-red-500 tw--m-4"></span>
     <ul>
-        <li v-for="(message, index) in messages" :key="index" class="text-sm">
-            {{message}}
-        </li>
+      <li v-for="(message, index) in messages" :key="index" class="tw-text-sm">
+        {{ message }}
+      </li>
     </ul>
-    </div>
+  </div>
 </template>
 <script>
 export default {
-    name: 'ErrorAlert',
-    props:['messages']
-}
+  name: "ErrorAlert",
+  props: ["messages"],
+};
 </script>

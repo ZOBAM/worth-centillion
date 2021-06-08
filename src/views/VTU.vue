@@ -1,71 +1,68 @@
 <template>
-  <article class="bg-white p-6">
-    <div class="text-center">
+  <article class="tw-bg-white md:tw-p-6">
+    <div class="tw-text-center">
       <h1
-        class="my-2 pt-8 text-3xl font-bold leading-tight text-center text-gray-800"
+        class="tw-my-2 tw-pt-8 tw-text-3xl tw-font-bold tw-leading-tight tw-text-center tw-text-gray-800"
       >
         Hamsuper VTU
       </h1>
-      <p class="font-mono text-green-700">
+      <p class="tw-font-mono tw-text-green-700">
         Buy airtime, buy data and pay bills at ease
       </p>
     </div>
     <section
       v-if="processing_payment"
-      class="bg-green-700 text-white p-5 my-5 relative"
+      class="tw-bg-green-700 tw-text-white tw-p-5 tw-my-5 tw-relative"
     >
       <div
-        class="absolute top-2 right-2 w-8 h-8 rounded-full bg-green-50 text-center text-gray-900 flex justify-center items-center cursor-pointer hover:bg-red-800 hover:text-white"
+        class="tw-absolute tw-top-2 tw-right-2 tw-w-8 tw-h-8 tw-rounded-full tw-bg-green-50 tw-text-center tw-text-gray-900 tw-flex tw-justify-center tw-items-center tw-cursor-pointer hover:tw-bg-red-800 hover:tw-text-white"
       >
-        <span class="text-xl" @click="closeInfo()">X</span>
+        <span class="tw-text-xl" @click="closeInfo()">X</span>
       </div>
       <span v-if="loading">processing payment . . .</span>
       <p v-if="paymentData">{{ paymentData.message }}</p>
     </section>
-    <article class="flex flex-col md:flex-row">
+    <article class="tw-flex tw-flex-col md:tw-flex-row">
       <section
-        class="bg-gradient-to-b from-white to-blue-900 text-blue-700 p-4 mt-10 md:mt-0"
+        class="tw-bg-gradient-to-b tw-from-white tw-to-blue-900 tw-text-blue-700 tw-p-4 tw-mt-10 md:tw-mt-0"
       >
-        <ul class="nav flex justify-around md:block">
+        <ul class="nav tw-flex tw-justify-around md:tw-block">
           <li
             @click="setDealType('airtime')"
-            class="p-2 hover:bg-blue-300 hover:text-gray-800 cursor-pointer border-2 rounded-md border-blue-50 bg-gray-100"
+            class="tw-p-2 hover:tw-bg-blue-300 hover:tw-text-gray-800 tw-cursor-pointer tw-border-2 tw-rounded-md tw-border-blue-50 tw-bg-gray-100"
           >
             Buy Airtime
           </li>
           <li
             @click="setDealType('data')"
-            class="p-2 hover:bg-blue-300 hover:text-gray-800 cursor-pointer border-2 rounded-md border-blue-50 md:mt-4 bg-gray-100"
+            class="tw-p-2 hover:tw-bg-blue-300 hover:tw-text-gray-800 tw-cursor-pointer tw-border-2 tw-rounded-md tw-border-blue-50 md:tw-mt-4 tw-bg-gray-100"
           >
             Buy Data
           </li>
           <li
             @click="setDealType('fundWallet')"
-            class="p-2 hover:bg-blue-300 hover:text-gray-800 cursor-pointer border-2 rounded-md border-blue-50 md:mt-4 bg-green-100"
+            class="tw-p-2 hover:tw-bg-blue-300 hover:tw-text-gray-800 tw-cursor-pointer tw-border-2 tw-rounded-md tw-border-blue-50 md:tw-mt-4 tw-bg-green-100"
           >
             Fund Wallet
           </li>
         </ul>
       </section>
-      <section class="p-2 pt-6 md:p-6 flex-grow">
+      <section class="tw-p-4 tw-pt-6 md:tw-p-6 tw-flex-grow">
         <template v-if="networkDeal">
           <Form @submit="onSubmit" :validation-schema="schema" v-if="stepOne">
-            <div>
+            <div class="col s12">
               <span
-                class="px-2 py-1 bg-black text-gray-300 rounded-lg mb-8 inline-block"
+                class="tw-px-2 tw-py-1 tw-bg-black tw-text-gray-300 tw-rounded-lg tw-mb-8 tw-inline-block"
                 v-html="currentAction"
               ></span>
-              <div class="flex flex-col md:flex-row">
-                <div class="w-full md:w-1/2">
-                  <label for="network" class="text-xs font-semibold px-1"
-                    >Network</label
-                  >
+              <div class="row">
+                <div class="input-field col m6">
                   <Field
                     as="select"
                     name="network"
                     id=""
                     v-model="network"
-                    class="w-4/5 md:w-2/3 outline-none border-0 border-b-2 border-gray-400 focus:outline-none focus:border-transparent rounded"
+                    class=""
                   >
                     <option value="">--choose network--</option>
                     <option
@@ -81,31 +78,31 @@
                   </Field>
                   <ErrorMessage
                     name="network"
-                    class="block text-red-500 text-sm"
+                    class="tw-block tw-text-red-500 tw-text-sm"
                   />
                 </div>
-                <div class="w-full md:w-1/2 mt-6 md:mt-0">
-                  <label for="number" class="text-xs font-semibold px-1"
-                    ><span class="hidden md:inline">Phone</span> Number</label
+                <div class="input-field col m6">
+                  <label
+                    for="number"
+                    class="tw-text-xs tw-font-semibold tw-px-1"
+                    ><span class="tw-hidden md:tw-inline">Phone</span>
+                    Number</label
                   >
                   <Field
                     type="text"
                     name="phone_number"
                     v-model="phone_number"
                     id=""
-                    class="w-4/5 md:w-2/3 outline-none border-0 border-b-2 border-gray-400 focus:outline-none focus:border-transparent rounded"
+                    class=""
                   />
                   <ErrorMessage
                     name="phone_number"
-                    class="block text-red-500 text-sm"
+                    class="block tw-text-red-500 tw-text-sm"
                   />
                 </div>
               </div>
-              <div class="flex flex-col md:flex-row">
-                <div class="w-full md:w-1/2 mt-6">
-                  <label for="amount" class="text-xs font-semibold px-1">{{
-                    buyData ? "Data Plan" : "Amount"
-                  }}</label>
+              <div class="row">
+                <div class="input-field col m6">
                   <template v-if="buyData">
                     <Field
                       as="select"
@@ -113,7 +110,7 @@
                       id=""
                       v-model="planIndex"
                       @change="setDataPlan()"
-                      class="w-4/5 md:w-2/3 outline-none border-0 border-b-2 border-gray-400 focus:outline-none focus:border-transparent rounded"
+                      class=""
                     >
                       <option value="">--Choose Data Plan--</option>
                       <template v-if="network">
@@ -127,78 +124,87 @@
                     </Field>
                     <ErrorMessage
                       name="data_plan"
-                      class="block text-red-500 text-sm"
+                      class="tw-block tw-text-red-500 tw-text-sm"
                     />
                   </template>
                   <template v-else>
+                    <label
+                      for="amount"
+                      class="tw-text-xs tw-font-semibold tw-px-1"
+                      >Amount</label
+                    >
                     <Field
                       type="number"
                       step="10"
                       min="100"
                       name="amount"
                       id=""
-                      class="w-4/5 md:w-2/3 outline-none border-0 border-b-2 border-gray-400 focus:outline-none focus:border-transparent rounded"
+                      class=""
                     />
                     <ErrorMessage
                       name="amount"
-                      class="block text-red-500 text-sm"
+                      class="tw-block tw-text-red-500 tw-text-sm"
                     />
                   </template>
                 </div>
-                <div class="w-full md:w-1/2 mt-6" v-if="buyData">
-                  <label for="amount" class="text-xs font-semibold px-1"
-                    >Data Price</label
-                  >
+                <div class="input-field col m6" v-if="buyData">
                   <input
                     type="text"
                     name="amount"
                     disabled
                     id=""
                     v-model="amount"
-                    class="w-4/5 md:w-2/3 outline-none border-0 border-b-2 border-gray-400 focus:outline-none focus:border-transparent rounded"
+                    placeholder=""
+                    class=""
                   />
-                  <span v-if="balanceError" class="block text-red-500 text-sm"
-                    >Amount cannot be more than {{ userWalletBalance }}</span
+                  <span
+                    v-if="balanceError"
+                    class="tw-block tw-text-red-500 tw-text-sm"
+                    >Amount cannot be more than {{ getWalletBalance }}</span
                   >
                 </div>
               </div>
             </div>
-            <div class="flex justify-center items-center mt-4">
-              <button class="btn-primary rounded-lg">Next</button>
+            <div class="tw-flex tw-justify-center tw-items-center tw-mt-4">
+              <button class="btn-primary tw-rounded-lg">Next</button>
             </div>
           </Form>
-          <div v-else class="bg-gray-100 bg-gray-700 p-2 md:p-6">
-            <h2 class="text-center font-bold text-white p-2">
+          <div v-else class="tw-bg-gray-100 tw-bg-gray-700 tw-p-2 md:tw-p-6">
+            <h2 class="tw-text-center tw-font-bold tw-text-white tw-p-2">
               Transaction Summary
             </h2>
-            <div class="bg-white p-4 rounded-2xl">
-              <ul class="text-center">
-                <li class="uppercase text-indigo-900">
+            <div class="tw-bg-white tw-p-4 tw-rounded-2xl">
+              <ul class="tw-text-center">
+                <li class="tw-uppercase tw-text-indigo-900">
                   {{ buyData ? "Data" : "Airtime" }} Purchase
                 </li>
                 <li v-if="buyData && dataPlan != null">{{ dataPlan.name }}</li>
                 <li>
                   Amount:
-                  <span class="font-semibold text-xl">NGN{{ amount }}</span>
+                  <span class="tw-font-semibold tw-text-xl"
+                    >NGN{{ amount }}</span
+                  >
                 </li>
                 <li>
                   Recipient:
-                  <span class="text-xl">{{ phone_number }}</span>
+                  <span class="tw-text-xl">{{ phone_number }}</span>
                 </li>
               </ul>
             </div>
-            <div class="flex justify-center items-center mt-4 mb-4">
+            <div
+              class="tw-flex tw-justify-center tw-items-center tw-mt-4 tw-mb-4"
+            >
               <Button
                 :loading="loading"
                 @click="purchase()"
-                class="border-2 border-gray-50 rounded-lg"
+                class="tw-border-2 tw-border-gray-50 tw-rounded-lg"
               >
                 Purchase
               </Button>
             </div>
             <button
               @click="stepOne = true"
-              class="border-2 border-gray-100 p-2 text-purple-50"
+              class="tw-border-2 tw-border-gray-100 tw-p-2 tw-text-purple-50"
             >
               Back
             </button>
@@ -209,31 +215,37 @@
         </template>
       </section>
     </article>
-    <div class="bg-gray-700 text-white text-center font-bold  p-2">
+    <div
+      class="tw-bg-gray-700 tw-text-white tw-text-center tw-font-bold  tw-p-2"
+    >
       Transaction History
     </div>
     <div
-      class="bg-gray-300 p-4 max-w-full overflow-auto"
+      class="tw-bg-gray-300 md:tw-p-4 tw-max-w-full tw-overflow-auto"
       v-if="transactionHistory"
     >
-      <table class="m-auto bg-gray-50 p-2">
-        <tr class="p-4">
-          <th>S/N</th>
-          <th>Type</th>
-          <th>Amount</th>
-          <th>Recipient</th>
-          <th>Date</th>
-        </tr>
-        <tr
-          v-for="(transaction, index) in transactionHistory"
-          :key="transaction.id"
-        >
-          <td>{{ index + 1 }}</td>
-          <td>{{ transaction.type }}</td>
-          <td>{{ transaction.amount }}</td>
-          <td>{{ transaction.recipient }}</td>
-          <td><h-date :date="transaction.created_at" /></td>
-        </tr>
+      <table class="striped tw-m-auto tw-bg-gray-50 tw-p-2 ">
+        <thead>
+          <tr class="tw-p-4">
+            <th class="tw-text-center">S/N</th>
+            <th class="tw-text-center">Type</th>
+            <th class="tw-text-center">Amount</th>
+            <th class="tw-text-center">Recipient</th>
+            <th class="tw-text-center">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="(transaction, index) in transactionHistory"
+            :key="transaction.id"
+          >
+            <td class="tw-text-center">{{ index + 1 }}</td>
+            <td>{{ transaction.type }}</td>
+            <td>{{ transaction.amount }}</td>
+            <td>{{ transaction.recipient }}</td>
+            <td><h-date :date="transaction.created_at" /></td>
+          </tr>
+        </tbody>
       </table>
     </div>
     <div class="" v-else>
@@ -241,9 +253,13 @@
       <p v-else>You currently don't have any transaction yet.</p>
     </div>
   </article>
-  <div class="shadow-lg bg-gray-800 px-3 py-1 text-green-100 text-center">
+  <div
+    class="tw-shadow-lg tw-bg-gray-800 tw-px-3 tw-py-1 tw-text-green-100 tw-text-center"
+  >
     Your wallet balance is
-    <span class="font-bold text-yellow-200 text-lg">N{{ user.balance }}</span>
+    <span class="tw-font-bold tw-text-yellow-200 tw-text-lg"
+      >N{{ getWalletBalance }}</span
+    >
   </div>
 </template>
 <script>
@@ -302,8 +318,8 @@ export default {
       this.currentAction = "";
       setTimeout(() => {
         let text = this.buyData
-          ? "Buying <span class='p-1 bg-green-600 rounded-lg font-bold'>data</span>"
-          : "Buying <span class='p-1 bg-green-600 rounded-lg font-bold'>airtime</span>";
+          ? "Buying <span class='tw-p-1 tw-bg-green-600 tw-rounded-lg tw-font-bold'>data</span>"
+          : "Buying <span class='tw-p-1 tw-bg-green-600 tw-rounded-lg tw-font-bold'>airtime</span>";
         this.currentAction = text;
       }, 500);
     },
@@ -322,7 +338,7 @@ export default {
         values.type = "airtime";
         this.amount = values.amount;
       }
-      if (this.amount > this.userWalletBalance) {
+      if (this.amount > this.user.balance) {
         this.balanceError = true;
         return false;
       }
@@ -370,7 +386,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(["userWalletBalance", "accessToken", "user"]),
+    ...mapState(["accessToken", "user"]),
     schema() {
       return yup.object({
         network: yup.string().required(),
@@ -388,38 +404,44 @@ export default {
           .number()
           .required()
           .min(50)
-          .max(this.userWalletBalance),
+          .max(this.user.balance),
       });
     },
     getWalletBalance() {
-      //console.log(this.userWalletBalance);
-      //return this.userWalletBalance.toFixed(2);
-      return (this.userWalletBalance * 1).toFixed(2);
+      return (this.user.balance * 1).toFixed(2);
     },
   },
   mounted() {
     setTimeout(() => {
       this.currentAction = "Buying airtime";
     }, 2000);
-    if (this.$route.params.ref_id) {
+    let hasFundedWallet = localStorage.getItem("fundedWallet");
+    if (this.$route.params.ref_id || hasFundedWallet == "true") {
+      console.log("was funding wallet");
       this.processing_payment = true;
       this.loading = true;
-      let ref_id = this.$route.params.ref_id;
+      let ref_id = this.$route.params.ref_id
+        ? this.$route.params.ref_id
+        : this.user.id;
       //alert(ref_id);
       this.axios
         .get(process.env.VUE_APP_APIURL + "/vtu/verify_payment/" + ref_id, {
           headers: { Authorization: `Bearer ${this.accessToken}` },
         })
         .then((response) => {
-          console.log(response.data);
+          //console.log(response.data);
           if (response.data.status == 1) {
             this.paymentData = response.data;
             //store.dispatch("setProps", { name: "category", value: null });
             store.dispatch("setProps", {
-              name: "userWalletBalance",
+              name: "balance",
               value: response.data.balance,
+              type: "user",
             });
           } else this.processing_payment = false;
+          if (response.data.status == 1 || response.data.status == 2) {
+            localStorage.setItem("fundedWallet", false);
+          }
         })
         .catch(() => {
           alert("An error occurred while verifying payment from server");
@@ -429,7 +451,19 @@ export default {
           this.loading = false;
         });
       //alert("Found this ref_id: " + this.$route.params.ref_id);
+    } else {
+      // check and update user balance at each page reload
+      this.axios
+        .get(process.env.VUE_APP_APIURL + "/vtu/balance/" + this.user.id)
+        .then((response) => {
+          store.dispatch("setProps", {
+            name: "balance",
+            value: response.data.balance,
+            type: "user",
+          });
+        });
     }
+    //fetch list of data plans from server
     this.loading = true;
     this.axios
       .get(process.env.VUE_APP_APIURL + "/vtu/get_data_plans/" + this.user.id, {
@@ -438,7 +472,7 @@ export default {
       .then((response) => {
         this.dataPlans = response.data.data_plans;
         this.transactionHistory = response.data.transaction_history;
-        console.log(this.transactionHistory);
+        //console.log(this.transactionHistory);
       })
       .catch(() => {
         alert("Something wrong from the server.");
@@ -453,6 +487,30 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+select,
+input:not([type]),
+input[type="text"]:not(.browser-default),
+input[type="number"]:not(.browser-default) {
+  display: block;
+  padding: 0px 0.5rem;
+}
+label {
+  color: #302f2f;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+@media (min-width: 640px) {
+}
+@media (min-width: 768px) {
+  select,
+  input:not([type]),
+  input[type="text"]:not(.browser-default),
+  input[type="number"]:not(.browser-default) {
+    display: block;
+    padding: 0rem 1rem;
+    width: 90%;
+  }
+}
 .nav li {
   box-shadow: 2px -2px black;
 }

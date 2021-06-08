@@ -1,18 +1,20 @@
 <template>
-  <div class="text-center mb-10">
-    <h1 class="font-bold text-3xl text-gray-900">SIGN UP</h1>
+  <div class="tw-text-center tw-mb-10">
+    <h1 class="tw-font-bold tw-text-3xl tw-text-gray-900">SIGN UP</h1>
     <p>Enter your information to register</p>
   </div>
   <Form @submit="register" :validation-schema="schema" v-slot="{ meta }">
     <div>
-      <div class="flex flex-wrap justify-center">
+      <div class="tw-flex tw-flex-wrap tw-justify-center">
         <figure
-          class="w-28 -mt-4 mb-4 cursor-pointer border-8 hover:border-blue-500 text-center"
+          class="tw-w-28 -mt-4 tw-mb-4 tw-cursor-pointer tw-border-8 hover:tw-border-blue-500 tw-text-center"
           @click="$refs.fileInput.click()"
         >
           <img class="" :src="dpURL" alt="" />
           <figcaption>
-            <button class="text-xs rounded-md bg-blue-700 text-white p-1">
+            <button
+              class="tw-text-xs tw-rounded-md tw-bg-blue-700 tw-text-white p-1"
+            >
               {{ addedImage ? "Change Image" : "Add Image" }}
             </button>
           </figcaption>
@@ -27,128 +29,168 @@
           @change="selectImage($event)"
         />
       </div>
-      <div class="flex -mx-3">
-        <div class="w-1/2 px-3 mb-5">
-          <label for="" class="text-xs font-semibold px-1">First name</label>
-          <div class="flex flex-wrap">
+      <div class="tw-flex -tw-mx-3">
+        <div class="tw-w-1/2 tw-px-3 tw-mb-5">
+          <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
+            >First name</label
+          >
+          <div class="tw-flex tw-flex-wrap">
             <div
-              class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"
+              class="tw-relative tw-w-full tw-flex tw-items-center tw-justify-center"
             >
-              <i class="mdi mdi-account-outline text-gray-400 text-lg"></i>
+              <i
+                class="mdi mdi-account-outline tw-absolute block tw-left-0 -tw-ml-10 tw-w-10 tw-pl-1 tw-text-center pointer-events-none"
+              ></i>
+
+              <Field
+                type="text"
+                name="first_name"
+                class="tw-w-full -tw-ml-10 tw-pl-10 tw-pr-3 tw-py-2 tw-rounded-lg tw-border-2 tw-border-gray-200 tw-outline-none focus:tw-border-indigo-500"
+                placeholder="Your first name"
+              />
             </div>
-            <Field
-              type="text"
-              name="first_name"
-              class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-              placeholder="John"
-            />
             <ErrorMessage
               name="first_name"
-              class="block text-red-500 text-sm"
+              class="tw-block tw-text-red-500 tw-text-sm"
             />
           </div>
         </div>
-        <div class="w-1/2 px-3 mb-5">
-          <label for="" class="text-xs font-semibold px-1">Last name</label>
-          <div class="flex flex-wrap">
+        <div class="tw-w-1/2 tw-px-3 tw-mb-5">
+          <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
+            >Last name</label
+          >
+          <div class="tw-flex tw-flex-wrap">
             <div
-              class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"
+              class="tw-relative tw-w-full tw-flex tw-items-center tw-justify-center"
             >
-              <i class="mdi mdi-account-outline text-gray-400 text-lg"></i>
+              <i
+                class="mdi mdi-account-outline tw-absolute block tw-left-0 -tw-ml-10 tw-w-10 tw-pl-1 tw-text-center pointer-events-none"
+              ></i>
+
+              <Field
+                type="text"
+                name="last_name"
+                class="tw-w-full -tw-ml-10 tw-pl-10 tw-pr-3 tw-py-2 tw-rounded-lg tw-border-2 tw-border-gray-200 tw-outline-none focus:tw-border-indigo-500"
+                placeholder="Your last name"
+              />
             </div>
-            <Field
-              type="text"
+            <ErrorMessage
               name="last_name"
-              class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-              placeholder="Smith"
+              class="tw-block tw-text-red-500 tw-text-sm"
             />
-            <ErrorMessage name="last_name" class="block text-red-500 text-sm" />
           </div>
         </div>
       </div>
-      <div class="flex -mx-3">
-        <div class="w-full px-3 mb-5">
-          <label for="" class="text-xs font-semibold px-1">Phone No.</label>
-          <div class="flex flex-wrap">
+      <div class="tw-flex -tw-mx-3">
+        <div class="tw-w-full tw-px-3 tw-mb-5">
+          <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
+            >Phone No.</label
+          >
+          <div class="tw-flex tw-flex-wrap">
             <div
-              class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"
+              class="tw-relative tw-w-full tw-flex tw-items-center tw-justify-center"
             >
-              <i class="mdi mdi-cellphone text-gray-400 text-lg"></i>
+              <i
+                class="mdi mdi-cellphone tw-absolute block tw-left-0 -tw-ml-10 tw-w-10 tw-pl-1 tw-text-center pointer-events-none"
+              ></i>
+
+              <Field
+                type="text"
+                name="tel"
+                class="tw-w-full -tw-ml-10 tw-pl-10 tw-pr-3 tw-py-2 tw-rounded-lg tw-border-2 tw-border-gray-200 tw-outline-none focus:tw-border-indigo-500"
+                placeholder="Enter phone no"
+                @change="checkAvailability('tel')"
+                v-model="tel"
+              />
             </div>
-            <Field
-              type="text"
+            <ErrorMessage
               name="tel"
-              class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-              placeholder="08030000000"
-              @change="checkAvailability('tel')"
-              v-model="tel"
+              class="tw-block tw-text-red-500 tw-text-sm"
             />
-            <ErrorMessage name="tel" class="block text-red-500 text-sm" />
           </div>
         </div>
       </div>
-      <div class="flex -mx-3">
-        <div class="w-full px-3 mb-5">
-          <label for="" class="text-xs font-semibold px-1">Password</label>
-          <div class="flex flex-wrap">
+      <div class="tw-flex -tw-mx-3">
+        <div class="tw-w-full tw-px-3 tw-mb-5">
+          <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
+            >Password</label
+          >
+          <div class="tw-flex tw-flex-wrap">
             <div
-              class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"
+              class="tw-relative tw-w-full tw-flex tw-items-center tw-justify-center"
             >
-              <i class="mdi mdi-lock-outline text-gray-400 text-lg"></i>
+              <i
+                class="mdi mdi-lock-outline tw-absolute block tw-left-0 -tw-ml-10 tw-w-10 tw-pl-1 tw-text-center pointer-events-none"
+              ></i>
+
+              <Field
+                type="password"
+                name="password"
+                class="tw-w-full -tw-ml-10 tw-pl-10 tw-pr-3 tw-py-2 tw-rounded-lg tw-border-2 tw-border-gray-200 tw-outline-none focus:tw-border-indigo-500"
+                placeholder="************"
+              />
             </div>
-            <Field
-              type="password"
+            <ErrorMessage
               name="password"
-              class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-              placeholder="************"
+              class="tw-block tw-text-red-500 tw-text-sm"
             />
-            <ErrorMessage name="password" class="block text-red-500 text-sm" />
           </div>
         </div>
       </div>
-      <div class="flex -mx-3">
-        <div class="w-full px-3 mb-5">
-          <label for="" class="text-xs font-semibold px-1"
+      <div class="tw-flex -tw-mx-3">
+        <div class="tw-w-full tw-px-3 tw-mb-5">
+          <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
             >Confirm Password</label
           >
-          <div class="flex flex-wrap">
+          <div class="tw-flex tw-flex-wrap">
             <div
-              class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"
+              class="tw-relative tw-w-full tw-flex tw-items-center tw-justify-center"
             >
-              <i class="mdi mdi-lock-outline text-gray-400 text-lg"></i>
+              <i
+                class="mdi mdi-lock-outline tw-absolute block tw-left-0 -tw-ml-10 tw-w-10 tw-pl-1 tw-text-center pointer-events-none"
+              ></i>
+
+              <Field
+                type="password"
+                name="password_confirmation"
+                class="tw-w-full -tw-ml-10 tw-pl-10 tw-pr-3 tw-py-2 tw-rounded-lg tw-border-2 tw-border-gray-200 tw-outline-none focus:tw-border-indigo-500"
+                placeholder="************"
+              />
             </div>
-            <Field
-              type="password"
-              name="password_confirmation"
-              class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-              placeholder="************"
-            />
             <ErrorMessage
               name="password_confirmation"
-              class="block text-red-500 text-sm"
+              class="tw-block tw-text-red-500 tw-text-sm"
             />
           </div>
         </div>
       </div>
-      <div class="flex -mx-3">
-        <div class="w-1/2 px-3 mb-3">
-          <label for="" class="text-xs font-semibold px-1">State</label>
-          <div class="flex flex-wrap">
+      <div class="tw-flex -tw-mx-3">
+        <div class="tw-w-1/2 tw-px-3 tw-mb-3">
+          <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
+            >State</label
+          >
+          <div class="tw-flex tw-flex-wrap">
             <div
-              class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"
+              class="tw-relative tw-w-full tw-flex tw-items-center tw-justify-center"
             >
-              <i class="mdi mdi-google-maps text-gray-400 text-lg"></i>
+              <i
+                class="mdi mdi-google-maps tw-absolute block tw-left-0 -tw-ml-10 tw-w-10 tw-pl-1 tw-text-center pointer-events-none"
+              ></i>
+
+              <Field
+                type="text"
+                name="state"
+                class="tw-w-full -tw-ml-10 tw-pl-10 tw-pr-3 tw-py-2 tw-rounded-lg tw-border-2 tw-border-gray-200 tw-outline-none focus:tw-border-indigo-500"
+                placeholder="Your state"
+                list="state"
+                @change="setLocation()"
+                v-model="state"
+              />
             </div>
-            <Field
-              type="text"
+            <ErrorMessage
               name="state"
-              class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-              placeholder="Your state"
-              list="state"
-              @change="setLocation()"
-              v-model="state"
+              class="tw-block tw-text-red-500 tw-text-sm"
             />
-            <ErrorMessage name="state" class="block text-red-500 text-sm" />
             <datalist id="state">
               <option
                 v-for="state in statesData"
@@ -159,25 +201,33 @@
             </datalist>
           </div>
         </div>
-        <div class="w-1/2 px-3 mb-5">
-          <label for="" class="text-xs font-semibold px-1">LGA/Place</label>
-          <div class="flex flex-wrap">
+        <div class="tw-w-1/2 tw-px-3 tw-mb-5">
+          <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
+            >LGA/Place</label
+          >
+          <div class="tw-flex tw-flex-wrap">
             <div
-              class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"
+              class="tw-relative tw-w-full tw-flex tw-items-center tw-justify-center"
             >
-              <i class="mdi mdi-location-enter text-gray-400 text-lg"></i>
+              <i
+                class="mdi mdi-location-enter tw-absolute block tw-left-0 -tw-ml-10 tw-w-10 tw-pl-1 tw-text-center pointer-events-none"
+              ></i>
+
+              <Field
+                type="text"
+                name="lga"
+                class="tw-w-full -tw-ml-10 tw-pl-10 tw-pr-3 tw-py-2 tw-rounded-lg tw-border-2 tw-border-gray-200 tw-outline-none focus:tw-border-indigo-500"
+                placeholder="enter lga"
+                list="lga"
+                v-model="lga"
+                @change="setLocation('lga')"
+                :disabled="state == ''"
+              />
             </div>
-            <Field
-              type="text"
+            <ErrorMessage
               name="lga"
-              class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-              placeholder="enter lga"
-              list="lga"
-              v-model="lga"
-              @change="setLocation('lga')"
-              :disabled="state == ''"
+              class="tw-block tw-text-red-500 tw-text-sm"
             />
-            <ErrorMessage name="lga" class="block text-red-500 text-sm" />
             <datalist id="lga">
               <option
                 v-for="lga in lgaData"
@@ -189,36 +239,48 @@
           </div>
         </div>
       </div>
-      <div class="flex -mx-3">
-        <div class="w-full px-3 mb-12">
-          <label for="" class="text-xs font-semibold px-1">Gender</label>
-          <div class="flex">
-            <div
-              class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"
-            >
-              <i class="mdi mdi-face-outline text-gray-400 text-lg"></i>
-            </div>
-            <select
-              name="gender"
-              class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-              v-model="gender"
-            >
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
+      <div class="tw-flex -tw-mx-3">
+        <div class="tw-w-full tw-px-3 tw-mb-12">
+          <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
+            >Gender</label
+          >
+          <div class="tw-flex">
+            <p>
+              <label>
+                <input
+                  name="gender"
+                  type="radio"
+                  value="male"
+                  v-model="gender"
+                  checked
+                />
+                <span>Male</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input
+                  name="gender"
+                  value="female"
+                  type="radio"
+                  v-model="gender"
+                />
+                <span>Female</span>
+              </label>
+            </p>
           </div>
         </div>
       </div>
       <error-alert v-if="error" :messages="errorMessages"></error-alert>
-      <div class="flex -mx-3">
-        <div class="w-full px-3 mb-5">
+      <div class="tw-flex -tw-mx-3">
+        <div class="tw-w-full tw-px-3 tw-mb-5">
           <button
             :disabled="loading"
             :class="buttonStyleClass(meta.valid)"
-            class="block w-full max-w-xs mx-auto text-white rounded-lg px-3 py-3 font-semibold"
+            class="block tw-w-full max-w-xs tw-mx-auto tw-text-white tw-rounded-lg tw-px-3 tw-py-3 tw-font-semibold"
           >
             <span v-if="loading"
-              >Signing up <span class="mdi mdi-star mdi-spin text-xl"></span>
+              >Signing up <span class="mdi mdi-star mdi-spin tw-text-xl"></span>
             </span>
             <span v-else class="animate-spin"
               >SIGN UP
@@ -317,11 +379,11 @@ export default {
       //alert("valid: "+ valid);
       if (this.loading || !valid) {
         return {
-          "bg-indigo-300  cursor-not-allowed": true,
+          "tw-bg-indigo-300  tw-cursor-not-allowed": true,
         };
       }
       return {
-        "bg-indigo-500 focus:bg-indigo-700 hover:bg-indigo-700": true,
+        "tw-bg-indigo-500 focus:bg-indigo-700 hover:bg-indigo-700": true,
       };
     },
     checkAvailability(fieldName) {
@@ -415,9 +477,9 @@ export default {
       this.axios
         .post(process.env.VUE_APP_APIURL + "/register", formData)
         .then((response) => {
-          //console.log('User register response received from server!');
+          console.log("User register response received from server!");
           this.loading = false;
-          //console.log(response.data);
+          console.log(response.data);
           if (response.data.status.status == 1) {
             //console.log("Registration successful");
             //console.log(`Login credentials are: ${values.email} and ${values.password}`);
@@ -425,7 +487,7 @@ export default {
             this.axios
               .post(process.env.VUE_APP_APIURL + "/login", values)
               .then((response) => {
-                //console.log(response.data);
+                console.log(response.data);
                 store.dispatch("login", response.data);
                 this.$router.push("/verify/tel");
               });
@@ -455,3 +517,14 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+input:not([type]),
+input[type="text"]:not(.browser-default),
+input[type="password"]:not(.browser-default) {
+  background-color: #fff;
+  border: 2px solid rgba(229, 231, 235, var(--tw-border-opacity));
+  border-radius: 0.5rem;
+  padding-left: 2.5rem;
+  width: 100%;
+}
+</style>

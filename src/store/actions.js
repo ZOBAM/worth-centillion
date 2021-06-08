@@ -49,6 +49,9 @@ const actions = {
           //alert(localStorage.getItem('lastTotalAdsCount'));
         }
         //alert(totalAdsCount);
+        if (response.data.clear_category_cache == 1) {
+          localStorage.removeItem("categories");
+        }
         setState("states");
         setState("categories");
       });

@@ -1,63 +1,102 @@
 <template>
-    <footer style="background-color: #14275F">
-      <div class="container mx-auto px-8">
-        <div class="w-full flex flex-col md:flex-row py-6">
-          <div class="flex-1 mb-6 text-black">
-            <a class="text-gray-600 no-underline hover:no-underline font-bold text-2xl lg:text-2xl" href="#">
-              <!--Icon from: http://www.potlabicons.com/ -->
-              <img class="plane-take-off w-12" src="../assets/logo.png" alt="">
-              <!-- Worth Centillion -->
-            </a>
-          </div>
-          <div class="flex-1">
-            <p class="uppercase text-gray-500 md:mb-6">Links</p>
-            <ul class="list-reset mb-6">
-              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                <a href="#" class="no-underline hover:underline text-gray-400 hover:text-pink-500">FAQ</a>
-              </li>
-              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                <a href="#" class="no-underline hover:underline text-gray-400 hover:text-pink-500">Help</a>
-              </li>
-            </ul>
-          </div>
-          <div class="flex-1">
-            <p class="uppercase text-gray-500 md:mb-6">Legal</p>
-            <ul class="list-reset mb-6">
-              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                <a href="#" class="no-underline hover:underline text-gray-400 hover:text-pink-500">Terms</a>
-              </li>
-              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                <a href="#" class="no-underline hover:underline text-gray-400 hover:text-pink-500">Privacy</a>
-              </li>
-            </ul>
-          </div>
-          <div class="flex-1">
-            <p class="uppercase text-gray-500 md:mb-6">Social</p>
-            <ul class="list-reset mb-6">
-              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                <a href="#" class="no-underline hover:underline text-gray-400 hover:text-pink-500">Facebook</a>
-              </li>
-              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                <a href="#" class="no-underline hover:underline text-gray-400 hover:text-pink-500">Twitter</a>
-              </li>
-            </ul>
-          </div>
-          <div class="flex-1">
-            <p class="uppercase text-gray-500 md:mb-6">Company</p>
-            <ul class="list-reset mb-6">
-              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                <router-link to="/about" class="no-underline hover:underline text-gray-400 hover:text-pink-500">About Us</router-link>
-              </li>
-              <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-                <a href="#" class="no-underline hover:underline text-gray-400 hover:text-pink-500">Contact</a>
-              </li>
-            </ul>
-          </div>
+  <footer style="background-color: #14275F">
+    <div class="tw-container tw-mx-auto tw-px-8">
+      <div class="tw-w-full tw-flex tw-flex-col md:tw-flex-row tw-py-6">
+        <div class="tw-flex-1 tw-mb-6 tw-text-black">
+          <a
+            class="tw-text-gray-600 tw-no-underline hover:tw-no-underline tw-font-bold tw-text-2xl lg:tw-text-2xl"
+            href="#"
+          >
+            <!--Icon from: http://www.potlabicons.com/ -->
+            <img
+              class="plane-take-off tw-w-12"
+              src="../assets/logo.png"
+              alt=""
+            />
+            <!-- Worth Centillion -->
+          </a>
+        </div>
+        <div class="tw-flex-1">
+          <p class="tw-uppercase tw-text-gray-500 md:tw-mb-6">Links</p>
+          <ul class="tw-list-reset tw-mb-6">
+            <li class="tw-mt-2 tw-inline-block tw-mr-2 md:tw-block md:tw-mr-0">
+              <a
+                href="#"
+                class="tw-no-underline hover:tw-underline tw-text-gray-400 hover:tw-text-pink-500"
+                >FAQ</a
+              >
+            </li>
+            <li class="tw-mt-2 tw-inline-block tw-mr-2 md:tw-block md:tw-mr-0">
+              <router-link
+                to="/"
+                class="tw-no-underline hover:tw-underline tw-text-gray-400 hover:tw-text-pink-500"
+                >Home</router-link
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="tw-flex-1">
+          <p class="tw-uppercase tw-text-gray-500 md:tw-mb-6">Legal</p>
+          <ul class="tw-list-reset tw-mb-6">
+            <li class="tw-mt-2 tw-inline-block tw-mr-2 md:tw-block md:tw-mr-0">
+              <router-link
+                to="/terms"
+                class="tw-no-underline hover:tw-underline tw-text-gray-400 hover:tw-text-pink-500"
+                >Terms</router-link
+              >
+            </li>
+            <li class="tw-mt-2 tw-inline-block tw-mr-2 md:tw-block md:tw-mr-0">
+              <router-link
+                to="/privacy_policy"
+                class="tw-no-underline hover:tw-underline tw-text-gray-400 hover:tw-text-pink-500"
+                >Privacy</router-link
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="tw-flex-1">
+          <p class="tw-uppercase tw-text-gray-500 md:tw-mb-6">Social</p>
+          <ul class="list-reset mb-6">
+            <li class="tw-mt-2 tw-inline-block tw-mr-2 md:tw-block md:tw-mr-0">
+              <a
+                href="#"
+                class="tw-no-underline hover:tw-underline tw-text-gray-400 hover:tw-text-pink-500"
+                >Facebook</a
+              >
+            </li>
+            <li class="tw-mt-2 tw-inline-block tw-mr-2 md:tw-block md:tw-mr-0">
+              <a
+                href="#"
+                class="tw-no-underline hover:tw-underline tw-text-gray-400 hover:tw-text-pink-500"
+                >Twitter</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="tw-flex-1">
+          <p class="tw-uppercase tw-text-gray-500 md:tw-mb-6">Company</p>
+          <ul class="list-reset mb-6">
+            <li class="tw-mt-2 tw-inline-block tw-mr-2 md:tw-block md:tw-mr-0">
+              <router-link
+                to="/about"
+                class="tw-no-underline hover:tw-underline tw-text-gray-400 hover:tw-text-pink-500"
+                >About Us</router-link
+              >
+            </li>
+            <li class="tw-mt-2 tw-inline-block tw-mr-2 md:tw-block md:tw-mr-0">
+              <router-link
+                to="/contact"
+                class="tw-no-underline hover:tw-underline tw-text-gray-400 hover:tw-text-pink-500"
+                >Contact</router-link
+              >
+            </li>
+          </ul>
         </div>
       </div>
-      <!-- <a href="https://www.freepik.com/free-photos-vectors/background" class="text-gray-500">Background vector created by freepik - www.freepik.com</a> -->
-    </footer>
-    <!-- <footer>
+    </div>
+    <!-- <a href="https://www.freepik.com/free-photos-vectors/background" class="text-gray-500">Background vector created by freepik - www.freepik.com</a> -->
+  </footer>
+  <!-- <footer>
         <ul>
             <li><a href="">About Us</a> </li>
             <li><a href="">Contanct Us</a></li>
@@ -65,16 +104,19 @@
             <li><a href="">Home</a></li>
         </ul>
     </footer> -->
-    <div>
-        <p class="text-center font-extralight pb-12 sm:pb-1" style="background-color: #14275F; font-size: .8em">
-          All Rights Reserved (c) Hamsuper 2021
-        </p>
-    </div>
+  <div>
+    <p
+      class="tw-text-center tw-font-extralight tw-pb-12 sm:tw-pb-1"
+      style="background-color: #14275F; font-size: .8em"
+    >
+      All Rights Reserved (c) Hamsuper 2021
+    </p>
+  </div>
 </template>
 <script>
 export default {
-    name: 'pageFooter',
-}
+  name: "pageFooter",
+};
 </script>
 <style lang="scss" scoped>
 /* footer {

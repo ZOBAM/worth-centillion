@@ -1,101 +1,119 @@
 <template>
   <div class="about">
-    <div class="p-0 gradient">
+    <div class="tw-p-0 gradient">
       <!-- <loading v-if="adsIsLoading"></loading> -->
-      <div class="p-4 bg-white">
+      <div class="tw-p-4 tw-bg-white">
         <div class="">
           <img
             :src="user.dp"
             alt=""
-            class="bg-gray-300 block m-auto rounded-full -mt-12 z-30 border-8 border-gray-50 w-32"
+            class="tw-bg-gray-300 tw-block tw-m-auto tw-rounded-full tw--mt-2 tw-z-30 tw-border-8 tw-border-gray-500 tw-w-32 tw-relative"
           />
-          <div class="text-center text-gray-800 mt-4">
-            <span class="font-bold">{{
+          <!-- <span
+            class="tw-text-3xl mdi mdi-camera tw-text-red-700 tw-absolute tw-right-1/3 tw--mt-4"
+          ></span> -->
+          <div class="tw-text-center tw-text-gray-800 tw-mt-4">
+            <span class="tw-font-bold">{{
               `${user.first_name} ${user.last_name}`
             }}</span
             ><br />
             <span>{{ `(${user.email ? user.email : "."})` }}</span>
-            <span class="block font-serif font-bold">{{ `${user.tel}` }}</span>
+            <span class="tw-block tw-font-serif tw-font-bold">{{
+              `${user.tel}`
+            }}</span>
           </div>
         </div>
-        <div id="action-tabs" class="bg-blue-600 flex justify-around pt-2 mt-8">
+        <div
+          id="action-tabs"
+          class="tw-bg-blue-600 tw-flex tw-justify-around tw-pt-2 tw-mt-8"
+        >
           <div
             v-for="tab in actions"
             :key="tab.name"
-            class="p-2 cursor-pointer"
+            class="tw-p-2 tw-cursor-pointer"
             @click="setAction(tab.name)"
             :class="isAction(tab.name)"
           >
             <span :class="tab.icon"></span> <sup>{{ getCount(tab.name) }}</sup>
             <br />
-            <span class="capitalize">{{ tab.name }}</span>
+            <span class="tw-capitalize">{{ tab.name }}</span>
           </div>
-          <!-- <div class="p-2" @click="setAction('viewAds')" :class="getClass('viewAds')">
-            <span class="mdi mdi-shopping-outline text-sm"></span> <br>
+          <!-- <div class="tw-p-2" @click="setAction('viewAds')" :class="getClass('viewAds')">
+            <span class="mdi mdi-shopping-outline tw-text-sm"></span> <br>
             Ads <sup>{{user.ads.length}}</sup>
           </div>
-          <div class="p-2 bg-blue-500" @click="setAction('favorites')" :class="styleClass">
-            <span class="mdi mdi-heart-multiple text-sm"></span> <br>
+          <div class="tw-p-2 tw-bg-blue-500" @click="setAction('favorites')" :class="styleClass">
+            <span class="mdi mdi-heart-multiple tw-text-sm"></span> <br>
             Favorites <sup>{{user.favorites.length}}</sup>
           </div>
-          <div class="p-2 bg-white text-black rounded-t-md" @click="setAction('messages')">
-            <span class="mdi mdi-message-bulleted text-sm"></span> <br>
+          <div class="tw-p-2 tw-bg-white tw-text-black tw-rounded-t-md" @click="setAction('messages')">
+            <span class="mdi mdi-message-bulleted tw-text-sm"></span> <br>
             Messages <sup>{{user.messages.length}}</sup>
           </div>
-          <div class="p-2 bg-blue-500" @click="setAction('profile')">
-            <span class="mdi mdi-account-settings text-sm"></span> <br>
+          <div class="tw-p-2 tw-bg-blue-500" @click="setAction('profile')">
+            <span class="mdi mdi-account-settings tw-text-sm"></span> <br>
             Profile
           </div> -->
         </div>
       </div>
-      <div id="action-area" class=" bg-white text-red-900 p-4">
+      <div id="action-area" class=" tw-bg-white tw-text-red-900 tw-p-4">
         <div v-if="currentAction == 'ads'">
           <ul v-if="user.ads.length > 0">
             <li
               v-for="result in user.ads"
               :key="result.id"
-              class="flex shadow-md p-2 bg-white hover:bg-indigo-50 mt-1 border"
+              class="tw-flex tw-shadow-md tw-p-2 tw-bg-white hover:tw-bg-indigo-50 tw-mt-1 border"
             >
-              <div class="w-1/4 flex justify-center items-center">
-                <img :src="result.ad_image" alt="" class="w-20 md:w-2/4" />
+              <div class="tw-w-1/4 tw-flex tw-justify-center tw-items-center">
+                <img
+                  :src="result.ad_image"
+                  alt=""
+                  class="tw-w-20 md:tw-w-2/4"
+                />
               </div>
-              <div class="relative w-3/4">
-                <h2 class=" text-black font-bold p-2">
+              <div class="tw-relative tw-w-3/4">
+                <h4 class="tw-text-black tw-font-bold tw-p-2">
                   <router-link :to="'/ads/' + result.id">{{
                     result.title
                   }}</router-link>
-                </h2>
-                <p class="p-2 line-clamp-2 md:line-clamp-none text-gray-700">
+                </h4>
+                <p
+                  class="tw-p-2 tw-line-clamp-2 md:tw-line-clamp-none tw-text-gray-700"
+                >
                   {{ result.description }}
                 </p>
-                <div class="bg-gray-50 px-2 py-1 flex justify-between w-full  ">
+                <div
+                  class="tw-bg-gray-50 tw-px-2 tw-py-1 tw-flex tw-justify-between tw-w-full  "
+                >
                   <button
-                    class="w-1/3 border-b-2 border-blue-700 text-blue-700 hover:bg-blue-700 hover:text-white"
+                    class="tw-w-1/3 tw-border-b-2 tw-border-blue-700 tw-text-blue-700 hover:tw-bg-blue-700 hover:tw-text-white"
                   >
                     Edit
                   </button>
                   <button
-                    class="w-1/3 border-b-2 border-red-700 text-red-700 p-1 hover:bg-red-700 hover:text-white"
+                    class="tw-w-1/3 tw-border-b-2 tw-border-red-700 tw-text-red-700 tw-p-1 hover:tw-bg-red-700 hover:tw-text-white"
                   >
                     Delete
                   </button>
-                  <div class="w-1/3 text-center">{{ result.hits }} Views</div>
+                  <div class="tw-w-1/3 tw-text-center">
+                    {{ result.hits }} Views
+                  </div>
                 </div>
               </div>
             </li>
           </ul>
         </div>
-        <div class="p-2" v-if="currentAction == 'profile'">
+        <div class="tw-p-2" v-if="currentAction == 'profile'">
           <div>
             <h2>Profile loading . . .</h2>
           </div>
         </div>
-        <div class="p-2" v-if="currentAction == 'favorites'">
+        <div class="tw-p-2" v-if="currentAction == 'favorites'">
           <div>
             <h2>Favorites loading . . .</h2>
           </div>
         </div>
-        <div class="p-2" v-if="currentAction == 'messages'">
+        <div class="tw-p-2" v-if="currentAction == 'messages'">
           <div>
             <h2>Messages loading . . .</h2>
           </div>
@@ -119,33 +137,33 @@ export default {
       actions: [
         {
           name: "ads",
-          icon: "mdi mdi-shopping-outline text-sm",
+          icon: "mdi mdi-shopping-outline tw-text-sm",
           count: 0,
         },
         {
           name: "favorites",
-          icon: "mdi mdi-heart-multiple text-sm",
+          icon: "mdi mdi-heart-multiple tw-text-sm",
           count: 0,
         },
         {
           name: "messages",
-          icon: "mdi mdi-message-bulleted text-sm",
+          icon: "mdi mdi-message-bulleted tw-text-sm",
           count: 0,
         },
         {
           name: "profile",
-          icon: "mdi mdi-account-settings text-sm",
+          icon: "mdi mdi-account-settings tw-text-sm",
           count: 0,
         },
       ],
       activeStyle: {
-        "bg-white": true,
-        "text-black": true,
-        "rounded-t-md": true,
+        "tw-bg-white": true,
+        "tw-text-black": true,
+        "tw-rounded-t-md": true,
       },
       inactiveStyle: {
-        "bg-blue-500": true,
-        "text-white": true,
+        "tw-bg-blue-500": true,
+        "tw-text-white": true,
       },
     };
   },

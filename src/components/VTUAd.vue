@@ -1,19 +1,21 @@
 <template>
   <div
-    class="cursor-pointer flex h-28 w-full md:w-1/3 bg-gradient-to-r from-black to-blue-900 p-2 hover:from-indigo-900"
+    class="tw-cursor-pointer tw-flex tw-h-28 tw-w-full md:tw-w-1/3 tw-bg-gradient-to-r tw-from-black tw-to-blue-900 tw-p-2 hover:tw-from-indigo-900 tw--mt-8"
     @click="go()"
   >
-    <div class="text-white w-2/3">
-      <span class="bg-red-500 py-1 px-2 rounded-xl">Get</span> <br />
+    <div class="tw-text-white tw-w-2/3">
+      <span class="tw-bg-red-500 tw-py-1 tw-px-2 tw-rounded-xl">Get</span>
+      <br />
       <span
-        class="rate-desc border border-gray-200 mt-2 -mx-8 py-1 px-2 w-28 text-center inline-block rounded-md"
+        class="rate-desc tw-border tw-border-gray-200 tw-mt-2 -tw-mx-8 tw-py-1 tw-px-2 tw-w-28 tw-text-center tw-inline-block tw-rounded-md"
       >
-        <span class="text-yellow-300 font-medium">Cheap Data </span> <br />
-        <span class="text-blue-200 font-medium">& airtime</span>
+        <span class="tw-text-yellow-300 tw-font-medium">Cheap Data </span>
+        <br />
+        <span class="tw-text-blue-200 tw-font-medium">& airtime</span>
       </span>
     </div>
     <div
-      class="vtu-title w-1/3 text-gray-300 text-right opacity-0 bg-[#ffff33]"
+      class="vtu-title tw-w-1/3 tw-text-gray-300 tw-text-right opacity-0 tw-bg-[#ffff33]"
     >
       Hamsuper VTU
     </div>
@@ -105,7 +107,7 @@ export default {
   }
   100% {
     opacity: 1;
-    font-weight: bolder;
+    tw-font-weight: bolder;
   }
 }
 </style>

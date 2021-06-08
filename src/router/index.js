@@ -122,6 +122,24 @@ const routes = [
     component: SVG,
   },
   {
+    path: "/privacy_policy",
+    name: "PrivacyPolicy",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/privacy_policy.vue"),
+  },
+  {
+    path: "/terms",
+    name: "Terms",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Terms.vue"),
+  },
+  {
+    path: "/contact",
+    name: "Contact",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Contact.vue"),
+  },
+  {
     path: "/about",
     name: "About",
     // route level code-splitting

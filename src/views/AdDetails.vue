@@ -1,88 +1,103 @@
 <template>
   <div class="about">
-    <div v-if="ad" class="sm:flex">
-      <div class="py-4 bg-white sm:w-2/3 flex-col justify-center text-gray-700">
-        <div class="mt-8">
-          <h1 class="text-center text-2xl">{{ ad.title }}</h1>
+    <div v-if="ad" class="sm:tw-flex">
+      <div
+        class="tw-py-4 tw-bg-white sm:tw-w-2/3 tw-flex-col tw-justify-center tw-text-gray-700"
+      >
+        <div class="tw-mt-8">
+          <h1 class="tw-text-center tw-text-2xl">{{ ad.title }}</h1>
           <img
             :src="ad.ad_images ? ad.ad_images[0].link : ad.no_images"
-            class="block m-auto my-8"
+            class="tw-block tw-m-auto tw-my-8"
             style="max-height: 70vh"
           />
-          <div id="action-links" class="flex justify-around shadow-md mx-4">
-            <span class="inline-block bg-gray-200" aria-disabled="true"
+          <div
+            id="action-links"
+            class="tw-flex tw-justify-around tw-shadow-md tw-mx-4"
+          >
+            <span class="tw-inline-block tw-bg-gray-200" aria-disabled="true"
               >{{ ad.hits }} <span class="mdi mdi-eye"></span>
             </span>
-            <a href="" class="inline-block bg-blue-500">
-              Share <span class="mdi mdi-share-variant"></span>
-            </a>
-            <a href="" class="inline-block bg-blue-500">
+            <a href="" class="tw-inline-block tw-bg-blue-500">
               <span class="mdi mdi-heart-outline"></span>
             </a>
           </div>
         </div>
-        <div class="bg-gray-200 p-4">
-          <h1 class="text-center relative">
-            <span class="font-extrabold"
-              >₦{{ ad.price }} <span v-if="ad.negotiable">(Negotiable)</span>
+        <div class="tw-bg-gray-200 tw-p-4">
+          <h5 class="tw-text-center tw-relative">
+            <span class="tw-font-extrabold tw-text-center"
+              >₦{{ ad.price }}<br />
+              <span v-if="ad.negotiable" class="tw-text-sm"> (Negotiable)</span>
             </span>
-            <span class="absolute right-0 font-thin" style="font-size: .8em">{{
-              ad.created
-            }}</span>
-          </h1>
-          <ul class="bg-gray-50 p-4">
-            <!-- <li v-for="(value, name, index) in ad" v-bind:key = "index">
+            <span
+              class="tw-absolute tw-right-0 tw-font-thin"
+              style="font-size: .6em"
+              >{{ ad.created }}</span
+            >
+          </h5>
+          <div class="tw-bg-gray-50 tw-p-4">
+            <ul>
+              <!-- <li v-for="(value, name, index) in ad" v-bind:key = "index">
               {{name}} : {{value}}
             </li> -->
-            <li>
-              <strong>Location:</strong> {{ ad.place.split(":")[0] }},
-              {{ ad.state.split(":")[0] }}
-            </li>
-            <li v-for="(fieldName, index) of adDetails" :key="index">
-              <strong class="capitalize">{{ index.replace("_", " ") }}</strong>
-              {{ fieldName }}
-            </li>
-            <li class="overflow-hidden">
-              <strong>Description:</strong> {{ ad.description }}
-            </li>
-            <li></li>
-          </ul>
+              <li>
+                <strong class="tw-font-bold ">Location:</strong>
+                {{ ad.place.split(":")[0] }},
+                {{ ad.state.split(":")[0] }}
+              </li>
+              <li v-for="(fieldName, index) of adDetails" :key="index">
+                <strong class="tw-capitalize tw-font-bold">{{
+                  index.replace("_", " ")
+                }}</strong>
+                {{ fieldName }}
+              </li>
+              <li class="tw-overflow-hidden">
+                <strong class="tw-font-bold">Description:</strong>
+                {{ ad.description }}
+              </li>
+              <li></li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div class="p-4 bg-blue-50 sm:w-1/3">
-        <div class="p-4 text-gray-800 bg-white">
+      <div class="tw-p-4 tw-bg-blue-50 sm:tw-w-1/3">
+        <div class="tw-p-4 tw-text-gray-800 tw-bg-white">
           <div
-            class="text-center bg-blue-500 text-white p-2 font-bold rounded-xl border-4 border-blue-100"
+            class="tw-text-center tw-bg-blue-500 tw-text-white tw-p-2 tw-font-bold tw-rounded-xl tw-border-4 tw-border-blue-100"
           >
             {{ ad.seller.first_name + " " + ad.seller.last_name }}
           </div>
           <img
             :src="ad.seller.dp"
             alt="seller profile picture"
-            class="block m-auto rounded-full mt-4"
+            class="tw-block tw-m-auto tw-rounded-full tw-mt-4"
           />
-          <div class="flex mt-12 justify-between text-xs text-center">
-            <div class="px-2 py-1 border-b-4 border-blue-100">
-              <span class="mdi mdi-account-plus text-sm"></span> <br />
-              <span class="font-bold">Joined</span> <br />
+          <div
+            class="tw-flex tw-mt-12 tw-justify-between tw-text-xs tw-text-center"
+          >
+            <div class="tw-px-2 tw-py-1 tw-border-b-4 tw-border-blue-100">
+              <span class="mdi mdi-account-plus tw-text-sm"></span> <br />
+              <span class="tw-font-bold">Joined</span> <br />
               <h-date :date="ad.seller.created_at" :shorten="true" />
             </div>
-            <div class="bg-blue-500 text-white p-2">
-              <span class="mdi mdi-shopping-outline text-sm"></span> <br />
-              <span class="font-bold">Total Ads</span> <br />
+            <div class="tw-bg-blue-500 tw-text-white tw-p-2">
+              <span class="mdi mdi-shopping-outline tw-text-sm"></span> <br />
+              <span class="tw-font-bold">Total Ads</span> <br />
               {{ ad.seller.ads_count }}
             </div>
-            <div class="px-2 py-1 border-b-4 border-blue-100">
-              <span class="mdi mdi-eye-check-outline text-sm"></span> <br />
-              <span class="font-bold">Last Seen</span> <br />
+            <div class="tw-px-2 tw-py-1 tw-border-b-4 tw-border-blue-100">
+              <span class="mdi mdi-eye-check-outline tw-text-sm"></span> <br />
+              <span class="tw-font-bold">Last Seen</span> <br />
               <h-date :date="ad.seller.updated_at" :shorten="true" />
             </div>
           </div>
           <div
-            class="from-blue-600 via-blue-400 bg-gradient-to-r mt-6 rounded-2xl p-2 relative"
+            class="tw-from-blue-600 tw-via-blue-400 tw-bg-gradient-to-r tw-mt-6 tw-rounded-2xl tw-p-2 tw-relative"
           >
-            <span class="text-white">Call Seller:</span>
-            <div class="bg-gray-100 rounded-2xl p-2 absolute right-4 bottom-0">
+            <span class="tw-text-white">Call Seller:</span>
+            <div
+              class="tw-bg-gray-100 tw-rounded-2xl tw-p-2 tw-absolute tw-right-4 tw-bottom-0"
+            >
               {{ ad.seller.tel }}
             </div>
           </div>

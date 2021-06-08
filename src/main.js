@@ -3,8 +3,8 @@ import App from "./App.vue";
 import "./index.css";
 import router from "./router";
 import store from "./store";
-//import "materialize-css";
-//import "materialize-css/dist/css/materialize.css";
+import "materialize-css";
+import "materialize-css/dist/css/materialize.css";
 import axios from "axios";
 import VueAxios from "vue-axios";
 
