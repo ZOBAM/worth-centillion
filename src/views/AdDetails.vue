@@ -4,27 +4,40 @@
       <div
         class="tw-py-4 tw-bg-white sm:tw-w-2/3 tw-flex-col tw-justify-center tw-text-gray-700"
       >
-        <div class="tw-mt-8">
-          <h1 class="tw-text-center tw-text-2xl">{{ ad.title }}</h1>
+        <h1 class="tw-text-center tw-text-2xl">{{ ad.title }}</h1>
+        <swiper
+          navigation
+          :pagination="{ clickable: true }"
+          v-if="ad.ad_images"
+        >
+          <swiper-slide v-for="image of ad.ad_images" :key="image.id">
+            <img
+              :src="ad.ad_images ? image.link : ad.no_images"
+              class="tw-block tw-m-auto tw-my-8 border-2 tw-border-red-600"
+              style="max-height: 70vh; display: block;"
+            />
+          </swiper-slide>
+        </swiper>
+        <template v-else>
           <img
-            :src="ad.ad_images ? ad.ad_images[0].link : ad.no_images"
-            class="tw-block tw-m-auto tw-my-8"
-            style="max-height: 70vh"
+            :src="ad.no_images"
+            class="tw-block tw-m-auto tw-my-8 border-2 tw-border-red-600"
+            style="max-height: 70vh; display: block;"
           />
-          <div
-            id="action-links"
-            class="tw-flex tw-justify-around tw-shadow-md tw-mx-4"
-          >
-            <span class="tw-inline-block tw-bg-gray-200" aria-disabled="true"
-              >{{ ad.hits }} <span class="mdi mdi-eye"></span>
-            </span>
-            <a href="" class="tw-inline-block tw-bg-blue-500">
-              <span class="mdi mdi-heart-outline"></span>
-            </a>
-          </div>
+        </template>
+        <div
+          id="action-links"
+          class="tw-flex tw-justify-around tw-shadow-md tw-mx-4"
+        >
+          <span class="tw-inline-block tw-bg-gray-200" aria-disabled="true"
+            >{{ ad.hits }} <span class="mdi mdi-eye"></span>
+          </span>
+          <a href="" class="tw-inline-block tw-bg-blue-500">
+            <span class="mdi mdi-heart-outline"></span>
+          </a>
         </div>
-        <div class="tw-bg-gray-200 tw-p-4">
-          <h5 class="tw-text-center tw-relative">
+        <div class="tw-bg-gray-200 md:tw-p-4">
+          <h5 class="tw-text-center tw-relative tw-p-2">
             <span class="tw-font-extrabold tw-text-center"
               >₦{{ ad.price }}<br />
               <span v-if="ad.negotiable" class="tw-text-sm"> (Negotiable)</span>
@@ -110,11 +123,24 @@
 <script>
 import Loading from "@/components/Loading.vue";
 import HDate from "@/components/HDate.vue";
+import M from "materialize-css";
+import { Swiper, SwiperSlide } from "swiper/vue";
+// Import Swiper styles
+import "swiper/swiper.scss";
+import "swiper/components/navigation/navigation.scss";
+import "swiper/components/pagination/pagination.scss";
+import "swiper/components/scrollbar/scrollbar.scss";
 
+// import Swiper core and required modules
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+// install Swiper modules
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 export default {
   components: {
     Loading,
     HDate,
+    Swiper,
+    SwiperSlide,
   },
   data() {
     return {
@@ -145,6 +171,13 @@ export default {
         _this.ad = response.data;
         //console.log(_this.ad);
       });
+    /* var elems = document.querySelectorAll(".carousel");
+    M.Carousel.init(elems);
+    console.log(elems); */
+    document.addEventListener("DOMContentLoaded", function() {
+      var elems = document.querySelectorAll(".carousel");
+      M.Carousel.init(elems);
+    });
   },
 };
 </script>
