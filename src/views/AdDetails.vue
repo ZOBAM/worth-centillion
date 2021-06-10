@@ -32,8 +32,14 @@
           <span class="tw-inline-block tw-bg-gray-200" aria-disabled="true"
             >{{ ad.hits }} <span class="mdi mdi-eye"></span>
           </span>
-          <a href="" class="tw-inline-block tw-bg-blue-500">
-            <span class="mdi mdi-heart-outline"></span>
+          <a
+            href=""
+            class="tw-inline-block tw-border-2 tw-border-gray-200 tw-relative"
+            @click.prevent="like()"
+          >
+            <span
+              class="mdi mdi-heart-outline tw-text-blue-500 tw-text-3xl tw-absolute tw-right-4 tw-top-1 hover:tw-text-green-400"
+            ></span>
           </a>
         </div>
         <div class="tw-bg-gray-200 md:tw-p-4">
@@ -123,7 +129,6 @@
 <script>
 import Loading from "@/components/Loading.vue";
 import HDate from "@/components/HDate.vue";
-import M from "materialize-css";
 import { Swiper, SwiperSlide } from "swiper/vue";
 // Import Swiper styles
 import "swiper/swiper.scss";
@@ -162,6 +167,11 @@ export default {
       return adDetails;
     },
   },
+  methods: {
+    like() {
+      alert("This ad is liked!");
+    },
+  },
   mounted() {
     let _this = this;
     let adID = this.$route.params.id;
@@ -171,13 +181,6 @@ export default {
         _this.ad = response.data;
         //console.log(_this.ad);
       });
-    /* var elems = document.querySelectorAll(".carousel");
-    M.Carousel.init(elems);
-    console.log(elems); */
-    document.addEventListener("DOMContentLoaded", function() {
-      var elems = document.querySelectorAll(".carousel");
-      M.Carousel.init(elems);
-    });
   },
 };
 </script>
@@ -189,9 +192,6 @@ export default {
     text-align: center;
     padding: 0.5rem 1rem;
     color: white;
-  }
-  a:hover {
-    background-color: rgb(19, 43, 116);
   }
 }
 #action-links > span {

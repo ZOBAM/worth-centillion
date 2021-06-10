@@ -2,7 +2,7 @@
   <button :class="btnStyle" :disabled="loading">
     <slot></slot>
     <span v-if="loading">
-      . . .<span class="mdi mdi-star mdi-spin text-xl"></span>
+      . . .<span class="mdi mdi-star mdi-spin tw-text-xl"></span>
     </span>
   </button>
 </template>
@@ -13,7 +13,9 @@ export default {
   computed: {
     btnStyle() {
       return this.loading
-        ? { "px-3 py-2 border-2 border-gray-600 bg-gray-200": true }
+        ? {
+            "tw-px-3 tw-py-2 tw-border-2 tw-border-gray-600 tw-bg-gray-200": true,
+          }
         : { "btn-primary": true };
     },
   },
