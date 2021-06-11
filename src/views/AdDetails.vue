@@ -35,11 +35,9 @@
           <a
             href=""
             class="tw-inline-block tw-border-2 tw-border-gray-200 tw-relative"
-            @click.prevent="like()"
+            @click.prevent="like(ad.id)"
           >
-            <span
-              class="mdi mdi-heart-outline tw-text-blue-500 tw-text-3xl tw-absolute tw-right-4 tw-top-1 hover:tw-text-green-400"
-            ></span>
+            <span :class="heartIcon"></span>
           </a>
         </div>
         <div class="tw-bg-gray-200 md:tw-p-4">
@@ -138,6 +136,7 @@ import "swiper/components/scrollbar/scrollbar.scss";
 
 // import Swiper core and required modules
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import { mapState } from "vuex";
 // install Swiper modules
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 export default {
@@ -151,9 +150,13 @@ export default {
     return {
       ad: null,
       hiddenFields: ["id", "ad_id", "created_at", "updated_at"],
+      heartIcon: {
+        "mdi mdi-heart-outline tw-text-blue-500 tw-text-3xl tw-absolute tw-right-4 tw-top-1 hover:tw-text-green-400": true,
+      },
     };
   },
   computed: {
+    ...mapState(["user"]),
     adDetails() {
       let adDetails = {};
       for (let fieldName in this.ad.details) {
@@ -168,19 +171,38 @@ export default {
     },
   },
   methods: {
-    like() {
-      alert("This ad is liked!");
+    setHeartIcon(liked) {
+      if (liked)
+        this.heartIcon = {
+          "mdi mdi-heart tw-text-blue-500 tw-text-3xl tw-absolute tw-right-4 tw-top-1 hover:tw-text-green-400": true,
+        };
+      else
+        this.heartIcon = {
+          "mdi mdi-heart-outline tw-text-blue-500 tw-text-3xl tw-absolute tw-right-4 tw-top-1 hover:tw-text-green-400": true,
+        };
+    },
+    like(ad_id) {
+      this.axios
+        .get(process.env.VUE_APP_APIURL + "/like/" + ad_id)
+        .then((response) => {
+          if (response.data.type == "like") this.setHeartIcon(true);
+          else this.setHeartIcon(false);
+          //console.log(response.data.type);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
   mounted() {
-    let _this = this;
     let adID = this.$route.params.id;
-    this.axios
-      .get(process.env.VUE_APP_APIURL + "/ads/" + adID)
-      .then(function(response) {
-        _this.ad = response.data;
-        //console.log(_this.ad);
-      });
+    let url = process.env.VUE_APP_APIURL + "/ads/" + adID;
+    url += this.user ? "/" + this.user.id : "";
+    this.axios.get(url).then((response) => {
+      this.ad = response.data;
+      this.setHeartIcon(this.ad.liked);
+      //console.log(this.ad);
+    });
   },
 };
 </script>

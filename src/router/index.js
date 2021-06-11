@@ -8,6 +8,7 @@ import VTU from "../views/VTU.vue";
 import Verify from "../views/Verify.vue";
 import NotFound from "../views/NotFound.vue";
 import CreateAd from "../views/CreateAd.vue";
+import Messages from "../views/Messages.vue";
 import SVG from "../views/SVG.vue";
 import store from "../store";
 
@@ -34,6 +35,26 @@ const routes = [
     path: "/userarea",
     name: "UserArea",
     component: UserArea,
+    beforeEnter(to, from, next) {
+      if (store.state.isLoggedIn) {
+        if (store.state.user.tel_verified == 1) {
+          if (store.state.destinationURL) {
+            store.dispatch("moveToDestination");
+          } else {
+            next();
+          }
+        } else {
+          next({ path: "/verify/tel" });
+        }
+      } else {
+        next({ path: "/user/login" });
+      }
+    },
+  },
+  {
+    path: "/messages",
+    name: "Message",
+    component: Messages,
     beforeEnter(to, from, next) {
       if (store.state.isLoggedIn) {
         if (store.state.user.tel_verified == 1) {
