@@ -93,7 +93,7 @@ const routes = [
   },
   {
     path: "/verify/:type",
-    name: "Verify_email",
+    name: "Verify",
     component: Verify,
     beforeEnter(to, from, next) {
       if (store.state.isLoggedIn) {

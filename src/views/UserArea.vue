@@ -17,7 +17,9 @@
               `${user.first_name} ${user.last_name}`
             }}</span
             ><br />
-            <span>{{ `(${user.email ? user.email : "."})` }}</span>
+            <template v-if="user.email"
+              ><span>{{ user.email }}</span></template
+            >
             <span class="tw-block tw-font-serif tw-font-bold">{{
               `${user.tel}`
             }}</span>

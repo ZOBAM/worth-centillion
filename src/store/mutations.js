@@ -20,10 +20,10 @@ var mutations = {
     console.log(data.user); */
     state.accessToken = data.access_token;
     localStorage.setItem("userData", JSON.stringify(data));
-    if (data.user.email_verified_at) {
+    if (data.user.tel_verified == 1) {
       router.push("/userarea");
     } else {
-      router.push("/verify_email");
+      router.push("/verify/tel");
     }
   },
   setStateProps(state, data) {
