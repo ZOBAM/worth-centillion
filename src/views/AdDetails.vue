@@ -118,6 +118,37 @@
               {{ ad.seller.tel }}
             </div>
           </div>
+          <div class="tw-flex tw-justify-center tw-flex-wrap">
+            <button
+              class="tw-bg-white tw-text-blue-500 tw-shadow-lg tw-text-center tw-font-semibold tw-mt-3 tw-p-3 tw-m-auto hover:tw-bg-blue-500 hover:tw-text-white"
+              @click="chatSeller = !chatSeller"
+            >
+              Chat Seller <span class="mdi mdi-message"></span>
+            </button>
+            <template v-if="chatSeller" class="tw-w-full">
+              <div class="tw-p-2 tw-w-full">
+                <textarea
+                  v-model="chatMessage"
+                  name=""
+                  id=""
+                  cols="30"
+                  rows="20"
+                  class="tw-h-20 tw-rounded-lg border-2 tw-border-blue-500 tw-shadow-lg"
+                ></textarea>
+              </div>
+              <button class="btn-primary" @click="sendMessage(ad.id)">
+                Send <span class="mdi mdi-send"></span>
+              </button>
+            </template>
+            <div class="tw-w-full" v-if="showSuccessInfo">
+              <div
+                class="tw-text-center tw-w-24 tw-h-24 tw-mt-3 tw-m-auto tw-rounded-full tw-border-2 tw-border-blue-500"
+              >
+                <span class="mdi mdi-check tw-text-5xl tw-text-blue-400"></span>
+                <p class="tw-p-2 tw-text-xs tw--mt-2">Message sent</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -149,6 +180,9 @@ export default {
   data() {
     return {
       ad: null,
+      chatSeller: false,
+      chatMessage: "",
+      showSuccessInfo: false,
       hiddenFields: ["id", "ad_id", "created_at", "updated_at"],
       heartIcon: {
         "mdi mdi-heart-outline tw-text-blue-500 tw-text-3xl tw-absolute tw-right-4 tw-top-1 hover:tw-text-green-400": true,
@@ -192,6 +226,32 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    sendMessage(adID) {
+      if (this.chatMessage.trim() != "") {
+        //alert("About to send message");
+        this.axios
+          .post(process.env.VUE_APP_APIURL + "/messages", {
+            message: this.chatMessage,
+            ad_id: adID,
+          })
+          .then((response) => {
+            console.log(response.data);
+            this.chatMessage = "";
+            this.chatSeller = false;
+            this.showSuccessInfo = true;
+            setTimeout(() => {
+              this.showSuccessInfo = false;
+            }, 3500);
+            //alert("Message successfully sent to seller");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        alert("Can't send empty message");
+        this.chatMessage = "";
+      }
     },
   },
   mounted() {

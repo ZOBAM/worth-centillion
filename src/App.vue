@@ -69,6 +69,13 @@
                   >User Area</router-link
                 >
               </li>
+              <li class="tw-mr-3">
+                <router-link
+                  to="/messages"
+                  class="link-item tw-inline-block tw-text-black tw-no-underline hover:tw-text-gray-800 hover:tw-text-underline tw-py-2 tw-px-4"
+                  >Messages</router-link
+                >
+              </li>
               <li class="mr-3">
                 <router-link
                   to="/"
