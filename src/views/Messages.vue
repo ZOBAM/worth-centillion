@@ -1,5 +1,5 @@
 <template>
-  <article class="tw-bg-gray-50 tw-py-4 tw-flex tw-flex-wrap ">
+  <article class="tw-bg-gray-50 tw-py-4 tw-flex tw-flex-wrap">
     <section class="tw-w-full md:tw-w-2/5 tw-p-3">
       <h3 class="tw-text-lg tw-text-center tw-bg-blue-100 tw-p-2">Messages</h3>
       <div>
@@ -36,10 +36,14 @@
           {{ adTitle }}
         </p>
       </div>
-      <div class="tw-h-2/4 tw-overflow-x-auto tw-p-3">
+      <div
+        class="tw-overflow-x-auto tw-p-3"
+        style="min-height: 40vh; max-height:40vh"
+        id="chatContainer"
+      >
         <div
           :class="getChatStyle(chat)"
-          v-for="chat of currentChat"
+          v-for="(chat, index) of currentChat"
           :key="chat.id"
         >
           <p
@@ -47,6 +51,12 @@
           >
             {{ chat.message }}
           </p>
+          <div
+            class="tw-w-full tw-h-2 tw-mt-2 tw-bg-blue-200"
+            v-if="currentChat.length - 1 == index"
+          >
+            {{ updateScroll() }}
+          </div>
         </div>
       </div>
       <div class="tw-flex tw-bg-blue-200 tw-py-2">
@@ -61,7 +71,7 @@
           ></textarea>
         </div>
         <div
-          class="tw-bg-blue-600 tw-px-4 tw-py-2 tw-text-white tw-flex tw-items-center tw-justify-items-center tw-z-10 tw-rounded-2xl tw--ml-4"
+          class="tw-bg-blue-600 tw-px-4 tw-py-2 tw-text-white tw-flex tw-items-center tw-justify-items-center tw-rounded-2xl tw--ml-4 hover:tw-bg-blue-800 tw-cursor-pointer"
           @click="sendMessage()"
         >
           Send
@@ -78,6 +88,7 @@
 </template>
 <script>
 import { mapState } from "vuex";
+import store from "../store";
 export default {
   data() {
     return {
@@ -90,10 +101,10 @@ export default {
       chatMessage: "",
       showSuccessInfo: false,
       receiverStyle: {
-        "tw-mt-2 tw-flex": true,
+        "tw-mt-2 tw-flex tw-flex-wrap": true,
       },
       senderStyle: {
-        "tw-mt-2 tw-flex tw-justify-end": true,
+        "tw-mt-2 tw-flex tw-justify-end tw-flex-wrap": true,
       },
     };
   },
@@ -102,7 +113,7 @@ export default {
   },
   methods: {
     getChatStyle(chat) {
-      alert(
+      /*  alert(
         "chat receiver id " +
           chat.receiver_id +
           " : chat sender id" +
@@ -111,17 +122,21 @@ export default {
           this.user.id +
           "chatter id: " +
           this.chatter.id
-      );
-      if (this.chatter.id != this.user.id) return this.senderStyle;
+      ); */
+      chat;
+      if (this.chatter.id != chat.sender_id) return this.senderStyle;
       return this.receiverStyle;
     },
-    getChats(adID, adTitle, chatter, adImage) {
-      console.log(adID);
-      this.adTitle = adTitle;
-      this.chatter = chatter;
-      this.adImage = adImage;
+    getChats(adID, adTitle = "", chatter = {}, adImage = null) {
+      if (adImage) {
+        //if this paramenters are set, it means it is the first time but if not, it is an update
+        console.log(adID);
+        this.adTitle = adTitle;
+        this.chatter = chatter;
+        this.adImage = adImage;
+      }
       this.currentChat = this.messages.filter((item) => {
-        return (item.ad_id = adID);
+        return item.ad_id == adID;
       });
       //this.axios.get()
     },
@@ -134,13 +149,22 @@ export default {
           .post(process.env.VUE_APP_APIURL + "/messages", {
             message: this.chatMessage,
             ad_id: adID,
+            receiver_id: this.chatter.id,
           })
           .then((response) => {
-            console.log(response.data.ad_chats);
-            this.messages = response.data.messages;
-            this.adChats = response.data.ad_chats;
+            let data = response.data;
+            console.log(data.ad_chats);
+            console.log(data.messages);
+            this.messages = data.messages;
+            this.adChats = data.ad_chats;
             this.chatMessage = "";
             this.showSuccessInfo = true;
+            this.getChats(adID);
+            store.dispatch("setProps", {
+              name: "messages",
+              value: data.messages,
+              type: "user",
+            });
             setTimeout(() => {
               this.showSuccessInfo = false;
             }, 3500);
@@ -153,6 +177,14 @@ export default {
         alert("Can't send empty message");
         this.chatMessage = "";
       }
+    },
+    updateScroll() {
+      setTimeout(() => {
+        //delay the selecting of the element for it to be availabe when read
+        var element = document.getElementById("chatContainer");
+        element.scrollTop = element.scrollHeight - element.clientHeight;
+      }, 500);
+      //alert(element.scrollHeight + " : " + element.clientHeight);
     },
   },
   mounted() {

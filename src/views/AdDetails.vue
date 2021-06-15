@@ -118,7 +118,10 @@
               {{ ad.seller.tel }}
             </div>
           </div>
-          <div class="tw-flex tw-justify-center tw-flex-wrap">
+          <div
+            class="tw-flex tw-justify-center tw-flex-wrap"
+            v-if="ad.seller.id != user.id"
+          >
             <button
               class="tw-bg-white tw-text-blue-500 tw-shadow-lg tw-text-center tw-font-semibold tw-mt-3 tw-p-3 tw-m-auto hover:tw-bg-blue-500 hover:tw-text-white"
               @click="chatSeller = !chatSeller"
@@ -168,6 +171,7 @@ import "swiper/components/scrollbar/scrollbar.scss";
 // import Swiper core and required modules
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import { mapState } from "vuex";
+import store from "../store";
 // install Swiper modules
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 export default {
@@ -234,12 +238,18 @@ export default {
           .post(process.env.VUE_APP_APIURL + "/messages", {
             message: this.chatMessage,
             ad_id: adID,
+            receiver_id: this.ad.seller.id,
           })
           .then((response) => {
             console.log(response.data);
             this.chatMessage = "";
             this.chatSeller = false;
             this.showSuccessInfo = true;
+            store.dispatch("setProps", {
+              name: "ad_chats",
+              value: response.data.ad_chats,
+              type: "user",
+            });
             setTimeout(() => {
               this.showSuccessInfo = false;
             }, 3500);
