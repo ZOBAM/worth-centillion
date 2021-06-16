@@ -280,12 +280,40 @@ export default {
       }); */
     //fetch data from server
     store.dispatch("fetchData");
+
     //get seenCookieMsg from local storage
     if (localStorage.getItem("seenCookieMsg") != null) {
       this.showCookieMsg = false;
     }
   },
   mounted() {
+    //fetch user ad messages from server
+    setTimeout(() => {
+      if (this.user) {
+        this.axios
+          .post(process.env.VUE_APP_APIURL + "/messages/" + this.user.id, {
+            user_id: this.user.id,
+          })
+          .then((response) => {
+            console.log("Fetched messages from server");
+            console.log(response.data);
+            store.dispatch("setProps", {
+              name: "ad_chats",
+              value: response.data.ad_chats,
+              type: "user",
+            });
+            store.dispatch("setProps", {
+              name: "messages",
+              value: response.data.messages,
+              type: "user",
+            });
+          })
+          .catch((error) => {
+            console.log("An error occured from the server: " + error);
+          });
+      }
+    }, 200);
+
     store.dispatch("checkLogin");
     var scrollpos = window.scrollY;
     var header = document.getElementById("header");

@@ -250,6 +250,11 @@ export default {
               value: response.data.ad_chats,
               type: "user",
             });
+            store.dispatch("setProps", {
+              name: "messages",
+              value: response.data.messages,
+              type: "user",
+            });
             setTimeout(() => {
               this.showSuccessInfo = false;
             }, 3500);

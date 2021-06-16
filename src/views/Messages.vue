@@ -6,7 +6,10 @@
         <div
           v-for="msg of adChats"
           :key="msg"
-          class="tw-p-2 tw-bg-gray-200 tw-mb-2 tw-rounded-3xl tw-flex tw-cursor-pointer hover:tw-bg-blue-500"
+          :class="{
+            'tw-p-2 tw-bg-gray-200 tw-mb-2 tw-rounded-3xl tw-flex tw-cursor-pointer hover:tw-bg-blue-500': true,
+            'tw-bg-blue-500': msg.ad_id == currentAdID,
+          }"
           @click="getChats(msg.ad_id, msg.ad.title, msg.chatter, msg.ad_image)"
         >
           <img
@@ -41,40 +44,65 @@
         style="min-height: 40vh; max-height:40vh"
         id="chatContainer"
       >
-        <div
-          :class="getChatStyle(chat)"
-          v-for="(chat, index) of currentChat"
-          :key="chat.id"
-        >
-          <p
-            class="tw-bg-purple-50 tw-rounded-lg tw-border tw-mt-2 tw-p-2 tw-border-blue-200"
+        <template v-for="(chat, index) of currentChat" :key="chat.id">
+          <div
+            :class="{
+              'tw-mt-2 tw-flex tw-justify-end tw-flex-wrap':
+                chatter.id != chat.sender_id,
+              'tw-mt-2 tw-flex tw-flex-wrap': chatter.id == chat.sender_id,
+            }"
           >
-            {{ chat.message }}
-          </p>
+            <p
+              :class="{
+                'shadow-lg tw-bg-purple-50 tw-rounded-lg tw-border tw-mt-2 tw-p-2 tw-border-blue-200 shadow-gray':
+                  chatter.id != chat.sender_id,
+                'tw-shadow-lg tw-bg-purple-50 tw-rounded-lg tw-border tw-mt-2 tw-p-2 tw-border-blue-200 shadow-blue':
+                  chatter.id == chat.sender_id,
+              }"
+            >
+              {{ chat.message }}
+            </p>
+          </div>
+          <!-- <div v-if="chatter.id != chat.sender_id" :class="receiverStyle">
+            <p
+              class="shadow-lg tw-bg-purple-50 tw-rounded-lg tw-border tw-mt-2 tw-p-2 tw-border-blue-200 shadow-gray"
+            >
+              {{ chat.message }}
+            </p>
+          </div>
+          <div v-if="chatter.id != chat.sender_id" :class="senderStyle">
+            <p
+              class="tw-shadow-lg tw-bg-purple-50 tw-rounded-lg tw-border tw-mt-2 tw-p-2 tw-border-blue-200 shadow-blue"
+            >
+              {{ chat.message }}
+            </p>
+          </div> -->
           <div
             class="tw-w-full tw-h-2 tw-mt-2 tw-bg-blue-200"
             v-if="currentChat.length - 1 == index"
           >
             {{ updateScroll() }}
           </div>
-        </div>
+        </template>
       </div>
-      <div class="tw-flex tw-bg-blue-200 tw-py-2">
-        <div class="tw-flex-grow tw-bg-blue-50">
+      <div class="tw-flex tw-bg-gray-50 tw-py-2">
+        <div class="tw-flex-grow tw-bg-gray-50 tw-px-2">
           <textarea
             name="message"
             id=""
             cols="4"
             rows="14"
-            class="tw-rounded-md"
+            class="tw-rounded-md tw-bg-white tw-h-16"
             v-model="chatMessage"
           ></textarea>
         </div>
         <div
-          class="tw-bg-blue-600 tw-px-4 tw-py-2 tw-text-white tw-flex tw-items-center tw-justify-items-center tw-rounded-2xl tw--ml-4 hover:tw-bg-blue-800 tw-cursor-pointer"
+          class="tw-bg-blue-50 tw-p-2 tw-text-white tw-flex tw-z-10 tw-items-center tw-justify-items-center tw-rounded-xl tw--ml-1 hover:tw-bg-blue-800 tw-cursor-pointe"
           @click="sendMessage()"
         >
-          Send
+          <button class="tw-bg-white tw-text-black tw-px-3 tw-py-2">
+            Send <span class="mdi mdi-send"></span>
+          </button>
         </div>
       </div>
     </section>
@@ -100,6 +128,8 @@ export default {
       adImage: null,
       chatMessage: "",
       showSuccessInfo: false,
+      currentAdID: null,
+      listChatStyle: null,
       receiverStyle: {
         "tw-mt-2 tw-flex tw-flex-wrap": true,
       },
@@ -113,21 +143,21 @@ export default {
   },
   methods: {
     getChatStyle(chat) {
-      /*  alert(
-        "chat receiver id " +
-          chat.receiver_id +
-          " : chat sender id" +
-          chat.sender_id +
-          " : current user " +
-          this.user.id +
-          "chatter id: " +
-          this.chatter.id
-      ); */
-      chat;
-      if (this.chatter.id != chat.sender_id) return this.senderStyle;
-      return this.receiverStyle;
+      if (this.chatter.id != chat.sender_id) {
+        this.listChatStyle = {
+          "shadow-lg tw-bg-purple-50 tw-rounded-lg tw-border tw-mt-2 tw-p-2 tw-border-blue-200 shadow-gray": true,
+        };
+        return this.senderStyle;
+      } else {
+        this.listChatStyle = {
+          "tw-shadow-lg tw-bg-purple-50 tw-rounded-lg tw-border tw-mt-2 tw-p-2 tw-border-blue-200 shadow-blue": true,
+        };
+        return this.receiverStyle;
+      }
     },
     getChats(adID, adTitle = "", chatter = {}, adImage = null) {
+      console.log("Heap from getChat function");
+      this.currentAdID = adID;
       if (adImage) {
         //if this paramenters are set, it means it is the first time but if not, it is an update
         console.log(adID);
@@ -192,8 +222,41 @@ export default {
       this.messages = this.user.messages;
       this.adChats = this.user.ad_chats;
       console.log(this.adChats);
+      setTimeout(() => {
+        console.log("this.currentAdID " + this.currentAdID);
+        if (this.currentAdID) {
+          alert(12);
+          setInterval(() => {
+            if (this.user) {
+              this.axios
+                .post(
+                  process.env.VUE_APP_APIURL + "/messages/" + this.user.id,
+                  {
+                    user_id: this.user.id,
+                  }
+                )
+                .then((response) => {
+                  this.adChats = response.data.ad_chats;
+                  this.messages = response.data.messages;
+                  this.getChats(this.currentAdID);
+                })
+                .catch((error) => {
+                  console.log("An error occured from the server: " + error);
+                });
+            }
+          }, 15000);
+        }
+      }, 1000);
     }
-    console.log(this.user);
+    //console.log(this.user);
   },
 };
 </script>
+<style lang="scss" scoped>
+.shadow-gray {
+  box-shadow: 2px 2px gray;
+}
+.shadow-blue {
+  box-shadow: -2px 2px rgb(110, 165, 108);
+}
+</style>
