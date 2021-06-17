@@ -240,7 +240,12 @@ export default {
             html: this.likedMessage,
             displayLength: 4000,
           });
-          //console.log(response.data.type);
+          store.dispatch("setProps", {
+            name: "favorites",
+            value: response.data.favorites,
+            type: "user",
+          });
+          console.log(response.data);
         })
         .catch((error) => {
           console.log(error);

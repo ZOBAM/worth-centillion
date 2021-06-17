@@ -74,7 +74,7 @@
               </li>
               <li class="tw-mr-3">
                 <router-link
-                  to="/messages"
+                  to="/favorites"
                   class="link-item tw-inline-block tw-text-black tw-no-underline hover:tw-text-gray-800 hover:tw-text-underline tw-py-2 tw-px-4"
                   ><span
                     class="mdi mdi-heart tw-text-blue-500 lg:tw-text-white"
@@ -306,6 +306,7 @@ export default {
     //fetch user ad messages from server
     setTimeout(() => {
       if (this.user) {
+        console.log(this.user.favorites);
         setInterval(() => {
           store.dispatch("messages", {
             user_id: this.user.id,

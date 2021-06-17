@@ -9,6 +9,7 @@ import Verify from "../views/Verify.vue";
 import NotFound from "../views/NotFound.vue";
 import CreateAd from "../views/CreateAd.vue";
 import Messages from "../views/Messages.vue";
+import Favorite from "../views/Favorite.vue";
 import SVG from "../views/SVG.vue";
 import store from "../store";
 
@@ -55,6 +56,26 @@ const routes = [
     path: "/messages",
     name: "Message",
     component: Messages,
+    beforeEnter(to, from, next) {
+      if (store.state.isLoggedIn) {
+        if (store.state.user.tel_verified == 1) {
+          if (store.state.destinationURL) {
+            store.dispatch("moveToDestination");
+          } else {
+            next();
+          }
+        } else {
+          next({ path: "/verify/tel" });
+        }
+      } else {
+        next({ path: "/user/login" });
+      }
+    },
+  },
+  {
+    path: "/favorites",
+    name: "Favorite",
+    component: Favorite,
     beforeEnter(to, from, next) {
       if (store.state.isLoggedIn) {
         if (store.state.user.tel_verified == 1) {
