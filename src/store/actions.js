@@ -48,7 +48,8 @@ const actions = {
           }, 3500);
         }
         if (state.user.messages.length != initialMessagesCount) {
-          alert("New message");
+          let lastMessage = state.user.messages[state.user.messages.length - 1];
+          if (state.user.id == lastMessage.receiver_id) alert("New message");
         }
         //alert("Message successfully sent to seller");
       })

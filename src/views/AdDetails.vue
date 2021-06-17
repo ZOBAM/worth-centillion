@@ -168,6 +168,7 @@ import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
 import "swiper/components/pagination/pagination.scss";
 import "swiper/components/scrollbar/scrollbar.scss";
+import M from "materialize-css";
 
 // import Swiper core and required modules
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
@@ -224,6 +225,10 @@ export default {
         };
     },
     like(ad_id) {
+      M.toast({
+        html: "A like action happened. Whether it's unlike I don't know",
+        displayLength: 4000,
+      });
       this.axios
         .get(process.env.VUE_APP_APIURL + "/like/" + ad_id)
         .then((response) => {

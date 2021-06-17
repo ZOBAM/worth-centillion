@@ -64,17 +64,33 @@
             <template v-if="isLoggedIn">
               <li class="tw-mr-3">
                 <router-link
-                  to="/userarea"
+                  to="/messages"
                   class="link-item tw-inline-block tw-text-black tw-no-underline hover:tw-text-gray-800 hover:tw-text-underline tw-py-2 tw-px-4"
-                  >User Area</router-link
-                >
+                  ><span
+                    class="mdi mdi-message tw-text-blue-500 lg:tw-text-white"
+                  ></span>
+                  Messages
+                </router-link>
               </li>
               <li class="tw-mr-3">
                 <router-link
                   to="/messages"
                   class="link-item tw-inline-block tw-text-black tw-no-underline hover:tw-text-gray-800 hover:tw-text-underline tw-py-2 tw-px-4"
-                  >Messages</router-link
-                >
+                  ><span
+                    class="mdi mdi-heart tw-text-blue-500 lg:tw-text-white"
+                  ></span>
+                  Favorites
+                </router-link>
+              </li>
+              <li class="tw-mr-3">
+                <router-link
+                  to="/userarea"
+                  class="link-item tw-inline-block tw-text-black tw-no-underline hover:tw-text-gray-800 hover:tw-text-underline tw-py-2 tw-px-4"
+                  ><span
+                    class="mdi mdi-account tw-text-blue-500 lg:tw-text-white"
+                  ></span>
+                  User Area
+                </router-link>
               </li>
               <li class="mr-3">
                 <router-link
@@ -294,13 +310,14 @@ export default {
           store.dispatch("messages", {
             user_id: this.user.id,
           });
-        }, 10000);
+        }, 30000);
       }
     }, 200);
 
     store.dispatch("checkLogin");
     var scrollpos = window.scrollY;
     var header = document.getElementById("header");
+    var icons = document.getElementsByClassName("mdi");
     var navcontent = document.getElementById("nav-content");
     var navaction = document.getElementById("navAction");
     //var brandname = document.getElementById("brandname");
@@ -312,6 +329,7 @@ export default {
 
       if (scrollpos > 10) {
         header.classList.add("tw-bg-white");
+        icons.classList.add("tw-text-blue-500");
         navaction.classList.remove("tw-bg-white");
         navaction.classList.add("gradient");
         navaction.classList.remove("tw-text-gray-800");
