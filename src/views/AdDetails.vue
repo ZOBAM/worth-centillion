@@ -192,6 +192,7 @@ export default {
       heartIcon: {
         "mdi mdi-heart-outline tw-text-blue-500 tw-text-3xl tw-absolute tw-right-4 tw-top-1 hover:tw-text-green-400": true,
       },
+      likedMessage: "",
     };
   },
   computed: {
@@ -225,15 +226,20 @@ export default {
         };
     },
     like(ad_id) {
-      M.toast({
-        html: "A like action happened. Whether it's unlike I don't know",
-        displayLength: 4000,
-      });
       this.axios
         .get(process.env.VUE_APP_APIURL + "/like/" + ad_id)
         .then((response) => {
-          if (response.data.type == "like") this.setHeartIcon(true);
-          else this.setHeartIcon(false);
+          if (response.data.type == "like") {
+            this.setHeartIcon(true);
+            this.likedMessage = "You liked this Ad";
+          } else {
+            this.setHeartIcon(false);
+            this.likedMessage = "You unliked this Ad";
+          }
+          M.toast({
+            html: this.likedMessage,
+            displayLength: 4000,
+          });
           //console.log(response.data.type);
         })
         .catch((error) => {

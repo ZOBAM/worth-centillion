@@ -322,6 +322,7 @@ export default {
     var navaction = document.getElementById("navAction");
     //var brandname = document.getElementById("brandname");
     var toToggle = document.querySelectorAll(".toggleColour");
+    console.log(icons);
 
     document.addEventListener("scroll", function() {
       /*Apply classes for slide in bar*/
@@ -329,7 +330,8 @@ export default {
 
       if (scrollpos > 10) {
         header.classList.add("tw-bg-white");
-        icons.classList.add("tw-text-blue-500");
+        icons[2].classList.add("tw-text-blue-500");
+        icons[2].classList.remove("tw-text-white");
         navaction.classList.remove("tw-bg-white");
         navaction.classList.add("gradient");
         navaction.classList.remove("tw-text-gray-800");
