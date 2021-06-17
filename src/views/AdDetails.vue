@@ -143,7 +143,8 @@
                 Send <span class="mdi mdi-send"></span>
               </button>
             </template>
-            <div class="tw-w-full" v-if="showSuccessInfo">
+            <div class="tw-w-full" v-if="messageSuccess">
+              {{ resetVariables() }}
               <div
                 class="tw-text-center tw-w-24 tw-h-24 tw-mt-3 tw-m-auto tw-rounded-full tw-border-2 tw-border-blue-500"
               >
@@ -186,7 +187,6 @@ export default {
       ad: null,
       chatSeller: false,
       chatMessage: "",
-      showSuccessInfo: false,
       hiddenFields: ["id", "ad_id", "created_at", "updated_at"],
       heartIcon: {
         "mdi mdi-heart-outline tw-text-blue-500 tw-text-3xl tw-absolute tw-right-4 tw-top-1 hover:tw-text-green-400": true,
@@ -194,7 +194,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["user"]),
+    ...mapState(["user", "messageSuccess"]),
     adDetails() {
       let adDetails = {};
       for (let fieldName in this.ad.details) {
@@ -209,6 +209,10 @@ export default {
     },
   },
   methods: {
+    resetVariables() {
+      this.chatSeller = false;
+      this.chatMessage = "";
+    },
     setHeartIcon(liked) {
       if (liked)
         this.heartIcon = {
@@ -234,35 +238,12 @@ export default {
     sendMessage(adID) {
       if (this.chatMessage.trim() != "") {
         //alert("About to send message");
-        this.axios
-          .post(process.env.VUE_APP_APIURL + "/messages", {
-            message: this.chatMessage,
-            ad_id: adID,
-            receiver_id: this.ad.seller.id,
-          })
-          .then((response) => {
-            console.log(response.data);
-            this.chatMessage = "";
-            this.chatSeller = false;
-            this.showSuccessInfo = true;
-            store.dispatch("setProps", {
-              name: "ad_chats",
-              value: response.data.ad_chats,
-              type: "user",
-            });
-            store.dispatch("setProps", {
-              name: "messages",
-              value: response.data.messages,
-              type: "user",
-            });
-            setTimeout(() => {
-              this.showSuccessInfo = false;
-            }, 3500);
-            //alert("Message successfully sent to seller");
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        let data = {
+          message: this.chatMessage,
+          ad_id: adID,
+          receiver_id: this.ad.seller.id,
+        };
+        store.dispatch("messages", data);
       } else {
         alert("Can't send empty message");
         this.chatMessage = "";

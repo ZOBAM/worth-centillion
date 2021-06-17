@@ -20,6 +20,43 @@ const actions = {
   setProps({ commit }, data) {
     commit("setStateProps", data);
   },
+  messages({ commit }, payload) {
+    commit("setStateProps", { name: "messageLoading", value: true });
+    let initialMessagesCount = state.user.messages.length;
+    axios
+      .post(process.env.VUE_APP_APIURL + "/messages", payload)
+      .then((response) => {
+        let data = response.data;
+        /* console.log(data.ad_chats);
+        console.log(data.messages); */
+        console.log("data.user_id: " + payload.user_id);
+        commit("setStateProps", { name: "messageLoading", value: false });
+        commit("setStateProps", {
+          name: "messages",
+          value: data.messages,
+          type: "user",
+        });
+        commit("setStateProps", {
+          name: "ad_chats",
+          value: data.ad_chats,
+          type: "user",
+        });
+        if (payload.user_id == undefined) {
+          commit("setStateProps", { name: "messageSuccess", value: true });
+          setTimeout(() => {
+            commit("setStateProps", { name: "messageSuccess", value: false });
+          }, 3500);
+        }
+        if (state.user.messages.length != initialMessagesCount) {
+          alert("New message");
+        }
+        //alert("Message successfully sent to seller");
+      })
+      .catch((error) => {
+        alert("An error occured on the server. Please try again.");
+        console.log(error);
+      });
+  },
   fetchData({ commit }) {
     //get ads from the server
     commit("setStateProps", { name: "adsIsLoading", value: true });

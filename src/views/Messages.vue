@@ -4,7 +4,7 @@
       <h3 class="tw-text-lg tw-text-center tw-bg-blue-100 tw-p-2">Messages</h3>
       <div>
         <div
-          v-for="msg of adChats"
+          v-for="msg of user.ad_chats"
           :key="msg"
           :class="{
             'tw-p-2 tw-bg-gray-200 tw-mb-2 tw-rounded-3xl tw-flex tw-cursor-pointer hover:tw-bg-blue-500': true,
@@ -25,7 +25,7 @@
         </div>
       </div>
     </section>
-    <section class="tw-p-2 tw-w-full md:tw-w-3/5" v-if="currentChat">
+    <section class="tw-p-2 tw-w-full md:tw-w-3/5" v-if="currentChat && chatter">
       <div class="tw-bg-blue-500 tw-text-white tw-text-center tw-p-2">
         <p>{{ chatter.first_name + " " + chatter.last_name }}</p>
       </div>
@@ -79,7 +79,7 @@
           </div> -->
           <div
             class="tw-w-full tw-h-2 tw-mt-2 tw-bg-blue-200"
-            v-if="currentChat.length - 1 == index"
+            v-if="currentChat.length - 1 == index && messageSuccess"
           >
             {{ updateScroll() }}
           </div>
@@ -105,6 +105,12 @@
           </button>
         </div>
       </div>
+      <aside
+        class="tw-bg-red-600 tw-text-white tw-font-bold"
+        v-if="messageSuccess"
+      >
+        Message succefully sent.
+      </aside>
     </section>
     <section
       v-else
@@ -120,9 +126,9 @@ import store from "../store";
 export default {
   data() {
     return {
-      messages: null,
-      adChats: null,
-      currentChat: null,
+      //messages: null,
+      //adChats: null,
+      //currentChat: null,
       chatter: null,
       chatTitle: null,
       adImage: null,
@@ -139,7 +145,12 @@ export default {
     };
   },
   computed: {
-    ...mapState(["user"]),
+    ...mapState(["user", "messageSuccess"]),
+    currentChat() {
+      return this.user.messages.filter((item) => {
+        return item.ad_id == this.currentAdID;
+      });
+    },
   },
   methods: {
     getChatStyle(chat) {
@@ -165,50 +176,27 @@ export default {
         this.chatter = chatter;
         this.adImage = adImage;
       }
-      this.currentChat = this.messages.filter((item) => {
+      /* this.currentChat = this.user.messages.filter((item) => {
         return item.ad_id == adID;
-      });
-      //this.axios.get()
+      }); */
     },
     sendMessage() {
       let adID = this.currentChat[0].ad_id;
       //alert(adID);
       if (this.chatMessage.trim() != "") {
-        //alert("About to send message");
-        this.axios
-          .post(process.env.VUE_APP_APIURL + "/messages", {
-            message: this.chatMessage,
-            ad_id: adID,
-            receiver_id: this.chatter.id,
-          })
-          .then((response) => {
-            let data = response.data;
-            console.log(data.ad_chats);
-            console.log(data.messages);
-            this.messages = data.messages;
-            this.adChats = data.ad_chats;
-            this.chatMessage = "";
-            this.showSuccessInfo = true;
-            this.getChats(adID);
-            store.dispatch("setProps", {
-              name: "messages",
-              value: data.messages,
-              type: "user",
-            });
-            setTimeout(() => {
-              this.showSuccessInfo = false;
-            }, 3500);
-            //alert("Message successfully sent to seller");
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        let data = {
+          message: this.chatMessage,
+          ad_id: adID,
+          receiver_id: this.chatter.id,
+        };
+        store.dispatch("messages", data);
       } else {
         alert("Can't send empty message");
         this.chatMessage = "";
       }
     },
     updateScroll() {
+      this.chatMessage = "";
       setTimeout(() => {
         //delay the selecting of the element for it to be availabe when read
         var element = document.getElementById("chatContainer");
@@ -216,39 +204,6 @@ export default {
       }, 500);
       //alert(element.scrollHeight + " : " + element.clientHeight);
     },
-  },
-  mounted() {
-    if (this.user.messages) {
-      this.messages = this.user.messages;
-      this.adChats = this.user.ad_chats;
-      console.log(this.adChats);
-      setTimeout(() => {
-        console.log("this.currentAdID " + this.currentAdID);
-        if (this.currentAdID) {
-          alert(12);
-          setInterval(() => {
-            if (this.user) {
-              this.axios
-                .post(
-                  process.env.VUE_APP_APIURL + "/messages/" + this.user.id,
-                  {
-                    user_id: this.user.id,
-                  }
-                )
-                .then((response) => {
-                  this.adChats = response.data.ad_chats;
-                  this.messages = response.data.messages;
-                  this.getChats(this.currentAdID);
-                })
-                .catch((error) => {
-                  console.log("An error occured from the server: " + error);
-                });
-            }
-          }, 15000);
-        }
-      }, 1000);
-    }
-    //console.log(this.user);
   },
 };
 </script>

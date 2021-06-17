@@ -290,27 +290,11 @@ export default {
     //fetch user ad messages from server
     setTimeout(() => {
       if (this.user) {
-        this.axios
-          .post(process.env.VUE_APP_APIURL + "/messages/" + this.user.id, {
+        setInterval(() => {
+          store.dispatch("messages", {
             user_id: this.user.id,
-          })
-          .then((response) => {
-            console.log("Fetched messages from server");
-            console.log(response.data);
-            store.dispatch("setProps", {
-              name: "ad_chats",
-              value: response.data.ad_chats,
-              type: "user",
-            });
-            store.dispatch("setProps", {
-              name: "messages",
-              value: response.data.messages,
-              type: "user",
-            });
-          })
-          .catch((error) => {
-            console.log("An error occured from the server: " + error);
           });
+        }, 10000);
       }
     }, 200);
 
