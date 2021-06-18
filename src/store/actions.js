@@ -29,7 +29,7 @@ const actions = {
         let data = response.data;
         /* console.log(data.ad_chats);
         console.log(data.messages); */
-        console.log("data.user_id: " + payload.user_id);
+        //console.log("data.user_id: " + payload.user_id);
         commit("setStateProps", { name: "messageLoading", value: false });
         commit("setStateProps", {
           name: "messages",
@@ -53,10 +53,22 @@ const actions = {
         }
         //alert("Message successfully sent to seller");
       })
-      .catch((error) => {
+      .catch(() => {
         alert("An error occured on the server. Please try again.");
-        console.log(error);
+        //console.log(error);
       });
+  },
+  favorites({ commit }, payload) {
+    if (payload.type == "delete") {
+      let userFavs = state.user.favorites.filter((item) => {
+        return item.id != payload.adID;
+      });
+      commit("setStateProps", {
+        name: "favorites",
+        value: userFavs,
+        type: "user",
+      });
+    }
   },
   fetchData({ commit }) {
     //get ads from the server

@@ -306,7 +306,7 @@ export default {
     //fetch user ad messages from server
     setTimeout(() => {
       if (this.user) {
-        console.log(this.user.favorites);
+        //console.log(this.user.favorites);
         setInterval(() => {
           store.dispatch("messages", {
             user_id: this.user.id,
@@ -318,12 +318,10 @@ export default {
     store.dispatch("checkLogin");
     var scrollpos = window.scrollY;
     var header = document.getElementById("header");
-    var icons = document.getElementsByClassName("mdi");
     var navcontent = document.getElementById("nav-content");
     var navaction = document.getElementById("navAction");
     //var brandname = document.getElementById("brandname");
     var toToggle = document.querySelectorAll(".toggleColour");
-    console.log(icons);
 
     document.addEventListener("scroll", function() {
       /*Apply classes for slide in bar*/
@@ -331,8 +329,6 @@ export default {
 
       if (scrollpos > 10) {
         header.classList.add("tw-bg-white");
-        icons[2].classList.add("tw-text-blue-500");
-        icons[2].classList.remove("tw-text-white");
         navaction.classList.remove("tw-bg-white");
         navaction.classList.add("gradient");
         navaction.classList.remove("tw-text-gray-800");

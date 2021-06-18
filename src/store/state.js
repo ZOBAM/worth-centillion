@@ -53,6 +53,9 @@ var state = {
   messageSuccess: false,
   newMessage: false,
   unreadMessagesCount: 0,
+  //favorites
+  favoriteLoading: false,
+  favoriteMessage: "",
 };
 
 export { state };

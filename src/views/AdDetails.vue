@@ -245,10 +245,11 @@ export default {
             value: response.data.favorites,
             type: "user",
           });
-          console.log(response.data);
+          //console.log(response.data);
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
+          alert("An error occured from the server");
+          //console.log(error);
         });
     },
     sendMessage(adID) {
