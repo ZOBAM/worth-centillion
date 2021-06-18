@@ -28,7 +28,7 @@
               class="tw-p-4 tw-bg-white tw-flex-grow tw-rounded-xl"
               style="min-height:4rem"
             >
-              {{ msg.ad.title }} <span class="new badge blue">4</span>
+              {{ msg.ad.title }}
             </div>
           </div>
         </div>

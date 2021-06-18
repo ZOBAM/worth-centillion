@@ -54,7 +54,7 @@ const actions = {
         //alert("Message successfully sent to seller");
       })
       .catch(() => {
-        alert("An error occured on the server. Please try again.");
+        console.log("An error occurred on the server. Please try again.");
         //console.log(error);
       });
   },
