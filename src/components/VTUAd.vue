@@ -14,9 +14,7 @@
         <span class="tw-text-blue-200 tw-font-medium">& airtime</span>
       </span>
     </div>
-    <div
-      class="vtu-title tw-w-1/3 tw-text-gray-300 tw-text-right opacity-0 tw-bg-[#ffff33]"
-    >
+    <div class="vtu-title tw-w-1/3 tw-text-gray-300 tw-text-right opacity-0">
       Hamsuper VTU
     </div>
   </div>

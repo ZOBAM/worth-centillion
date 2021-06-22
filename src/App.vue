@@ -128,7 +128,7 @@
         </div>
       </div>
       <hr
-        class="tw-border-b tw-border-blue-500 tw-opacity-25 tw-my-0 tw-py-0"
+        class="tw-border-b tw-border-blue-500 tw-opacity-20 tw--mt-1 tw-py-0"
       />
     </div>
 

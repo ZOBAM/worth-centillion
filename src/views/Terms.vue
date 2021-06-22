@@ -1,6 +1,6 @@
 <template>
   <article class="about tw-p-4 tw-bg-gray-50 tw-pt-6 tw-text-lg">
-    <h1 class="tw-bg-gray-100 tw-text-center">
+    <h1 class="tw-bg-gray-100 tw-text-center tw-text-3xl tw-font-semibold">
       <span class="tw-text-blue-700">T</span>erms of Use
     </h1>
     <section class="terms">

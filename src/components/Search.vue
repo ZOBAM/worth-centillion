@@ -13,16 +13,13 @@
         class="tw-bg-white tw-h-10 tw-px-5 tw-pr-10 tw-rounded-full tw-text-sm focus:tw-outline-none tw-m-auto"
         style="margin:auto; background-color: white; border-radius: 99px; padding: 0rem .2rem 0rem 1rem; width: 86%; display: block"
       />
-      <hr class="w-full" />
+      <hr class="tw-w-full tw-opacity-5" />
       <button
         type="submit"
-        class="waves-effect waves-light btn-small blue darken-2 tw-block tw-m-auto tw-mt-2 tw-p-2"
-        style="border: 2px solid #ededed"
+        class="tw-block tw-text-white tw-m-auto tw-mt-2 tw-p-2 gradient tw-border-2 tw-rounded-lg hover:tw-text-blue-200 hover:tw-border-blue-400"
         @click="search"
       >
-        <span class="" style="">
-          Search <span class="mdi mdi-search-web tw-text-xl"></span>
-        </span>
+        Search <span class="mdi mdi-search-web tw-text-xl"></span>
       </button>
     </form>
   </div>

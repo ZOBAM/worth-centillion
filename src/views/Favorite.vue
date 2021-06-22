@@ -3,7 +3,7 @@
     <section class="tw-bg-gradient-to-b tw-from-white tw-to-blue-300 tw-p-2">
       <section
         v-if="user.favorites.length"
-        class="tw-p-2 md:tw-p-4 tw-bg-white"
+        class="tw-p-2 md:tw-p-4 tw-bg-white tw-rounded-lg"
       >
         <!-- <div
         v-for="ad of user.favorites"
@@ -14,7 +14,7 @@
       </div> -->
         <ul class="collection with-header">
           <li class="collection-header tw-text-center">
-            <h4>
+            <h4 class="tw-bg-blue-100/50 tw-p-2 tw-text-[#22226] tw-text-2xl">
               <span class="mdi mdi-heart tw-text-blue-400"></span> Favorite Ads
             </h4>
           </li>
@@ -23,18 +23,20 @@
             v-for="(ad, index) of user.favorites"
             :key="ad.id"
           >
-            <div class="">
-              {{ ++index }})
-              <router-link :to="'/ads/' + ad.id" class=""
-                >{{ ad.title }}
-              </router-link>
-              <a
+            <div class="tw-flex tw-mt-2">
+              <span class="tw-flex-grow">
+                {{ ++index }})
+                <router-link :to="'/ads/' + ad.id" class="tw-text-blue-600"
+                  >{{ ad.title }}
+                </router-link>
+              </span>
+              <span
                 href="#!"
-                class="secondary-content"
+                class="secondary-content tw-cursor-pointer"
                 title="remove from favorite"
                 ><i class="material-icons red-text" @click="removeAd(ad.id)"
                   >delete</i
-                ></a
+                ></span
               >
             </div>
           </li>

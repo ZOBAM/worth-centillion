@@ -98,9 +98,15 @@ const actions = {
         } else {
           //alert(localStorage.getItem('lastTotalAdsCount'));
         }
-        //alert(totalAdsCount);
+        //clear front end cache based on back end variable
         if (response.data.clear_category_cache == 1) {
+          //alert("clearing categories");
           localStorage.removeItem("categories");
+        }
+        console.log("user-cache: " + response.data.clear_user_cache);
+        if (response.data.clear_user_cache == 1) {
+          //alert("clearing user data");
+          localStorage.removeItem("userData");
         }
         setState("states");
         setState("categories");

@@ -4,7 +4,7 @@
       <div
         class="tw-py-4 tw-bg-white sm:tw-w-2/3 tw-flex-col tw-justify-center tw-text-gray-700"
       >
-        <h1 class="tw-text-center tw-text-2xl">{{ ad.title }}</h1>
+        <h1 class="tw-text-center tw-text-2xl tw-mt-3">{{ ad.title }}</h1>
         <swiper
           navigation
           :pagination="{ clickable: true }"
@@ -31,6 +31,12 @@
         >
           <span class="tw-inline-block tw-bg-gray-200" aria-disabled="true"
             >{{ ad.hits }} <span class="mdi mdi-eye"></span>
+          </span>
+          <span
+            v-if="ad.ad_images"
+            class="tw-inline-block tw-bg-gray-200"
+            aria-disabled="true"
+            >{{ ad.ad_images.length }} <span class="mdi mdi-image"></span>
           </span>
           <a
             href=""
@@ -120,7 +126,7 @@
           </div>
           <div
             class="tw-flex tw-justify-center tw-flex-wrap"
-            v-if="ad.seller.id != user.id"
+            v-if="user && ad.seller.id != user.id"
           >
             <button
               class="tw-bg-white tw-text-blue-500 tw-shadow-lg tw-text-center tw-font-semibold tw-mt-3 tw-p-3 tw-m-auto hover:tw-bg-blue-500 hover:tw-text-white"
