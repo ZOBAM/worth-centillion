@@ -11,32 +11,7 @@ var state = {
   subcategory: null,
   currentCategoryAdsCount: null,
   currentSubcategoryAdsCount: null,
-  ads: [
-    {
-      id: 1,
-      title: "Good Audio App",
-      price: 230,
-      ad_img: "../assets/images/mobile_purchase.png",
-    },
-    {
-      id: 2,
-      title: "Good Audio App",
-      price: 230,
-      ad_img: "../assets/images/mobile_purchase.png",
-    },
-    {
-      id: 3,
-      title: "Good Audio App",
-      price: 230,
-      ad_img: "../assets/images/mobile_purchase.png",
-    },
-    {
-      id: 4,
-      title: "Good Audio App",
-      price: 230,
-      ad_img: "../assets/images/mobile_purchase.png",
-    },
-  ],
+  ads: null,
   adsIsLoading: true,
   states: localStorage.getItem("states")
     ? JSON.parse(localStorage.getItem("states"))

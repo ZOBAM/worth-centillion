@@ -61,7 +61,10 @@
           <ul
             class="tw-list-reset lg:tw-flex tw-justify-end tw-flex-1 tw-items-center"
           >
-            <template v-if="isLoggedIn">
+            <div
+              v-show="isLoggedIn"
+              class="lg:tw-flex tw-justify-end tw-flex-1 tw-items-center"
+            >
               <li class="tw-mr-3">
                 <router-link
                   to="/messages"
@@ -92,7 +95,7 @@
                   User Area
                 </router-link>
               </li>
-              <li class="mr-3">
+              <li class="tr-mr-3">
                 <router-link
                   to="/"
                   @click="logout"
@@ -100,8 +103,11 @@
                   >Sign out</router-link
                 >
               </li>
-            </template>
-            <template v-else>
+            </div>
+            <div
+              v-show="!isLoggedIn"
+              class="lg:tw-flex tw-justify-end tw-flex-1 tw-items-center"
+            >
               <li class="mr-3">
                 <router-link
                   to="/user/login"
@@ -116,7 +122,7 @@
                   >Sign up</router-link
                 >
               </li>
-            </template>
+            </div>
           </ul>
           <button
             id="navAction"
@@ -145,7 +151,8 @@
     </main>
     <pageFooter></pageFooter>
     <div
-      class="tw-flex tw-fixed tw-text-white tw-bottom-0 tw-justify-between tw-w-full md:tw-hidden tw-h-12 tw-text-center"
+      id="footer-links"
+      class="footer-links tw-flex tw-fixed tw-text-white tw-bottom-0 tw-justify-between tw-w-full md:tw-hidden tw-h-12 tw-text-center"
     >
       <div
         class="tw-px-4 tw-w-1/3 tw-bg-gray-800 tw-rounded-tr-md"
@@ -195,6 +202,8 @@ import store from "../src/store";
 import { mapState, mapActions } from "vuex";
 import router from "./router";
 import M from "materialize-css";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default {
   components: {
@@ -303,6 +312,15 @@ export default {
     }
   },
   mounted() {
+    gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.create({
+      start: "top -80",
+      end: 999999,
+      toggleClass: {
+        className: "footer-links--scolled",
+        targets: "#footer-links",
+      },
+    });
     //fetch user ad messages from server
     setTimeout(() => {
       if (this.user) {
@@ -386,6 +404,7 @@ export default {
     for (let linkItem of linkItems) {
       linkItem.addEventListener("click", function() {
         navMenuDiv.classList.add("tw-hidden");
+        console.log("about hiding menu");
       });
     }
     //alert(linkItems.length);
@@ -410,6 +429,12 @@ export default {
   border-bottom: 2px solid #afd0e9;
   font-weight: bolder;
   color: #d9e3eb;
+}
+.footer-links {
+  &--scrolled {
+    background-color: red;
+    border-top: 12px solid white;
+  }
 }
 @media only screen and (max-width: 768px) {
   nav {

@@ -43,7 +43,7 @@
             class="tw-inline-block tw-border-2 tw-border-gray-200 tw-relative"
             @click.prevent="like(ad.id)"
           >
-            <span :class="heartIcon"></span>
+            <span :class="heartIcon" id="like-button"></span>
           </a>
         </div>
         <div class="tw-bg-gray-200 md:tw-p-4">
@@ -169,6 +169,8 @@
 import Loading from "@/components/Loading.vue";
 import HDate from "@/components/HDate.vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
+//import gsap
+import { gsap } from "gsap";
 // Import Swiper styles
 import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
@@ -232,6 +234,13 @@ export default {
         };
     },
     like(ad_id) {
+      gsap.to("#like-button", {
+        duration: 1,
+        y: "-.5rem",
+        rotate: 60,
+        scaleX: 2,
+        scaleY: 2,
+      });
       this.axios
         .get(process.env.VUE_APP_APIURL + "/like/" + ad_id)
         .then((response) => {
@@ -256,6 +265,16 @@ export default {
         .catch(() => {
           alert("An error occured from the server");
           //console.log(error);
+        })
+        .then(() => {
+          gsap.to("#like-button", {
+            duration: 1,
+            y: "0rem",
+            yoyoEase: "elastic",
+            rotate: 0,
+            scaleY: 1,
+            scaleX: 1,
+          });
         });
     },
     sendMessage(adID) {
