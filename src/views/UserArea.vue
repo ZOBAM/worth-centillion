@@ -40,22 +40,6 @@
             <br />
             <span class="tw-capitalize">{{ tab.name }}</span>
           </div>
-          <!-- <div class="tw-p-2" @click="setAction('viewAds')" :class="getClass('viewAds')">
-            <span class="mdi mdi-shopping-outline tw-text-sm"></span> <br>
-            Ads <sup>{{user.ads.length}}</sup>
-          </div>
-          <div class="tw-p-2 tw-bg-blue-500" @click="setAction('favorites')" :class="styleClass">
-            <span class="mdi mdi-heart-multiple tw-text-sm"></span> <br>
-            Favorites <sup>{{user.favorites.length}}</sup>
-          </div>
-          <div class="tw-p-2 tw-bg-white tw-text-black tw-rounded-t-md" @click="setAction('messages')">
-            <span class="mdi mdi-message-bulleted tw-text-sm"></span> <br>
-            Messages <sup>{{user.messages.length}}</sup>
-          </div>
-          <div class="tw-p-2 tw-bg-blue-500" @click="setAction('profile')">
-            <span class="mdi mdi-account-settings tw-text-sm"></span> <br>
-            Profile
-          </div> -->
         </div>
       </div>
       <div id="action-area" class=" tw-bg-white tw-text-red-900 tw-p-4">
@@ -110,14 +94,14 @@
             <h2>Profile loading . . .</h2>
           </div>
         </div>
-        <div class="tw-p-2" v-if="currentAction == 'favorites'">
+        <div class="tw-p-2" v-if="currentAction == 'wallet'">
           <div>
-            <h2>Favorites loading . . .</h2>
+            <wallet />
           </div>
         </div>
-        <div class="tw-p-2" v-if="currentAction == 'messages'">
+        <div class="tw-p-2" v-if="currentAction == 'transactions'">
           <div>
-            <h2>Messages loading . . .</h2>
+            <h2>Transactions loading . . .</h2>
           </div>
         </div>
       </div>
@@ -127,10 +111,12 @@
 <script>
 import { mapState } from "vuex";
 // import Loading from "@/components/Loading.vue";
+import Wallet from "@/components/vtu/Wallet";
 
 export default {
   components: {
     // Loading,
+    Wallet,
   },
   data() {
     return {
@@ -143,12 +129,12 @@ export default {
           count: 0,
         },
         {
-          name: "favorites",
-          icon: "mdi mdi-heart-multiple tw-text-sm",
+          name: "wallet",
+          icon: "mdi mdi-cash tw-text-sm",
           count: 0,
         },
         {
-          name: "messages",
+          name: "transactions",
           icon: "mdi mdi-message-bulleted tw-text-sm",
           count: 0,
         },
@@ -180,7 +166,7 @@ export default {
   },
   methods: {
     getCount(name) {
-      return name != "profile" ? this.user[`${name}`].length : "";
+      return name == "ads" ? this.user[`${name}`].length : "";
     },
     setAction(action) {
       this.currentAction = action;
