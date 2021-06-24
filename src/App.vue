@@ -431,7 +431,6 @@ export default {
   color: #d9e3eb;
 }
 .footer-links {
-  height: 12rem;
   &--scrolled {
     background-color: red;
     border-top: 12px solid white;
