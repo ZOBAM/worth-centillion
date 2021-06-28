@@ -179,7 +179,7 @@ export default {
           }
           store.dispatch("login", response.data);
           //this.bearerToken = response.data.access_token;
-          //console.log(response.data);
+          console.log(response.data);
         })
         .catch(() => {
           this.loading = false;
