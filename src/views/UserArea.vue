@@ -101,7 +101,7 @@
         </div>
         <div class="tw-p-2" v-if="currentAction == 'transactions'">
           <div>
-            <h2>Transactions loading . . .</h2>
+            <transactions></transactions>
           </div>
         </div>
       </div>
@@ -110,12 +110,12 @@
 </template>
 <script>
 import { mapState } from "vuex";
-// import Loading from "@/components/Loading.vue";
+import Transactions from "@/components/Transactions.vue";
 import Wallet from "@/components/vtu/Wallet";
 
 export default {
   components: {
-    // Loading,
+    Transactions,
     Wallet,
   },
   data() {
