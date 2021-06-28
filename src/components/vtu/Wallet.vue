@@ -12,7 +12,7 @@
           Ballance:
         </span>
         <p class="tw-text-center tw-text-5xl tw-text-gray-800 tw-p-4">
-          2100.00
+          {{ (user.balance * 1).toFixed(2) }}
         </p>
         <p class="tw-bg-blue-50 tw-text-center tw-text-blue-500 tw-my-4">
           Naira
@@ -24,7 +24,7 @@
           @click="displayForm(true)"
           class="btn-primary  tw-bg-blue-50 tw-text-black"
         >
-          Fund Wallate
+          Fund Wallet
         </button>
       </div>
     </div>

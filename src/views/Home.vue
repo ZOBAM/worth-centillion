@@ -126,11 +126,13 @@
         <p class="tw-leading-normal tw-text-2xl mb-8">
           Register and start posting Ads for FREE!
         </p>
-        <button
-          class="tw-mx-auto lg:tw-mx-0 hover:tw-underline tw-bg-white tw-text-gray-800 tw-font-bold tw-rounded-full tw-my-6 tw-py-4 tw-px-8 tw-shadow-lg focus:tw-outline-none focus:tw-shadow-outline tw-transform tw-transition hover:tw-scale-105 tw-duration-300 tw-ease-in-out"
-        >
-          Register Now
-        </button>
+        <router-link to="/user/register">
+          <button
+            class="tw-mx-auto lg:tw-mx-0 hover:tw-underline tw-bg-white tw-text-gray-800 tw-font-bold tw-rounded-full tw-my-6 tw-py-4 tw-px-8 tw-shadow-lg focus:tw-outline-none focus:tw-shadow-outline tw-transform tw-transition hover:tw-scale-105 tw-duration-300 tw-ease-in-out"
+          >
+            Register Now
+          </button>
+        </router-link>
       </div>
       <!--Right Col-->
       <div class="tw-w-full md:tw-w-3/5 tw-py-6 tw-text-center">
