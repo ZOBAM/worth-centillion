@@ -42,18 +42,28 @@
               </tr>
             </thead>
             <tbody>
-              <tr
-                v-for="(transaction, index) in user.vtu_transactions"
+              <template
+                v-for="(transaction, index) in items"
                 :key="transaction.id"
               >
-                <td>{{ ++index }}</td>
-                <td>{{ transaction.type }}</td>
-                <td>{{ transaction.amount }}</td>
-                <td>{{ transaction.recipient }}</td>
-                <td><h-date :date="transaction.created_at" /></td>
-              </tr>
+                <tr v-if="index >= startIndex && index < endIndex">
+                  <td>{{ ++index }}</td>
+                  <td>{{ transaction.type }}</td>
+                  <td>{{ transaction.amount }}</td>
+                  <td>{{ transaction.recipient }}</td>
+                  <td><h-date :date="transaction.created_at" /></td>
+                </tr>
+              </template>
             </tbody>
           </table>
+          <section>
+            <pagination
+              :rows="items.length"
+              :perPage="perPage"
+              @my-event="paginate"
+              :currentPage="currentPage"
+            ></pagination>
+          </section>
         </div>
         <div v-else>
           No vtu transactions
@@ -72,18 +82,28 @@
               </tr>
             </thead>
             <tbody>
-              <tr
-                v-for="(transaction, index) in user.transactions"
+              <template
+                v-for="(transaction, index) in items"
                 :key="transaction.id"
               >
-                <td>{{ ++index }}</td>
-                <td>{{ transaction.transaction_type }}</td>
-                <td>{{ transaction.amount }}</td>
-                <td>{{ transaction.transaction_ref }}</td>
-                <td><h-date :date="transaction.created_at" /></td>
-              </tr>
+                <tr v-if="index >= startIndex && index < endIndex">
+                  <td>{{ ++index }}</td>
+                  <td>{{ transaction.transaction_type }}</td>
+                  <td>{{ transaction.amount }}</td>
+                  <td>{{ transaction.transaction_ref }}</td>
+                  <td><h-date :date="transaction.created_at" /></td>
+                </tr>
+              </template>
             </tbody>
           </table>
+          <section>
+            <pagination
+              :rows="items.length"
+              :perPage="perPage"
+              @my-event="paginate"
+              :currentPage="currentPage"
+            ></pagination>
+          </section>
         </div>
         <div v-else>
           No other transactions
@@ -98,12 +118,14 @@
 <script>
 import { mapState } from "vuex";
 import HDate from "@/components/HDate";
+import paginate from "@/utilities/mixins/paginate.js";
 
 export default {
   name: "Transactions",
   components: {
     HDate,
   },
+  mixins: [paginate],
   data() {
     return {
       vtuTransactions: false,
@@ -113,6 +135,11 @@ export default {
   },
   computed: {
     ...mapState(["user"]),
+    items() {
+      return this.vtuTransactions
+        ? this.user.vtu_transactions
+        : this.user.transactions;
+    },
   },
 };
 </script>

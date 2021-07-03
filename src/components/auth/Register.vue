@@ -1,7 +1,11 @@
 <template>
-  <div class="tw-text-center tw-mb-10">
+  <div v-if="!isEditing" class="tw-text-center tw-mb-10">
     <h1 class="tw-font-bold tw-text-3xl tw-text-gray-900">SIGN UP</h1>
     <p>Enter your information to register</p>
+  </div>
+  <div v-else class="tw-text-center tw-mb-10">
+    <h1 class="tw-font-bold tw-text-3xl tw-text-gray-900">UPDATE DETAILS</h1>
+    <p>Make changes and save</p>
   </div>
   <Form @submit="register" :validation-schema="schema" v-slot="{ meta }">
     <div>
@@ -13,9 +17,14 @@
           <img class="" :src="dpURL" alt="" />
           <figcaption>
             <button
+              type="button"
+              v-if="!readOnly"
               class="tw-text-xs tw-rounded-md tw-bg-blue-700 tw-text-white p-1"
             >
-              {{ addedImage ? "Change Image" : "Add Image" }}
+              <template v-if="isEditing">Change Image</template>
+              <template v-else>
+                {{ addedImage ? "Change Image" : "Add Image" }}
+              </template>
             </button>
           </figcaption>
         </figure>
@@ -45,8 +54,10 @@
               <Field
                 type="text"
                 name="first_name"
+                v-model="firstName"
                 class="tw-w-full -tw-ml-10 tw-pl-10 tw-pr-3 tw-py-2 tw-rounded-lg tw-border-2 tw-border-gray-200 tw-outline-none focus:tw-border-indigo-500"
                 placeholder="Your first name"
+                :disabled="readOnly"
               />
             </div>
             <ErrorMessage
@@ -70,8 +81,10 @@
               <Field
                 type="text"
                 name="last_name"
+                v-model="lastName"
                 class="tw-w-full -tw-ml-10 tw-pl-10 tw-pr-3 tw-py-2 tw-rounded-lg tw-border-2 tw-border-gray-200 tw-outline-none focus:tw-border-indigo-500"
                 placeholder="Your last name"
+                :disabled="readOnly"
               />
             </div>
             <ErrorMessage
@@ -101,6 +114,7 @@
                 placeholder="Enter phone no"
                 @change="checkAvailability('tel')"
                 v-model="tel"
+                :disabled="readOnly"
               />
             </div>
             <ErrorMessage
@@ -110,60 +124,62 @@
           </div>
         </div>
       </div>
-      <div class="tw-flex -tw-mx-3">
-        <div class="tw-w-full tw-px-3 tw-mb-5">
-          <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
-            >Password</label
-          >
-          <div class="tw-flex tw-flex-wrap">
-            <div
-              class="tw-relative tw-w-full tw-flex tw-items-center tw-justify-center"
+      <template v-if="!isEditing">
+        <div class="tw-flex -tw-mx-3">
+          <div class="tw-w-full tw-px-3 tw-mb-5">
+            <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
+              >Password</label
             >
-              <i
-                class="mdi mdi-lock-outline tw-absolute block tw-left-0 -tw-ml-10 tw-w-10 tw-pl-1 tw-text-center pointer-events-none"
-              ></i>
+            <div class="tw-flex tw-flex-wrap">
+              <div
+                class="tw-relative tw-w-full tw-flex tw-items-center tw-justify-center"
+              >
+                <i
+                  class="mdi mdi-lock-outline tw-absolute block tw-left-0 -tw-ml-10 tw-w-10 tw-pl-1 tw-text-center pointer-events-none"
+                ></i>
 
-              <Field
-                type="password"
+                <Field
+                  type="password"
+                  name="password"
+                  class="tw-w-full -tw-ml-10 tw-pl-10 tw-pr-3 tw-py-2 tw-rounded-lg tw-border-2 tw-border-gray-200 tw-outline-none focus:tw-border-indigo-500"
+                  placeholder="************"
+                />
+              </div>
+              <ErrorMessage
                 name="password"
-                class="tw-w-full -tw-ml-10 tw-pl-10 tw-pr-3 tw-py-2 tw-rounded-lg tw-border-2 tw-border-gray-200 tw-outline-none focus:tw-border-indigo-500"
-                placeholder="************"
+                class="tw-block tw-text-red-500 tw-text-sm"
               />
             </div>
-            <ErrorMessage
-              name="password"
-              class="tw-block tw-text-red-500 tw-text-sm"
-            />
           </div>
         </div>
-      </div>
-      <div class="tw-flex -tw-mx-3">
-        <div class="tw-w-full tw-px-3 tw-mb-5">
-          <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
-            >Confirm Password</label
-          >
-          <div class="tw-flex tw-flex-wrap">
-            <div
-              class="tw-relative tw-w-full tw-flex tw-items-center tw-justify-center"
+        <div class="tw-flex -tw-mx-3">
+          <div class="tw-w-full tw-px-3 tw-mb-5">
+            <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
+              >Confirm Password</label
             >
-              <i
-                class="mdi mdi-lock-outline tw-absolute block tw-left-0 -tw-ml-10 tw-w-10 tw-pl-1 tw-text-center pointer-events-none"
-              ></i>
+            <div class="tw-flex tw-flex-wrap">
+              <div
+                class="tw-relative tw-w-full tw-flex tw-items-center tw-justify-center"
+              >
+                <i
+                  class="mdi mdi-lock-outline tw-absolute block tw-left-0 -tw-ml-10 tw-w-10 tw-pl-1 tw-text-center pointer-events-none"
+                ></i>
 
-              <Field
-                type="password"
+                <Field
+                  type="password"
+                  name="password_confirmation"
+                  class="tw-w-full -tw-ml-10 tw-pl-10 tw-pr-3 tw-py-2 tw-rounded-lg tw-border-2 tw-border-gray-200 tw-outline-none focus:tw-border-indigo-500"
+                  placeholder="************"
+                />
+              </div>
+              <ErrorMessage
                 name="password_confirmation"
-                class="tw-w-full -tw-ml-10 tw-pl-10 tw-pr-3 tw-py-2 tw-rounded-lg tw-border-2 tw-border-gray-200 tw-outline-none focus:tw-border-indigo-500"
-                placeholder="************"
+                class="tw-block tw-text-red-500 tw-text-sm"
               />
             </div>
-            <ErrorMessage
-              name="password_confirmation"
-              class="tw-block tw-text-red-500 tw-text-sm"
-            />
           </div>
         </div>
-      </div>
+      </template>
       <div class="tw-flex -tw-mx-3">
         <div class="tw-w-1/2 tw-px-3 tw-mb-3">
           <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
@@ -185,6 +201,7 @@
                 list="state"
                 @change="setLocation()"
                 v-model="state"
+                :disabled="readOnly"
               />
             </div>
             <ErrorMessage
@@ -221,7 +238,7 @@
                 list="lga"
                 v-model="lga"
                 @change="setLocation('lga')"
-                :disabled="state == ''"
+                :disabled="state == '' || readOnly"
               />
             </div>
             <ErrorMessage
@@ -239,7 +256,7 @@
           </div>
         </div>
       </div>
-      <div class="tw-flex -tw-mx-3">
+      <div v-if="!isEditing" class="tw-flex -tw-mx-3">
         <div class="tw-w-full tw-px-3 tw-mb-12">
           <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
             >Gender</label
@@ -276,14 +293,16 @@
         <div class="tw-w-full tw-px-3 tw-mb-5">
           <button
             :disabled="loading"
+            v-if="!readOnly"
             :class="buttonStyleClass(meta.valid)"
             class="block tw-w-full max-w-xs tw-mx-auto tw-text-white tw-rounded-lg tw-px-3 tw-py-3 tw-font-semibold"
           >
-            <span v-if="loading"
-              >Signing up <span class="mdi mdi-star mdi-spin tw-text-xl"></span>
+            <span v-if="loading">
+              {{ isEditing ? "Updating" : "Signing up" }}
+              <span class="mdi mdi-star mdi-spin tw-text-xl"></span>
             </span>
             <span v-else class="animate-spin"
-              >SIGN UP
+              >{{ isEditing ? "SAVE CHANGES" : "SIGN UP" }}
               <span
                 class="mdi mdi-arrow-send-bold mdi-rotate-270"
                 :class="{}"
@@ -301,15 +320,18 @@ import { Field, Form, ErrorMessage } from "vee-validate";
 import ErrorAlert from "../ErrorAlert.vue";
 import * as yup from "yup";
 import store from "../../store";
+import M from "materialize-css";
 
 export default {
   name: "Register",
+  props: ["isEditing", "readOnly"],
   components: {
     ErrorAlert,
     Field,
     Form,
     ErrorMessage,
   },
+  emits: ["updated"],
   data() {
     const schema = yup.object({
       first_name: yup
@@ -358,6 +380,8 @@ export default {
       loading: false,
       statesData: [],
       lgaData: "",
+      firstName: "",
+      lastName: "",
       state: "",
       lga: "",
       tel: "",
@@ -372,7 +396,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["states"]),
+    ...mapState(["states", "user"]),
   },
   methods: {
     buttonStyleClass(valid) {
@@ -387,7 +411,7 @@ export default {
       };
     },
     checkAvailability(fieldName) {
-      //alert(this[fieldName]);
+      alert(this[fieldName]);
       console.log(fieldName);
       this.loading = true;
       this.axios
@@ -408,15 +432,6 @@ export default {
           console.log(response.data);
           //setAvailState();
         });
-      /* let _this = this;
-        function setAvailState(){
-          if(_this[`${fieldName}Taken`]){
-            console.log(`${fieldName}Taken`);
-            _this.$refs.regForm.setFieldError(fieldName, `This ${fieldName} is already taken`);
-          }else{
-            alert("Not taken");
-          }
-        } */
     },
     selectImage(e) {
       let targetImg = e.target.files[0];
@@ -473,24 +488,47 @@ export default {
       for (let data in tempData) {
         formData.append(data, tempData[data]);
       }
+      if (this.isEditing) {
+        formData.append("user_id", this.user.id);
+      }
       this.errorMessages = [];
       this.axios
         .post(process.env.VUE_APP_APIURL + "/register", formData)
         .then((response) => {
-          console.log("User register response received from server!");
+          //console.log("User register response received from server!");
           this.loading = false;
-          console.log(response.data);
+          //console.log(response.data);
           if (response.data.status.status == 1) {
+            //registration successful
             //console.log("Registration successful");
             //console.log(`Login credentials are: ${values.email} and ${values.password}`);
             //if user registration succeeds, login the user automatically with provided credential and redirect to email verification page
             this.axios
               .post(process.env.VUE_APP_APIURL + "/login", values)
               .then((response) => {
-                console.log(response.data);
+                //console.log(response.data);
                 store.dispatch("login", response.data);
                 this.$router.push("/verify/tel");
               });
+          } else if (response.data.status == 1) {
+            //updating successful
+            M.toast({
+              html: "updating successful",
+              displayLength: 4000,
+            });
+            this.$emit("updated");
+            for (let value in values) {
+              store.dispatch("setProps", {
+                name: value,
+                value: values[value],
+                type: "user",
+              });
+            }
+            store.dispatch("setProps", {
+              name: "dp",
+              value: this.dpURL,
+              type: "user",
+            });
           }
           // store.dispatch('login', response.data);
           //this.bearerToken = response.data.access_token;
@@ -509,10 +547,16 @@ export default {
   },
   mounted() {
     for (let state in this.states) {
-      //this.states.push[state.split(':')[0]];
-      //state = state;
       this.statesData.push(state);
-      //console.log(state.split(':')[0]);
+    }
+    //display form values if isEditing
+    if (this.isEditing) {
+      this.tel = this.user.tel;
+      this.state = this.user.state;
+      this.lga = this.user.address.replace(":", "");
+      this.firstName = this.user.first_name;
+      this.lastName = this.user.last_name;
+      this.dpURL = this.user.dp;
     }
   },
 };
@@ -526,5 +570,12 @@ input[type="password"]:not(.browser-default) {
   border-radius: 0.5rem;
   padding-left: 2.5rem;
   width: 100%;
+}
+input:not([type]),
+input[type="text"]:disabled:not(.browser-default) {
+  background-color: rgb(252, 252, 252);
+  font-weight: bolder;
+  outline: none;
+  border: none;
 }
 </style>

@@ -404,7 +404,6 @@ export default {
     for (let linkItem of linkItems) {
       linkItem.addEventListener("click", function() {
         navMenuDiv.classList.add("tw-hidden");
-        console.log("about hiding menu");
       });
     }
     //alert(linkItems.length);

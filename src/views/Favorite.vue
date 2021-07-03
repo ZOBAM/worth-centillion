@@ -2,7 +2,7 @@
   <article class="tw-bg-white md:tw-p-4">
     <section class="tw-bg-gradient-to-b tw-from-white tw-to-blue-300 tw-p-2">
       <section
-        v-if="user.favorites.length"
+        v-if="items.length"
         class="tw-p-2 md:tw-p-4 tw-bg-white tw-rounded-lg"
       >
         <!-- <div
@@ -19,28 +19,29 @@
           <span class="mdi mdi-heart tw-text-blue-400"></span> Favorite Ads
         </h4>
         <transition-group name="list" tag="ul" class="collection with-header">
-          <li
-            class="collection-item hover:tw-bg-red-400"
-            v-for="(ad, index) of user.favorites"
-            :key="ad.id"
-          >
-            <div class="tw-flex tw-mt-2">
-              <span class="tw-flex-grow">
-                {{ ++index }})
-                <router-link :to="'/ads/' + ad.id" class="tw-text-blue-600"
-                  >{{ ad.title }}
-                </router-link>
-              </span>
-              <span
-                href="#!"
-                class="secondary-content tw-cursor-pointer"
-                title="remove from favorite"
-                ><i class="material-icons red-text" @click="removeAd(ad.id)"
-                  >delete</i
-                ></span
-              >
-            </div>
-          </li>
+          <template v-for="(ad, index) of items" :key="ad.id">
+            <li
+              class="collection-item hover:tw-bg-red-400"
+              v-if="index >= startIndex && index < endIndex"
+            >
+              <div class="tw-flex tw-mt-2">
+                <span class="tw-flex-grow">
+                  {{ ++index }})
+                  <router-link :to="'/ads/' + ad.id" class="tw-text-blue-600"
+                    >{{ ad.title }}
+                  </router-link>
+                </span>
+                <span
+                  href="#!"
+                  class="secondary-content tw-cursor-pointer"
+                  title="remove from favorite"
+                  ><i class="material-icons red-text" @click="removeAd(ad.id)"
+                    >delete</i
+                  ></span
+                >
+              </div>
+            </li>
+          </template>
         </transition-group>
       </section>
       <section
@@ -56,9 +57,17 @@
           </li>
         </ul>
         <p>
-          There is no currently no Ads in your favorites.
+          There is currently no Ads in your favorites.
         </p>
       </section>
+    </section>
+    <section>
+      <pagination
+        :rows="items.length"
+        :perPage="perPage"
+        @my-event="paginate"
+        :currentPage="currentPage"
+      ></pagination>
     </section>
   </article>
 </template>
@@ -67,14 +76,15 @@ import { mapState } from "vuex";
 import store from "../store";
 import M from "materialize-css";
 import { gsap } from "gsap";
+import paginate from "@/utilities/mixins/paginate.js";
 
 export default {
-  data() {
-    return {
-      name: null,
-    };
-  },
+  components: {},
+  mixins: [paginate],
   computed: {
+    items() {
+      return this.user.favorites;
+    },
     ...mapState(["user"]),
   },
   methods: {

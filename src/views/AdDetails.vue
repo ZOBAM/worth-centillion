@@ -93,7 +93,7 @@
           <img
             :src="ad.seller.dp"
             alt="seller profile picture"
-            class="tw-block tw-m-auto tw-rounded-full tw-mt-4"
+            class="tw-block tw-m-auto tw-rounded-full tw-mt-4 tw-w-20 tw-max-h-24"
           />
           <div
             class="tw-flex tw-mt-12 tw-justify-between tw-text-xs tw-text-center"
