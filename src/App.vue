@@ -254,10 +254,7 @@ export default {
       localStorage.setItem("seenCookieMsg", true);
     },
     showCategory() {
-      store.dispatch("setProps", {
-        name: "displayCategory",
-        value: !this.displayCategory,
-      });
+      store.dispatch("setProps", { displayCategory: !this.displayCategory });
       //alert("about showing categories");
     },
     loginUser: function() {
@@ -283,10 +280,7 @@ export default {
       this.searchIsOn = !this.searchIsOn;
     },
     showLocations: function() {
-      store.dispatch("setProps", {
-        name: "displayLocation",
-        value: !this.displayLocation,
-      });
+      store.dispatch("setProps", { displayLocation: !this.displayLocation });
     } /* ,
     showLocationStatus(){
       alert("about to show locatioin");
@@ -322,8 +316,8 @@ export default {
       },
     });
     //fetch user ad messages from server
-    setTimeout(() => {
-      if (this.user) {
+    /* setTimeout(() => {
+      if (this.user != {}) {
         //console.log(this.user.favorites);
         setInterval(() => {
           store.dispatch("messages", {
@@ -331,7 +325,7 @@ export default {
           });
         }, 30000);
       }
-    }, 200);
+    }, 200); */
 
     store.dispatch("checkLogin");
     var scrollpos = window.scrollY;

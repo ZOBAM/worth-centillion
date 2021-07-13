@@ -103,7 +103,7 @@ export default {
           //console.log(response.data);
         })
         .catch(() => {
-          alert("An error occured from the server");
+          alert("An error occurred from the server");
           //console.log(error);
         });
     },

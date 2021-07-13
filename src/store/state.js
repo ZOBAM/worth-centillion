@@ -1,7 +1,7 @@
 var state = {
   //user
   isLoggedIn: false,
-  user: null,
+  user: {},
   accessToken: null,
   //ads
   categories: localStorage.getItem("categories")
@@ -13,6 +13,7 @@ var state = {
   currentSubcategoryAdsCount: null,
   ads: null,
   adsIsLoading: true,
+  newAdID: null,
   states: localStorage.getItem("states")
     ? JSON.parse(localStorage.getItem("states"))
     : null,
@@ -21,6 +22,7 @@ var state = {
   state: null,
   lga: null,
   userAds: [],
+  promotionPrices: [2500, 8500],
   //navigation
   destinationURL: null,
   //messages

@@ -27,26 +27,32 @@ var mutations = {
     }
   },
   setStateProps(state, data) {
-    state[data.name] = data.value;
+    for (let fieldName in data) {
+      if (fieldName.indexOf("user_") != -1) {
+        let varName = fieldName.split("_")[1];
+        console.log(
+          "Var name is :" + varName + " and field name is: " + fieldName
+        );
+        if (varName in state.user) {
+          state.user[varName] = data[fieldName];
+          let currentUser = localStorage.getItem("userData");
+          currentUser = JSON.parse(currentUser);
+          currentUser.user[varName] = data[fieldName];
+          localStorage.setItem("userData", JSON.stringify(currentUser));
+        }
+      } else {
+        if (fieldName in state) {
+          state[fieldName] = data[fieldName];
+        }
+      }
+    }
+    /* state[data.name] = data.value;
     if (data.type == "user") {
       state.user[data.name] = data.value;
       let currentUser = localStorage.getItem("userData");
       currentUser = JSON.parse(currentUser);
       currentUser.user[data.name] = data.value;
       localStorage.setItem("userData", JSON.stringify(currentUser));
-    }
-    /* switch (data.name) {
-      case 'state':
-        state.state = data.value;
-        break;
-      case 'lga':
-        state.lga = data.value;
-        break;
-      case 'category':
-        state.category = data.value;
-        break;
-      case 'subcategory':
-        state.subcategory = data.value;
     } */
   },
   logoutUser(state) {

@@ -411,8 +411,8 @@ export default {
       };
     },
     checkAvailability(fieldName) {
-      alert(this[fieldName]);
-      console.log(fieldName);
+      //alert(this[fieldName]);
+      //console.log(fieldName);
       this.loading = true;
       this.axios
         .get(

@@ -62,6 +62,27 @@
               class="hot-ads tw-w-1/2 sm:tw-w-1/3 md:tw-w-1/4 tw-p-2 tw-flex tw-flex-col tw-flex-shrink tw-bg-blue-50"
             >
               <div
+                class="tw-bg-gray-50 tw-text-white tw-flex tw-justify-between"
+              >
+                <div
+                  v-if="ad.promoted != 'bronze'"
+                  class="tw-border-2 border-blue-500 tw-text-blue-500 tw-max-w-[4rem] tw-p-1"
+                  :class="{
+                    'tw-border-b-2 tw-border-b-red-300': ad.promoted == 'gold',
+                    'tw-border-b-2 tw-border-b-gray-300':
+                      ad.promoted == 'silver',
+                  }"
+                >
+                  Hot! <span class="mdi mdi-star"></span>
+                </div>
+                <div class="tw-text-gray-900 tw-max-w-[4rem] tw-p-1">
+                  {{ ad.num_of_images }} <span class="mdi mdi-image"></span>
+                </div>
+                <div class="tw-text-red-900 tw-max-w-[4rem] tw-p-1">
+                  {{ ad.likes }} <span class="mdi mdi-heart"></span>
+                </div>
+              </div>
+              <div
                 class="tw-flex-1 tw-bg-white tw-rounded-t tw-rounded-b-none tw-overflow-hidden tw-shadow-md tw-relative"
               >
                 <router-link
@@ -344,10 +365,10 @@ export default {
   methods: {
     clear(type) {
       if (type == "category") {
-        store.dispatch("setProps", { name: "category", value: null });
-        store.dispatch("setProps", { name: "subcategory", value: null });
+        store.dispatch("setProps", { category: null });
+        store.dispatch("setProps", { subcategory: null });
       } else {
-        store.dispatch("setProps", { name: "subcategory", value: null });
+        store.dispatch("setProps", { subcategory: null });
       }
       store.dispatch("fetchData");
     },

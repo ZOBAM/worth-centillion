@@ -38,13 +38,18 @@
             aria-disabled="true"
             >{{ ad.ad_images.length }} <span class="mdi mdi-image"></span>
           </span>
-          <a
-            href=""
-            class="tw-inline-block tw-border-2 tw-border-gray-200 tw-relative"
-            @click.prevent="like(ad.id)"
-          >
-            <span :class="heartIcon" id="like-button"></span>
-          </a>
+          <div class="tw-relative tw-border-2 ">
+            <span class="tw-inline-block tw-top-3 tw-absolute tw-pl-2">{{
+              likes
+            }}</span>
+            <a
+              href=""
+              class="tw-inline-block tw-relative"
+              @click.prevent="like(ad.id)"
+            >
+              <span :class="heartIcon" id="like-button"></span>
+            </a>
+          </div>
         </div>
         <div class="tw-bg-gray-200 md:tw-p-4">
           <h5 class="tw-text-center tw-relative tw-p-2">
@@ -196,6 +201,7 @@ export default {
       ad: null,
       chatSeller: false,
       chatMessage: "",
+      addedLike: 0,
       hiddenFields: ["id", "ad_id", "created_at", "updated_at"],
       heartIcon: {
         "mdi mdi-heart-outline tw-text-blue-500 tw-text-3xl tw-absolute tw-right-4 tw-top-1 hover:tw-text-green-400": true,
@@ -216,6 +222,9 @@ export default {
         }
       }
       return adDetails;
+    },
+    likes() {
+      return this.ad.likes + this.addedLike;
     },
   },
   methods: {
@@ -247,23 +256,21 @@ export default {
           if (response.data.type == "like") {
             this.setHeartIcon(true);
             this.likedMessage = "You liked this Ad";
+            this.addedLike++;
           } else {
             this.setHeartIcon(false);
             this.likedMessage = "You unliked this Ad";
+            this.addedLike--;
           }
           M.toast({
             html: this.likedMessage,
             displayLength: 4000,
           });
-          store.dispatch("setProps", {
-            name: "favorites",
-            value: response.data.favorites,
-            type: "user",
-          });
+          store.dispatch("setProps", response.data);
           //console.log(response.data);
         })
         .catch(() => {
-          alert("An error occured from the server");
+          alert("An error occurred from the server");
           //console.log(error);
         })
         .then(() => {

@@ -357,14 +357,9 @@ export default {
           console.log(response.data);
           this.paymentData = response.data;
           if (response.data.status == 1) {
-            store.dispatch("setProps", {
-              name: "balance",
-              value: response.data.balance,
-              type: "user",
-            });
+            store.dispatch("setProps", response.data);
             this.transactionHistory = response.data.transaction_history;
           } else {
-            alert(response.data.message);
             this.processing_payment = false;
           }
 
@@ -433,11 +428,7 @@ export default {
           if (response.data.status == 1) {
             this.paymentData = response.data;
             //store.dispatch("setProps", { name: "category", value: null });
-            store.dispatch("setProps", {
-              name: "balance",
-              value: response.data.balance,
-              type: "user",
-            });
+            store.dispatch("setProps", response.data);
           } else this.processing_payment = false;
           if (response.data.status == 1 || response.data.status == 2) {
             localStorage.setItem("fundedWallet", false);
@@ -456,11 +447,7 @@ export default {
       this.axios
         .get(process.env.VUE_APP_APIURL + "/vtu/balance/" + this.user.id)
         .then((response) => {
-          store.dispatch("setProps", {
-            name: "balance",
-            value: response.data.balance,
-            type: "user",
-          });
+          store.dispatch("setProps", response.data);
         });
     }
     //fetch list of data plans from server

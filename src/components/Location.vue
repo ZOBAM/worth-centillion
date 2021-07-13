@@ -79,13 +79,10 @@ export default {
   methods: {
     clearLocation() {
       this.currentState = null;
-      store.dispatch("setProps", { name: "lga", value: null });
-      store.dispatch("setProps", { name: "state", value: null });
+      store.dispatch("setProps", { lga: null });
+      store.dispatch("setProps", { state: null });
       store.dispatch("fetchData");
-      store.dispatch("setProps", {
-        name: "displayLocation",
-        value: !this.displayLocation,
-      });
+      store.dispatch("setProps", { displayLocation: !this.displayLocation });
     },
     extractLocation(data) {
       let [name, adsCount] = data.split(":");
@@ -93,10 +90,7 @@ export default {
       return { name, adsCount, listClass };
     },
     saveLocation() {
-      store.dispatch("setProps", {
-        name: "displayLocation",
-        value: !this.displayLocation,
-      });
+      store.dispatch("setProps", { displayLocation: !this.displayLocation });
       store.dispatch("fetchData");
     },
     getLGA: function(index, adsCount) {
@@ -104,10 +98,9 @@ export default {
       this.currentState = index;
       this.currentLocation = this.extractLocation(this.currentState).name;
       store.dispatch("setProps", {
-        name: "state",
-        value: this.extractLocation(this.currentState).name,
+        state: this.extractLocation(this.currentState).name,
       });
-      store.dispatch("setProps", { name: "lga", value: null });
+      store.dispatch("setProps", { lga: null });
       this.currentLGA = null;
       //alert(this.states[index])
     },
@@ -115,8 +108,7 @@ export default {
       if (adsCount <= 0) return;
       this.currentLGA = this.states[this.currentState][index];
       store.dispatch("setProps", {
-        name: "lga",
-        value: this.extractLocation(this.currentLGA).name,
+        lga: this.extractLocation(this.currentLGA).name,
       });
       this.currentLocation =
         this.extractLocation(this.currentLGA).name +

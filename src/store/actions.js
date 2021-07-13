@@ -21,7 +21,7 @@ const actions = {
     commit("setStateProps", data);
   },
   messages({ commit }, payload) {
-    commit("setStateProps", { name: "messageLoading", value: true });
+    commit("setStateProps", { messageLoading: true });
     let initialMessagesCount = state.user.messages.length;
     axios
       .post(process.env.VUE_APP_APIURL + "/messages", payload)
@@ -30,21 +30,12 @@ const actions = {
         /* console.log(data.ad_chats);
         console.log(data.messages); */
         //console.log("data.user_id: " + payload.user_id);
-        commit("setStateProps", { name: "messageLoading", value: false });
-        commit("setStateProps", {
-          name: "messages",
-          value: data.messages,
-          type: "user",
-        });
-        commit("setStateProps", {
-          name: "ad_chats",
-          value: data.ad_chats,
-          type: "user",
-        });
+        commit("setStateProps", { messageLoading: false });
+        commit("setStateProps", data);
         if (payload.user_id == undefined) {
-          commit("setStateProps", { name: "messageSuccess", value: true });
+          commit("setStateProps", { messageSuccess: true });
           setTimeout(() => {
-            commit("setStateProps", { name: "messageSuccess", value: false });
+            commit("setStateProps", { messageSuccess: false });
           }, 3500);
         }
         if (state.user.messages.length != initialMessagesCount) {
@@ -64,15 +55,13 @@ const actions = {
         return item.id != payload.adID;
       });
       commit("setStateProps", {
-        name: "favorites",
-        value: userFavs,
-        type: "user",
+        user_favorites: userFavs,
       });
     }
   },
   fetchData({ commit }) {
     //get ads from the server
-    commit("setStateProps", { name: "adsIsLoading", value: true });
+    commit("setStateProps", { adsIsLoading: true });
     let urlPostfix = "";
     let urlPara = "";
     let totalAdsCount = null;
@@ -89,58 +78,27 @@ const actions = {
       .get(process.env.VUE_APP_APIURL + "/ads" + urlPostfix + urlPara)
       .then(function(response) {
         //console.log(response.data);
-        commit("setStateProps", { name: "ads", value: response.data.ads });
-        commit("setStateProps", { name: "adsIsLoading", value: false });
-        totalAdsCount = response.data.total_ads_count;
-        if (localStorage.getItem("lastTotalAdsCount") === null) {
-          //alert("No lastCount in storage");
-          localStorage.setItem("lastTotalAdsCount", totalAdsCount);
-        } else {
-          //alert(localStorage.getItem('lastTotalAdsCount'));
-        }
-        //clear front end cache based on back end variable
-        if (response.data.clear_category_cache == 1) {
-          //alert("clearing categories");
+        commit("setStateProps", response.data);
+        commit("setStateProps", { adsIsLoading: false });
+        let cacheNum = localStorage.getItem("cacheNum");
+        if (response.data.clear_cache != cacheNum) {
+          alert("clearing all cache");
           localStorage.removeItem("categories");
-        }
-        console.log("user-cache: " + response.data.clear_user_cache);
-        if (response.data.clear_user_cache == 1) {
-          //alert("clearing user data");
-          localStorage.removeItem("userData");
+          commit("logoutUser");
+          localStorage.setItem("cacheNum", response.data.clear_cache);
         }
         setState("states");
         setState("categories");
       });
     //if stored ads counts has changed, re-fetch states to reflect current ads distributions
     function setState(data) {
-      if (
-        state[data] == null ||
-        totalAdsCount != localStorage.getItem("lastTotalAdsCount")
-      ) {
-        //console.log(`${data} at the moment is null or doesn't match`);
-        let localData = localStorage.getItem(data);
-        if (
-          localData &&
-          JSON.parse(localData) &&
-          totalAdsCount == localStorage.getItem("lastTotalAdsCount")
-        ) {
-          //console.log(`getting ${data} form local storage`);
-          localData = JSON.parse(data);
-          commit("setStateProps", { name: data, value: localData });
-        } else {
-          //console.log(`getting ${data} form server`);
-          axios
-            .get(process.env.VUE_APP_APIURL + "/ads/get_" + data)
-            .then(function(response) {
-              commit("setStateProps", {
-                name: data,
-                value: response.data[data],
-              });
-              localStorage.setItem(data, JSON.stringify(response.data[data]));
-              localStorage.setItem("lastTotalAdsCount", totalAdsCount);
-            });
-        }
-      }
+      axios
+        .get(process.env.VUE_APP_APIURL + "/ads/get_" + data)
+        .then(function(response) {
+          commit("setStateProps", { data: response.data[data] });
+          localStorage.setItem(data, JSON.stringify(response.data[data]));
+          localStorage.setItem("lastTotalAdsCount", totalAdsCount);
+        });
     }
   },
 };

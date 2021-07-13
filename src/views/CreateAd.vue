@@ -75,7 +75,7 @@
               fast.
             </p>
             <div
-              class="tw-flex tw-flex-wrap tw-p-4 tw-justify-center items-center  tw-bg-gray-100"
+              class="tw-flex tw-flex-wrap tw-p-4 tw-justify-center items-center tw-bg-gray-100"
             >
               <div
                 v-for="(image, index) of adImages"
@@ -90,7 +90,7 @@
                     <button
                       type="button"
                       @click="deleteImage(image.id)"
-                      class="tw-text-xs tw-rounded-md tw-bg-blue-700 tw-text-white tw-p-1 tw-absolute tw-bottom-0  tw-cursor-pointer"
+                      class="tw-text-xs tw-rounded-md tw-bg-red-700 tw-text-white tw-p-1 tw-absolute tw-bottom-0  tw-cursor-pointer"
                     >
                       X Delete
                     </button>
@@ -99,7 +99,7 @@
               </div>
               <div class="inline">
                 <figure
-                  class="tw-w-28 tw-h-24 tw-overflow-hidden tw-cursor-pointer tw-border-8 hover:tw-border-blue-500 tw-text-center"
+                  class="tw-w-28 tw-h-24 tw-overflow-hidden tw-rounded-2xl  tw-cursor-pointer tw-border-4 hover:tw-border-blue-500 tw-text-center tw-border-gray-400"
                   @click="$refs.uploadImg.click()"
                 >
                   <img class="w-24" :src="previewURL" alt="" />
@@ -138,7 +138,7 @@
               <Field
                 type="number"
                 min="10"
-                step="5"
+                step="50"
                 name="price"
                 id="price"
                 class="w-4/5 md:w-2/3 tw-outline-none tw-border-0 tw-border-b-2 tw-border-gray-400 focus:tw-outline-none focus:tw-border-transparent rounded"
@@ -232,8 +232,8 @@
               <Field type="radio" name="promoted" value="silver" />
               <span
                 ><strong>Silver Ad</strong> - Stay on top list for 7 days
-                (N2,200.00)</span
-              >
+                <strong class="blue-text"> (N{{ promotionPrices[0] }})</strong>
+              </span>
             </label>
             <label
               class="block tw-cursor-pointer hover:shadow-md hover:tw-text-blue-900"
@@ -242,9 +242,15 @@
               <Field type="radio" name="promoted" value="gold" />
               <span
                 ><strong>Gold Ad</strong> - Stay on top list for 30 days
-                (N7,500.00)</span
+                <strong class="blue-text"
+                  >(N{{ promotionPrices[1] }})</strong
+                ></span
               >
             </label>
+            <ErrorMessage
+              name="promoted"
+              class="tw-block tw-text-red-500 tw-text-sm"
+            />
           </div>
           <div class="tw-text-center tw-mt-8">
             <button
@@ -301,6 +307,7 @@ import { Field, Form, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 import DynamicField from "@/components/DynamicField.vue";
 import router from "../router";
+import store from "../store";
 
 export default {
   name: "CreateAd",
@@ -362,7 +369,13 @@ export default {
     };
   },
   computed: {
-    ...mapState(["states", "categories", "accessToken"]),
+    ...mapState([
+      "states",
+      "categories",
+      "accessToken",
+      "promotionPrices",
+      "user",
+    ]),
   },
   methods: {
     getFormFields(data) {
@@ -417,15 +430,38 @@ export default {
           image.id = image.id - 1;
         }
       }
-      alert("deleted image of ID: " + id);
-      console.log(this.adImages);
+      //alert("deleted image of ID: " + id);
+      //console.log(this.adImages);
     },
-    postAd(values) {
-      this.step2 = true;
+    postAd(values, actions) {
+      this.step1Data = values;
+      if (values.promoted != "bronze") {
+        let promotionPrice =
+          values.promoted == "silver"
+            ? this.promotionPrices[0]
+            : this.promotionPrices[1];
+        if (this.user.balance < promotionPrice) {
+          this.lowBalance = true;
+          /* alert(
+            "ad promoted but low balance " +
+              this.user.balance +
+              " : " +
+              promotionPrice
+          ); */
+          actions.setFieldError(
+            "promoted",
+            `Account balance is low for ${values.promoted.toUpperCase()} Ad. Please Fund your wallet and try again.`
+          );
+        } else {
+          this.step2 = true;
+        }
+      } else {
+        this.step2 = true;
+      }
+
+      //this.step2 = true;
       //console.log(this.adImages);
       //alert("About to post ad to server");
-      this.step1Data = values;
-      this.step2 = true;
     },
     onSubmit(e, skikppedDetails = false) {
       this.loading = true;
@@ -444,9 +480,10 @@ export default {
         .post(process.env.VUE_APP_APIURL + "/ads/create", this.adData, {
           headers: { Authorization: `Bearer ${this.accessToken}` },
         })
-        .then(() => {
+        .then((response) => {
           this.loading = false;
           router.push("/userarea");
+          store.dispatch("setProps", response.data);
           //console.log(response.data);
         })
         .catch(() => {

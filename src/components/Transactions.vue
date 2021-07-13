@@ -23,12 +23,12 @@
       </div>
     </div>
     <section
-      v-if="user.transactions.length || user.vtu_transactions.length"
+      v-if="user.transactions.length || user.vtuTransactions.length"
       class="tw-text-gray-700"
     >
       <div v-if="vtuTransactions">
         <div
-          v-if="user.vtu_transactions.length"
+          v-if="user.vtuTransactions.length"
           class="tw-w-full md:tw-w-3/4 tw-text-center tw-m-auto"
         >
           <table class="striped ">
@@ -137,7 +137,7 @@ export default {
     ...mapState(["user"]),
     items() {
       return this.vtuTransactions
-        ? this.user.vtu_transactions
+        ? this.user.vtuTransactions
         : this.user.transactions;
     },
   },

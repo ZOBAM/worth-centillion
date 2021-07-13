@@ -2,7 +2,7 @@
   <article class="">
     <section
       class="tw-bg-gray-50 tw-py-4 tw-flex tw-flex-wrap"
-      v-if="user.ad_chats.length > 0"
+      v-if="user.adChats.length > 0"
     >
       <section class="tw-w-full md:tw-w-2/5 tw-p-3">
         <h3 class="tw-text-lg tw-text-center tw-bg-blue-100 tw-p-2">
@@ -10,7 +10,7 @@
         </h3>
         <div>
           <div
-            v-for="msg of user.ad_chats"
+            v-for="msg of user.adChats"
             :key="msg"
             :class="{
               'tw-p-2 tw-bg-gray-200 tw-mb-2 tw-rounded-3xl tw-flex tw-cursor-pointer hover:tw-bg-blue-500': true,
