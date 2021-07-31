@@ -61,13 +61,18 @@
           ></i>
         </span>
         <span class="tw-flex tw-justify-center tw-items-center tw-text-sm">
-          {{ extractCategoryDetails(category).name }}
+          {{ extractCategoryDetails(category).name }} <br />
+          {{
+            extractCategoryDetails(category).name == "Fundme"
+              ? ""
+              : extractCategoryDetails(category).count
+          }}
         </span>
         <span
           v-if="extractCategoryDetails(category).name != 'Fundme'"
           class="tw-text-gray-500 tw-bg-gray-200 tw-float-right tw-inline-block tw-absolute tw-right-0 tw-p-1 text-xs tw-bottom-2"
         >
-          {{ extractCategoryDetails(category).count }}
+          <span class="mdi mdi-menu"></span>
         </span>
       </li>
     </ul>
@@ -201,15 +206,9 @@ export default {
       this.subcategories.shift();
       this.subcategories.shift();
       this.viewSubcategory = true;
-      store.dispatch("setProps", {
-        name: "category",
-        value: this.currentCategory,
-      });
-      store.dispatch("setProps", {
-        name: "currentCategoryAdsCount",
-        value: adsCount,
-      });
-      store.dispatch("setProps", { name: "subcategory", value: null });
+      store.dispatch("setProps", { category: this.currentCategory });
+      store.dispatch("setProps", { currentCategoryAdsCount: adsCount });
+      store.dispatch("setProps", { subcategory: null });
       store.dispatch("fetchData");
       //alert('from state: '+this.$store.state.category);
       //return this.categories[selectedCategory];
@@ -217,13 +216,10 @@ export default {
     setSubcategory(subcategory, adsCount) {
       if (adsCount == 0) return; //don't run this function if no ads in subcategory
       let [subcat, count] = subcategory.split(":");
-      store.dispatch("setProps", { name: "subcategory", value: subcat });
-      store.dispatch("setProps", {
-        name: "currentSubcategoryAdsCount",
-        value: count,
-      });
+      store.dispatch("setProps", { subcategory: subcat });
+      store.dispatch("setProps", { currentSubcategoryAdsCount: count });
       this.viewSubcategory = false;
-      store.dispatch("setProps", { name: "displayCategory", value: false });
+      store.dispatch("setProps", { displayCategory: false });
       store.dispatch("fetchData");
       //alert('from state: '+this.$store.state.subcategory);
     },

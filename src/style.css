@@ -1290,6 +1290,14 @@ select {
   height: 2rem;
 }
 
+.tw-h-\[70vh\] {
+  height: 70vh;
+}
+
+.tw-h-\[80vh\] {
+  height: 80vh;
+}
+
 .tw-max-h-24 {
   max-height: 6rem;
 }
@@ -1755,26 +1763,6 @@ select {
 .tw-border-purple-900 {
   --tw-border-opacity: 1;
   border-color: rgba(76, 29, 149, var(--tw-border-opacity));
-}
-
-.tw-border-b-blue-500 {
-  --tw-border-opacity: 1;
-  border-bottom-color: rgba(59, 130, 246, var(--tw-border-opacity));
-}
-
-.tw-border-b-gray-500 {
-  --tw-border-opacity: 1;
-  border-bottom-color: rgba(107, 114, 128, var(--tw-border-opacity));
-}
-
-.tw-border-b-red-500 {
-  --tw-border-opacity: 1;
-  border-bottom-color: rgba(239, 68, 68, var(--tw-border-opacity));
-}
-
-.tw-border-b-red-200 {
-  --tw-border-opacity: 1;
-  border-bottom-color: rgba(254, 202, 202, var(--tw-border-opacity));
 }
 
 .tw-border-b-red-300 {

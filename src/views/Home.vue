@@ -10,7 +10,7 @@
     <location v-if="displayLocation"></location>
     <div class="tw-bg-gray-200 tw-text-black tw-p-1 tw-flex tw-flex-wrap">
       <div
-        class="tw-border-blue-200 tw-border-r-2 tw-w-1/4 tw-p-2 tw-h-96 tw-overflow-auto tw-relative tw-overflow-x-hidden tw-hidden md:tw-block"
+        class="tw-border-blue-200 tw-border-r-2 tw-w-1/4 tw-p-2 tw-h-[80vh] tw-overflow-auto tw-relative tw-overflow-x-hidden tw-hidden md:tw-block"
       >
         <category-list :forMobile="false"></category-list>
       </div>
@@ -55,7 +55,7 @@
             </div>
           </div>
           <loading v-if="adsIsLoading"></loading>
-          <div v-if="ads != null" class="tw-flex tw-flex-wrap">
+          <div v-if="ads != null" class="tw-flex tw-flex-wrap tw-w-full">
             <div
               v-for="(ad, index) in ads"
               v-bind:key="index"
@@ -76,10 +76,10 @@
                   Hot! <span class="mdi mdi-star"></span>
                 </div>
                 <div class="tw-text-gray-900 tw-max-w-[4rem] tw-p-1">
-                  {{ ad.num_of_images }} <span class="mdi mdi-image"></span>
+                  {{ ad.num_of_images }}<span class="mdi mdi-image"></span>
                 </div>
                 <div class="tw-text-red-900 tw-max-w-[4rem] tw-p-1">
-                  {{ ad.likes }} <span class="mdi mdi-heart"></span>
+                  {{ ad.likes }}<span class="mdi mdi-heart"></span>
                 </div>
               </div>
               <div
