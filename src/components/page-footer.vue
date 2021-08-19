@@ -118,35 +118,4 @@ export default {
   name: "pageFooter",
 };
 </script>
-<style lang="scss" scoped>
-/* footer {
-  background-color: #014A7F;
-  clip-path: polygon(0 14%, 100% 0, 100% 100%, 0% 100%);
-  min-height: 10em;
-  padding: 1em;
-    margin: 0px;
-    ul {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        li {
-        //display: inline-block;
-        a{
-            color: white;
-        }
-        }
-     } 
-}
-div{
-    background-color: #002138;
-    //margin: -1em 0px;
-    min-height: 2em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    p{
-        color: rgba(255, 255, 254, 0.589);
-        font-size: .8em;
-    }
-} */
-</style>
+<style lang="scss" scoped></style>

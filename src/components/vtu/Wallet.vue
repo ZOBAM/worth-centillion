@@ -17,6 +17,9 @@
         <p class="tw-bg-blue-50 tw-text-center tw-text-blue-500 tw-my-4">
           Naira
         </p>
+        <div class="tw-bg-blue-600 tw-text-center">
+          Points: {{ user.points }}
+        </div>
       </div>
       <div class="tw-bg-blue-500 tw-p-4 tw-text-center">
         <p class="tw-text-white tw-mb-6">Empower yourself to do more.</p>

@@ -473,11 +473,6 @@ export default {
           return false;
         }
       }
-      /*if(this.telTaken){
-          console.log("Phone taken");
-          actions.setFieldError('tel', 'This phone no is already taken.');
-          return false;
-        } */
 
       this.loading = true;
       //const form = e.target;
@@ -491,13 +486,17 @@ export default {
       if (this.isEditing) {
         formData.append("user_id", this.user.id);
       }
+      //if referred send refID
+      if (this.$route.params.refID) {
+        formData.append("refID", this.$route.params.refID);
+      }
       this.errorMessages = [];
       this.axios
         .post(process.env.VUE_APP_APIURL + "/register", formData)
         .then((response) => {
-          //console.log("User register response received from server!");
+          console.log("User register response received from server!");
           this.loading = false;
-          //console.log(response.data);
+          console.log(response.data);
           if (response.data.status.status == 1) {
             //registration successful
             //console.log("Registration successful");

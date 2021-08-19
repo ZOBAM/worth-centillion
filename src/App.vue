@@ -13,13 +13,11 @@
             to="/"
             class="toggleColour tw-text-white tw-no-underline hover:tw-no-underline tw-font-bold tw-text-2xl lg:tw-text-4xl"
           >
-            <!--Icon from: http://www.potlabicons.com/ -->
             <img
               class="plane-take-off tw-w-12"
               src="./assets/logo.png"
               alt=""
             />
-            <!-- BUYSPOT -->
           </router-link>
         </div>
         <div
@@ -85,37 +83,64 @@
                   Favorites
                 </router-link>
               </li>
-              <li class="tw-mr-3">
-                <router-link
-                  to="/userarea"
-                  class="link-item tw-inline-block tw-text-black tw-no-underline hover:tw-text-gray-800 hover:tw-text-underline tw-py-2 tw-px-4"
-                  ><span
-                    class="mdi mdi-account tw-text-blue-500 lg:tw-text-white"
-                  ></span>
-                  User Area
-                </router-link>
-              </li>
-              <li class="tr-mr-3">
-                <router-link
-                  to="/"
-                  @click="logout"
-                  class="link-item tw-inline-block tw-text-black tw-no-underline hover:tw-text-gray-800 hover:tw-text-underline tw-py-2 tw-px-4"
-                  >Sign out</router-link
+              <li
+                @click="showUserMenu"
+                class="tw-mr-3 tw-relative tw-cursor-pointer tw-ml-4 lg:tw-ml-0"
+              >
+                <!-- <span
+                  class="mdi mdi-account tw-text-blue-500 lg:tw-text-white"
+                ></span> -->
+                <span
+                  class="mdi mdi-menu-down-outline tw-text-blue-500  lg:tw-text-white"
+                  :class="{
+                    'mdi-rotate-180': showUserLinks,
+                    'mdi-rotate-0': !showUserLinks,
+                  }"
+                ></span>
+                {{ user.first_name }}
+                <ul
+                  class="tw-absolute tw-left-1 tw-whitespace-nowrap tw-bg-[#186AA9] tw-z-40"
+                  v-if="showUserLinks"
                 >
+                  <li class="tw-p-1 tw-bg-gray-200 tw-text-black tw-mt-1">
+                    <router-link
+                      to="/userarea"
+                      class="link-item tw-inline-block tw-text-black tw-no-underline hover:tw-text-gray-800 hover:tw-text-underline tw-py-2 tw-px-4"
+                    >
+                      User Area
+                    </router-link>
+                  </li>
+                  <li class="tw-p-1 tw-bg-gray-200 tw-text-black tw-mt-1">
+                    <router-link
+                      to="/invite"
+                      class="link-item tw-inline-block tw-text-black tw-no-underline hover:tw-text-gray-800 hover:tw-text-underline tw-py-2 tw-px-4"
+                    >
+                      Invite Friend</router-link
+                    >
+                  </li>
+                  <li class="tw-p-1 tw-bg-gray-200 tw-text-black tw-mt-1">
+                    <router-link
+                      to="/"
+                      @click="logout"
+                      class="link-item tw-inline-block tw-text-black tw-no-underline hover:tw-text-gray-800 hover:tw-text-underline tw-py-2 tw-px-4"
+                      >Sign out</router-link
+                    >
+                  </li>
+                </ul>
               </li>
             </div>
             <div
               v-show="!isLoggedIn"
               class="lg:tw-flex tw-justify-end tw-flex-1 tw-items-center"
             >
-              <li class="mr-3">
+              <li class="tw-mr-3">
                 <router-link
                   to="/user/login"
                   class="link-item tw-inline-block tw-py-2 tw-px-4 tw-text-black tw-no-underline"
                   >Sign in</router-link
                 >
               </li>
-              <li class="mr-3">
+              <li class="tw-mr-3">
                 <router-link
                   to="/user/register"
                   class="link-item tw-inline-block tw-text-black tw-no-underline hover:tw-text-gray-800 hover:tw-text-underline tw-py-2 tw-px-4"
@@ -216,6 +241,8 @@ export default {
       bearerToken: "",
       showCookieMsg: true,
       toastMessage: "From data variable",
+      showUserLinks: false,
+      menuTimeout: null,
     };
   },
   computed: {
@@ -228,6 +255,7 @@ export default {
       "subcategory",
       "state",
       "lga",
+      "reachedEndOfAds",
     ]),
     loggedIn: function() {
       return "Hello";
@@ -242,6 +270,16 @@ export default {
     },
   },
   methods: {
+    showUserMenu() {
+      this.showUserLinks = !this.showUserLinks;
+      if (this.showUserLinks) {
+        this.menuTimeout = setTimeout(() => {
+          this.showUserLinks = !this.showUserLinks;
+        }, 5500);
+      } else {
+        clearTimeout(this.menuTimeout);
+      }
+    },
     toast() {
       M.toast({ html: this.toastMessage, displayLength: 4000 });
     },
