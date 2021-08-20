@@ -224,7 +224,7 @@ export default {
       return adDetails;
     },
     likes() {
-      return this.ad.likes + this.addedLike;
+      return this.ad.likes * 1 + this.addedLike * 1;
     },
   },
   methods: {

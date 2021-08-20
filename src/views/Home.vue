@@ -15,7 +15,7 @@
         <category-list :forMobile="false"></category-list>
       </div>
       <section class="tw-bg-white tw-border-b tw-py-8 md:tw-w-3/4">
-        <VTUAd class="-tw-mt-8"></VTUAd>
+        <VTUAd class="tw--mt-1"></VTUAd>
         <div
           v-if="showCategories"
           class="tw-border-blue-200 gradient tw--mt-1 tw-border-r-2 tw-w-screen tw-p-2 tw-overflow-y-scroll tw-overflow-x-hidden md:tw-hidden"
@@ -38,7 +38,9 @@
             <div
               v-if="category && ads.length"
               class="tw-px-4 tw-pt-4 tw-text-xs "
+              <
             >
+              >
               <span @click="clear('category')" class="tw-cursor-pointer">
                 <span class="mdi mdi-close tw-text-red-600"></span>
                 {{ category }} ({{ currentCategoryAdsCount }})
@@ -62,7 +64,7 @@
               class="hot-ads tw-w-1/2 sm:tw-w-1/3 md:tw-w-1/4 tw-p-2 tw-flex tw-flex-col tw-flex-shrink tw-bg-blue-50"
             >
               <div
-                class="tw-bg-gray-50 tw-text-white tw-flex tw-justify-between"
+                class="tw-bg-gray-50 tw-text-white tw-flex tw-justify-between tw-border-t-2 tw-border-gray-200"
               >
                 <div
                   v-if="ad.promoted != 'bronze'"
@@ -75,11 +77,15 @@
                 >
                   Hot! <span class="mdi mdi-star"></span>
                 </div>
-                <div class="tw-text-gray-900 tw-max-w-[4rem] tw-p-1">
-                  {{ ad.num_of_images }} <span class="mdi mdi-image"></span>
+                <div
+                  class="tw-text-gray-900 tw-max-w-[4rem] tw-p-1 tw-opacity-70"
+                >
+                  {{ ad.num_of_images }}<span class="mdi mdi-image"></span>
                 </div>
-                <div class="tw-text-red-900 tw-max-w-[4rem] tw-p-1">
-                  {{ ad.likes }} <span class="mdi mdi-heart"></span>
+                <div
+                  class="tw-text-red-900 tw-max-w-[4rem] tw-p-1 tw-opacity-70"
+                >
+                  {{ ad.likes }}<span class="mdi mdi-heart"></span>
                 </div>
               </div>
               <div

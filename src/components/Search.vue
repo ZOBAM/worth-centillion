@@ -4,6 +4,7 @@
       action=""
       class="flex tw-justify-items-center tw-items-center border-2 tw-border-gray-600"
       style="display:flex; flex-flow: wrap; justify-items: center; align-items: center;"
+      @submit.prevent="search"
     >
       <input
         type="search"
@@ -17,7 +18,6 @@
       <button
         type="submit"
         class="tw-block tw-text-white tw-m-auto tw-mt-2 tw-p-2 gradient tw-border-2 tw-rounded-lg hover:tw-text-blue-200 hover:tw-border-blue-400"
-        @click="search"
       >
         Search <span class="mdi mdi-search-web tw-text-xl"></span>
       </button>
@@ -34,8 +34,11 @@ export default {
   },
   methods: {
     search() {
-      this.$router.push("/searchresult?query=" + this.searchQuery);
-      //alert("submitting search to server: "+ this.searchQuery);
+      if(this.searchQuery == ""){
+        alert("Please enter what to search for.");
+      }else{
+        this.$router.push("/searchresult?query=" + this.searchQuery);
+      }
     },
   },
 };
