@@ -29,10 +29,10 @@ var mutations = {
   setStateProps(state, data) {
     for (let fieldName in data) {
       if (fieldName.indexOf("user_") != -1) {
-        let varName = fieldName.split("_")[1];
-        console.log(
-          "Var name is :" + varName + " and field name is: " + fieldName
-        );
+        let varName = fieldName.replace("user_", "");
+        /* console.log(
+          "Var name is: " + varName + " and field name is: " + fieldName
+        ); */
         if (varName in state.user) {
           state.user[varName] = data[fieldName];
           let currentUser = localStorage.getItem("userData");

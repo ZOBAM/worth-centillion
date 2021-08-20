@@ -23,6 +23,7 @@ var state = {
   lga: null,
   userAds: [],
   promotionPrices: [2500, 8500],
+  reachedEndOfAds: false,
   //navigation
   destinationURL: null,
   //messages
@@ -33,6 +34,8 @@ var state = {
   //favorites
   favoriteLoading: false,
   favoriteMessage: "",
+  //dimensions
+  footerHeight: null,
 };
 
 export { state };

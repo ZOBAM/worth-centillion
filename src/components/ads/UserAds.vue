@@ -35,12 +35,18 @@
               v-else
               class="tw-border-2 tw-bg-green-400 tw-border-blue-600 tw-border-double hover:tw-bg-gray-50"
             >
-              <span class="tw-bg-blue-300 tw-px-3 tw-py-2 tw-rounded-lg"
+              <!-- <span class="tw-bg-blue-300 tw-px-3 tw-py-2 tw-rounded-lg"
                 >Promoted</span
-              >
-              <span class="tw-bg-blue-400 tw-text-white tw-px-2 tw-py-1">{{
-                result.promoted
-              }}</span>
+              > -->
+              <span class="tw-bg-blue-400 tw-py-2">
+                <span class=" tw-text-white tw-px-2 tw-py-1">{{
+                  result.promoted
+                }}</span>
+
+                <span class="tw-bg-gray-50 tw-text-blue-900 tw-px-2 tw-py-1"
+                  >{{ result.days_left }} days left</span
+                >
+              </span>
             </span>
           </p>
           <div

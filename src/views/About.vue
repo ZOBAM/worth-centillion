@@ -49,6 +49,18 @@
     </section>
   </article>
 </template>
+<script>
+export default {
+  mounted() {
+    document.title = "About Hamsuper";
+    window.onscroll = () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        console.log("You have reached end of page");
+      }
+    };
+  },
+};
+</script>
 <style lang="scss" scoped>
 .about {
   margin-top: 2rem;

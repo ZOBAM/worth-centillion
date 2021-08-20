@@ -10,6 +10,7 @@ import NotFound from "../views/NotFound.vue";
 import CreateAd from "../views/CreateAd.vue";
 import Messages from "../views/Messages.vue";
 import Favorite from "../views/Favorite.vue";
+import Invite from "../views/Invite.vue";
 import SVG from "../views/SVG.vue";
 import store from "../store";
 
@@ -20,7 +21,7 @@ const routes = [
     component: Home,
   },
   {
-    path: "/user/:action",
+    path: "/user/:action/:refID?",
     name: "User",
     component: User,
     beforeEnter(to, from, next) {
@@ -76,6 +77,26 @@ const routes = [
     path: "/favorites",
     name: "Favorite",
     component: Favorite,
+    beforeEnter(to, from, next) {
+      if (store.state.isLoggedIn) {
+        if (store.state.user.tel_verified == 1) {
+          if (store.state.destinationURL) {
+            store.dispatch("moveToDestination");
+          } else {
+            next();
+          }
+        } else {
+          next({ path: "/verify/tel" });
+        }
+      } else {
+        next({ path: "/user/login" });
+      }
+    },
+  },
+  {
+    path: "/invite",
+    name: "Invite",
+    component: Invite,
     beforeEnter(to, from, next) {
       if (store.state.isLoggedIn) {
         if (store.state.user.tel_verified == 1) {

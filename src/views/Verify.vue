@@ -22,9 +22,9 @@
           </p>
           <p v-else>
             Hmm, Thanks for signing up! Before continuing, please verify your
-            {{ type }} by entering the 5 digits CODE sent to your phone and
-            clicking on the <strong>Verify</strong> button below. If you didn't
-            receive the SMS, we will gladly send you another one.
+            {{ type }} ({{ user.tel }}) by entering the 5 digits CODE sent to
+            your phone and clicking on the <strong>Verify</strong> button below.
+            If you didn't receive the SMS, we will gladly send you another one.
           </p>
           <div class="tw-w-1/2 tw-m-auto tw-text-center input-field">
             <label for="verification_code">Enter Code:</label>
@@ -139,11 +139,10 @@ export default {
           }
         )
         .then((response) => {
+          //console.log(response.data);
           if (response.data.status == 1) {
             store.dispatch("setProps", {
-              name: "tel_verified",
-              value: response.data.status,
-              type: "user",
+              user_tel_verified: response.data.status,
             });
             router.push("/userarea");
           } else if (response.data.status == -1) {
@@ -153,7 +152,7 @@ export default {
           //console.log(response.data);
         })
         .catch(() => {
-          alert("An error occured on the server. Try again later.");
+          alert("An error occurred on the server. Try again later.");
         })
         .then(() => {
           this.loading = false;
