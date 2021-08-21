@@ -38,8 +38,6 @@
             <div
               v-if="category && ads.length"
               class="tw-px-4 tw-pt-4 tw-text-xs "
-              <
-            >
               >
               <span @click="clear('category')" class="tw-cursor-pointer">
                 <span class="mdi mdi-close tw-text-red-600"></span>
