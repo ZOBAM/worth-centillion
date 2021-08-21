@@ -1,5 +1,5 @@
 <template>
-  <button :class="btnStyle" :disabled="loading">
+  <button :class="btnStyle" :disabled="loading" class="tw-rounded-lg">
     <slot></slot>
     <span v-if="loading">
       . . .<span class="mdi mdi-star mdi-spin tw-text-xl"></span>
