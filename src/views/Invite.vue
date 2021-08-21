@@ -44,6 +44,7 @@
         </p>
         <div
           v-if="inviteReport"
+          id="report"
           class="tw-p-4 tw-mt-6 tw-text-center"
           :class="{
             'tw-bg-green-200': status == 1,
@@ -84,8 +85,15 @@
           </div>
           <div class="tw-bg-blue-200 tw-px-2 tw-pb-2">
             <p
-              class="tw-bg-gray-50 tw-p-2 tw-rounded-2xl tw-overflow-x-scroll"
+              class="tw-bg-gray-50 tw-p-2 tw-rounded-2xl tw-overflow-x-auto"
+              v-if="loadingPreview"
+            >
+              Loading . . .
+            </p>
+            <p
+              class="tw-bg-gray-50 tw-p-2 tw-rounded-2xl tw-overflow-x-auto"
               v-html="previewMsg"
+              v-else
             ></p>
           </div>
         </div>
@@ -104,6 +112,7 @@ import Button from "../components/Button.vue";
 import { ref } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
 import axios from "axios";
+import gsap from "gsap";
 
 export default {
   name: "Invite",
@@ -136,7 +145,7 @@ export default {
     const inputPlaceholder = ref("enter phone number");
     const inputName = ref("tel");
     const inputValue = ref("");
-    const referralLink = ref("www.hamsuper.com/register/...");
+    const referralLink = ref("Loading . . .");
     const copyClue = ref("Copy Link");
     const previewMsg = ref("");
     const loading = ref(false);
@@ -198,15 +207,24 @@ export default {
             setTimeout(() => {
               inviteReport.value = "";
             }, 9500);
+            gsap.to("#report", {
+              duration: 9.5,
+              scale: 0.01,
+            });
           })
           .then(() => (loading.value = false));
       }
     };
     onMounted(() => {
       console.log("mounted");
+      loadingPreview.value = true;
       axios.get(process.env.VUE_APP_APIURL + "/invite").then((response) => {
         previewMsg.value = response.data.invitation_msg;
         referralLink.value = response.data.invitation_link;
+        loadingPreview.value = false;
+        if (currentTab.value == "share") {
+          inputValue.value = referralLink.value;
+        }
         console.log(response);
       });
     });
