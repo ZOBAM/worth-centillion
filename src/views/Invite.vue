@@ -112,7 +112,7 @@ import Button from "../components/Button.vue";
 import { ref } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
 import axios from "axios";
-import gsap from "gsap";
+//import gsap from "gsap";
 
 export default {
   name: "Invite",
@@ -206,13 +206,12 @@ export default {
             inviteReport.value = response.data.msg;
             setTimeout(() => {
               inviteReport.value = "";
+              loading.value = false
             }, 9500);
-            gsap.to("#report", {
-              duration: 9.5,
-              scale: 0.01,
-            });
-          })
-          .then(() => (loading.value = false));
+          }).catch(error=>{
+            console.log(error);
+            loading.value = false
+          });
       }
     };
     onMounted(() => {
@@ -249,3 +248,24 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+#report{
+  animation-name: report-animate;
+  animation-duration: 1s;
+  animation-delay: 8.5s;
+}
+@keyframes report-animate {
+  0%{
+    height: auto;
+    background-color: red;
+  }
+  100%{
+    height: 0px;
+    background-color: none;
+    padding: 0px;
+    margin: 0px;
+    font-size: 0px;
+    scale: 0;
+  }
+}
+</style>
