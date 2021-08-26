@@ -80,15 +80,12 @@ const routes = [
     beforeEnter(to, from, next) {
       if (store.state.isLoggedIn) {
         if (store.state.user.tel_verified == 1) {
-          if (store.state.destinationURL) {
-            store.dispatch("moveToDestination");
-          } else {
-            next();
-          }
+          next();
         } else {
           next({ path: "/verify/tel" });
         }
       } else {
+        store.dispatch("setProps", { destinationURL: "/favorites" });
         next({ path: "/user/login" });
       }
     },
@@ -100,15 +97,12 @@ const routes = [
     beforeEnter(to, from, next) {
       if (store.state.isLoggedIn) {
         if (store.state.user.tel_verified == 1) {
-          if (store.state.destinationURL) {
-            store.dispatch("moveToDestination");
-          } else {
-            next();
-          }
+          next();
         } else {
           next({ path: "/verify/tel" });
         }
       } else {
+        store.dispatch("setProps", { destinationURL: "/invite" });
         next({ path: "/user/login" });
       }
     },
@@ -125,10 +119,7 @@ const routes = [
           next({ path: "/verify/tel" });
         }
       } else {
-        store.dispatch("setProps", {
-          name: "destinationURL",
-          value: "/create_ad",
-        });
+        store.dispatch("setProps", { destinationURL: "/create_ad" });
         next({ path: "/user/login" });
       }
     },
@@ -171,10 +162,7 @@ const routes = [
           next({ path: "/verify/tel" });
         }
       } else {
-        store.dispatch("setProps", {
-          name: "destinationURL",
-          value: "/vtu",
-        });
+        store.dispatch("setProps", { destinationURL: "/vtu" });
         next({ path: "/user/login" });
       }
     },
