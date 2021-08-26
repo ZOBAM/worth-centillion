@@ -15,7 +15,7 @@
         <category-list :forMobile="false"></category-list>
       </div>
       <section class="tw-bg-white tw-border-b tw-py-8 md:tw-w-3/4">
-        <VTUAd class="-tw-mt-8"></VTUAd>
+        <VTUAd class="tw--mt-1"></VTUAd>
         <div
           v-if="showCategories"
           class="tw-border-blue-200 gradient tw--mt-1 tw-border-r-2 tw-w-screen tw-p-2 tw-overflow-y-scroll tw-overflow-x-hidden md:tw-hidden"
@@ -38,7 +38,7 @@
             <div
               v-if="category && ads.length"
               class="tw-px-4 tw-pt-4 tw-text-xs "
-            >
+              >
               <span @click="clear('category')" class="tw-cursor-pointer">
                 <span class="mdi mdi-close tw-text-red-600"></span>
                 {{ category }} ({{ currentCategoryAdsCount }})

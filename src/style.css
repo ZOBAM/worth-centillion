@@ -1683,6 +1683,10 @@ select {
   border-right-width: 2px;
 }
 
+.tw-border-t-2 {
+  border-top-width: 2px;
+}
+
 .tw-border-dashed {
   border-style: dashed;
 }
@@ -1786,6 +1790,14 @@ select {
   border-color: rgba(76, 29, 149, var(--tw-border-opacity));
 }
 
+<<<<<<< HEAD
+.tw-border-blue-400 {
+  --tw-border-opacity: 1;
+  border-color: rgba(96, 165, 250, var(--tw-border-opacity));
+}
+
+=======
+>>>>>>> f28194d453910b907ccec4487312a529a4608965
 .tw-border-b-red-300 {
   --tw-border-opacity: 1;
   border-bottom-color: rgba(252, 165, 165, var(--tw-border-opacity));
@@ -2540,8 +2552,20 @@ select {
   opacity: 0.25;
 }
 
+.tw-opacity-50 {
+  opacity: 0.5;
+}
+
+.tw-opacity-30 {
+  opacity: 0.3;
+}
+
 .tw-opacity-90 {
   opacity: 0.9;
+}
+
+.tw-opacity-70 {
+  opacity: 0.7;
 }
 
 .tw-shadow {
