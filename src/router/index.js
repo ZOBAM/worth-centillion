@@ -13,6 +13,7 @@ import Favorite from "../views/Favorite.vue";
 import Invite from "../views/Invite.vue";
 import SVG from "../views/SVG.vue";
 import store from "../store";
+import HowItWorks from "../views/HowItWorks.vue";
 
 const routes = [
   {
@@ -149,6 +150,11 @@ const routes = [
     path: "/searchresult",
     name: "SearchResult",
     component: SearchResult,
+  },
+  {
+    path: "/how_it_works",
+    name: "HowItWorks",
+    component: HowItWorks,
   },
   {
     path: "/vtu/:ref_id?",

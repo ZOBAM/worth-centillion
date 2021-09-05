@@ -90,10 +90,12 @@ export default {
       scale: 0.01,
     });
     gsap.from(".act-get", {
-      duration: 1,
+      duration: 3,
       scale: 0.001,
-      repeatDelay: 5,
+      repeatDelay: 2,
       repeat: -1,
+      ease: "elastic",
+      backgroundColor: "blue",
       onRepeat: () => {
         this.changeMessage();
       },
