@@ -29,7 +29,7 @@
         <div
           class="act-get tw-bg-red-500 tw-py-1 tw-px-2 tw-rounded-xl tw-text-center"
         >
-          Get Free Data Bonus
+          {{ currentMessage }}
         </div>
       </div>
       <div
@@ -47,6 +47,17 @@ import router from "../router";
 
 export default {
   name: "VTUAd",
+  data() {
+    return {
+      actGetMessages: [
+        "Invite your friends",
+        "Post new ads",
+        "Get Free Data Bonus!",
+      ],
+      currentMessage: "Invite your friends",
+      currentIndex: 0,
+    };
+  },
   methods: {
     go(destination = "vtu") {
       if (destination != "vtu") {
@@ -54,6 +65,14 @@ export default {
       } else {
         router.push("/vtu");
       }
+    },
+    changeMessage() {
+      if (this.currentIndex < this.actGetMessages.length - 1) {
+        this.currentIndex++;
+      } else {
+        this.currentIndex = 0;
+      }
+      this.currentMessage = this.actGetMessages[this.currentIndex];
     },
   },
   mounted() {
@@ -71,10 +90,15 @@ export default {
       scale: 0.01,
     });
     gsap.from(".act-get", {
-      duration: 1,
+      duration: 3,
       scale: 0.001,
-      repeatDelay: 5,
+      repeatDelay: 2,
       repeat: -1,
+      ease: "elastic",
+      backgroundColor: "blue",
+      onRepeat: () => {
+        this.changeMessage();
+      },
     });
   },
 };

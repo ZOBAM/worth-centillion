@@ -16,7 +16,7 @@ let intervalVar = setInterval(() => {
       "Bearer " + store.state.accessToken;
     clearInterval(intervalVar);
   }
-}, 1500);
+}, 100);
 axios.defaults.withCredentials = true;
 createApp(App)
   .use(store)

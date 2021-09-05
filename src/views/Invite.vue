@@ -215,17 +215,19 @@ export default {
       }
     };
     onMounted(() => {
-      console.log("mounted");
       loadingPreview.value = true;
-      axios.get(process.env.VUE_APP_APIURL + "/invite").then((response) => {
-        previewMsg.value = response.data.invitation_msg;
-        referralLink.value = response.data.invitation_link;
-        loadingPreview.value = false;
-        if (currentTab.value == "share") {
-          inputValue.value = referralLink.value;
-        }
-        console.log(response);
-      });
+      setTimeout(() => {
+        console.log("mounted");
+        axios.get(process.env.VUE_APP_APIURL + "/invite").then((response) => {
+          previewMsg.value = response.data.invitation_msg;
+          referralLink.value = response.data.invitation_link;
+          loadingPreview.value = false;
+          if (currentTab.value == "share") {
+            inputValue.value = referralLink.value;
+          }
+          console.log(response);
+        });
+      }, 100);
     });
     return {
       user,

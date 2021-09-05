@@ -1210,6 +1210,10 @@ select {
   margin-left: -2.5rem;
 }
 
+.tw-ml-5 {
+  margin-left: 1.25rem;
+}
+
 .tw-block {
   display: block;
 }
@@ -1508,6 +1512,10 @@ select {
 
 .tw-cursor-not-allowed {
   cursor: not-allowed;
+}
+
+.tw-list-decimal {
+  list-style-type: decimal;
 }
 
 .tw-flex-col {
