@@ -1126,6 +1126,10 @@ select {
   margin-top: -2rem;
 }
 
+.tw--mt-3 {
+  margin-top: -0.75rem;
+}
+
 .tw-mt-3 {
   margin-top: 0.75rem;
 }
@@ -1152,10 +1156,6 @@ select {
 
 .tw--mt-5 {
   margin-top: -1.25rem;
-}
-
-.tw--mt-8 {
-  margin-top: -2rem;
 }
 
 .tw--mt-12 {
@@ -1196,10 +1196,6 @@ select {
 
 .tw-mt-auto {
   margin-top: auto;
-}
-
-.tw--mt-3 {
-  margin-top: -0.75rem;
 }
 
 .tw-mb-10 {
@@ -1574,10 +1570,6 @@ select {
   overflow-x: hidden;
 }
 
-.tw-overflow-x-scroll {
-  overflow-x: scroll;
-}
-
 .tw-overflow-y-scroll {
   overflow-y: scroll;
 }
@@ -1594,12 +1586,12 @@ select {
   border-radius: 0.75rem;
 }
 
-.tw-rounded-md {
-  border-radius: 0.375rem;
-}
-
 .tw-rounded-lg {
   border-radius: 0.5rem;
+}
+
+.tw-rounded-md {
+  border-radius: 0.375rem;
 }
 
 .tw-rounded {
@@ -1681,10 +1673,6 @@ select {
 
 .tw-border-r-2 {
   border-right-width: 2px;
-}
-
-.tw-border-t-2 {
-  border-top-width: 2px;
 }
 
 .tw-border-dashed {
@@ -1790,14 +1778,6 @@ select {
   border-color: rgba(76, 29, 149, var(--tw-border-opacity));
 }
 
-<<<<<<< HEAD
-.tw-border-blue-400 {
-  --tw-border-opacity: 1;
-  border-color: rgba(96, 165, 250, var(--tw-border-opacity));
-}
-
-=======
->>>>>>> f28194d453910b907ccec4487312a529a4608965
 .tw-border-b-red-300 {
   --tw-border-opacity: 1;
   border-bottom-color: rgba(252, 165, 165, var(--tw-border-opacity));
@@ -2552,20 +2532,8 @@ select {
   opacity: 0.25;
 }
 
-.tw-opacity-50 {
-  opacity: 0.5;
-}
-
-.tw-opacity-30 {
-  opacity: 0.3;
-}
-
 .tw-opacity-90 {
   opacity: 0.9;
-}
-
-.tw-opacity-70 {
-  opacity: 0.7;
 }
 
 .tw-shadow {
@@ -2620,33 +2588,6 @@ select {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
-}
-
-@layer components {
-  .btn-primary {
-    --tw-bg-opacity: 1;
-    background-color: rgba(37, 99, 235, var(--tw-bg-opacity));
-  }
-
-  .btn-primary {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-  }
-
-  .btn-primary {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-
-  .btn-primary {
-    --tw-text-opacity: 1;
-    color: rgba(243, 244, 246, var(--tw-text-opacity));
-  }
-
-  .btn-primary:hover {
-    --tw-bg-opacity: 1;
-    background-color: rgba(30, 58, 138, var(--tw-bg-opacity));
-  }
 }
 
 .hover\:tw-scale-105:hover {
