@@ -229,6 +229,7 @@ import router from "./router";
 import M from "materialize-css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import setTitle from "./utilities/setTitle";
 
 export default {
   components: {
@@ -256,6 +257,7 @@ export default {
       "state",
       "lga",
       "reachedEndOfAds",
+      "accessToken",
     ]),
     loggedIn: function() {
       return "Hello";
@@ -325,16 +327,6 @@ export default {
     } */,
   },
   created() {
-    //get the list of categories from the server
-    //let _this = this;
-    /* this.axios
-      .get(process.env.VUE_APP_APIURL+"/ads/get_categories")
-      .then(function (response) {
-        //alert("Categories fetched");
-        let categories = response.data.categories;
-        store.dispatch('setProps',{name: "categories", value: categories});
-        //console.log(_this.categories);
-      }); */
     //fetch data from server
     store.dispatch("fetchData");
 
@@ -343,7 +335,36 @@ export default {
       this.showCookieMsg = false;
     }
   },
+  //watch route change and update page title
+  watch: {
+    $route(to, from) {
+      to;
+      from;
+      //alert("Route changed!");
+      setTitle(this.$route);
+      //check if user is logged in client side but not server side due to logging in from another browser/device which invilidated the present token
+      if (this.isLoggedIn) {
+        this.axios
+          .get(
+            process.env.VUE_APP_APIURL + "/vtu/get_data_plans/" + this.user.id,
+            {
+              headers: { Authorization: `Bearer ${this.accessToken}` },
+            }
+          )
+          .catch((error) => {
+            if (error.response) {
+              if (error.response.status == 401) {
+                this.logout();
+                router.push("/user/login");
+              }
+            }
+          });
+      }
+    },
+  },
   mounted() {
+    store.dispatch("checkLogin");
+
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.create({
       start: "top -80",
@@ -365,7 +386,6 @@ export default {
       }
     }, 200); */
 
-    store.dispatch("checkLogin");
     var scrollpos = window.scrollY;
     var header = document.getElementById("header");
     var navcontent = document.getElementById("nav-content");

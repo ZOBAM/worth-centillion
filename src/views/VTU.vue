@@ -410,6 +410,7 @@ export default {
     setTimeout(() => {
       this.currentAction = "Buying airtime";
     }, 2000);
+    //check if wallet was funded and verify the payment
     let hasFundedWallet = localStorage.getItem("fundedWallet");
     if (this.$route.params.ref_id || hasFundedWallet == "true") {
       console.log("was funding wallet");
@@ -435,7 +436,9 @@ export default {
           }
         })
         .catch(() => {
-          alert("An error occurred while verifying payment from server");
+          alert(
+            "An error occurred while verifying payment from server. Please reload this page to retry payment verification."
+          );
           //console.log(error);
         })
         .then(() => {
@@ -461,9 +464,16 @@ export default {
         this.transactionHistory = response.data.transaction_history;
         //console.log(this.transactionHistory);
       })
-      .catch(() => {
-        alert("Something wrong from the server.");
-        //console.log(error);
+      .catch((error) => {
+        if (error.response) {
+          if (error.response.status == 401) {
+            this.logout();
+            alert("Session expired. Please login again.");
+            this.$router.push("/user/login");
+          } else {
+            alert("Something wrong from the server.");
+          }
+        }
       })
       .then(() => {
         setTimeout(() => {

@@ -6,4 +6,10 @@
   .btn-primary {
     @apply tw-py-3 tw-px-6 tw-bg-blue-600 tw-text-gray-100 hover:tw-bg-blue-900;
   }
+  .link {
+    @apply tw-text-blue-700 tw-rounded-xl tw-bg-gray-100 tw-p-1;
+  }
+  .notice {
+    @apply tw-underline tw-bg-blue-200 tw-font-bold tw-p-1 tw-rounded-md;
+  }
 }

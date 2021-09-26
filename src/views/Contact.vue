@@ -1,6 +1,6 @@
 <template>
-  <article class="about tw-p-4 tw-bg-gray-50 tw-pt-6 tw-text-lg">
-    <h1 class="tw-bg-gray-100 tw-text-center tw-text-3xl tw-font-semibold">
+  <article class="about tw-p-4 tw-bg-gray-50 tw-pt-6 tw-font-noto tw-text-lg">
+    <h1 class="tw-bg-gray-100 tw-text-center tw-text-3xl tw-font-semibold tw-font-roboto">
       <span class="tw-text-blue-700">C</span>ontact Us
     </h1>
     <section class="about">
@@ -13,7 +13,7 @@
     <section>
       <h5 class="tw-font-bold tw-p-2">Call Us:</h5>
       <p>
-        814 687 0699
+        0814 687 0699
       </p>
     </section>
     <section class="tw-mt-6">

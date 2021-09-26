@@ -1,6 +1,6 @@
 <template>
-  <article class="about tw-p-4 tw-bg-gray-50 tw-pt-6 tw-text-lg">
-    <h1 class="tw-bg-gray-100 tw-text-center tw-text-3xl tw-font-semibold">
+  <article class="about tw-p-4 tw-bg-gray-50 tw-pt-6 tw-font-noto tw-text-lg">
+    <h1 class="tw-bg-gray-100 tw-text-center tw-text-3xl tw-font-semibold tw-font-roboto">
       About <span class="tw-text-blue-700">H</span>amsuper
     </h1>
     <section class="about">
@@ -52,7 +52,6 @@
 <script>
 export default {
   mounted() {
-    document.title = "About Hamsuper";
     window.onscroll = () => {
       if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
         console.log("You have reached end of page");

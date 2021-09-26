@@ -9,15 +9,19 @@ import "./style.css";
 import axios from "axios";
 import VueAxios from "vue-axios";
 
+let tokenChecks = 0;
+//setting intervals to retrieve access token from local storage because a direct check for login status always returns FALSE
 let intervalVar = setInterval(() => {
-  console.log("this is access token " + store.state.accessToken);
+  tokenChecks++;
   if (store.state.accessToken) {
     axios.defaults.headers.common["Authorization"] =
       "Bearer " + store.state.accessToken;
     clearInterval(intervalVar);
   }
+  else if(tokenChecks>10){clearInterval(intervalVar);}
 }, 100);
 axios.defaults.withCredentials = true;
+
 createApp(App)
   .use(store)
   .use(router)

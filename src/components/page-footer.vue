@@ -20,10 +20,9 @@
           <p class="tw-uppercase tw-text-gray-500 md:tw-mb-6">Links</p>
           <ul class="tw-list-reset tw-mb-6">
             <li class="tw-mt-2 tw-inline-block tw-mr-2 md:tw-block md:tw-mr-0">
-              <a
-                href="#"
+              <router-link to="/faq"
                 class="tw-no-underline hover:tw-underline tw-text-gray-400 hover:tw-text-pink-500"
-                >FAQ</a
+                >FAQ</router-link
               >
             </li>
             <li class="tw-mt-2 tw-inline-block tw-mr-2 md:tw-block md:tw-mr-0">

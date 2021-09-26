@@ -1,11 +1,11 @@
 <template>
-  <main class="tw-bg-white tw-p-5">
-    <h1 class="tw-bg-gray-100 tw-text-center tw-text-3xl tw-font-semibold">
+  <main class="tw-bg-white tw-p-5 tw-font-noto tw-text-lg">
+    <h1 class="tw-bg-gray-100 tw-text-center tw-text-3xl tw-font-semibold tw-font-roboto">
       How It <span class="tw-text-blue-700">W</span>orks
     </h1>
     <section>
       <div>
-        <h3 class="tw-bg-gray-200 tw-p-2 tw-font-bold tw-mt-4">
+        <h3 class="tw-bg-gray-200 tw-p-2 tw-font-bold tw-mt-10">
           Place New Add
         </h3>
         <p>
@@ -39,23 +39,23 @@
         </p>
       </div>
       <div>
-        <h3 class="tw-bg-gray-200 tw-p-2 tw-font-bold tw-mt-4">Promoted Ads</h3>
+        <h3 class="tw-bg-gray-200 tw-p-2 tw-font-bold tw-mt-10">Promoted Ads</h3>
         <p>
           There are three categories of ads. The sure thing is that you will
           find a category that fits you/your pocket:
         </p>
         <ol class="tw-list-decimal tw-ml-5">
           <li>
-            Bronze: This is the entry level and the first tier of ads. It’s
+            <span class="tw-text-blue-800 tw-text-lg">Bronze</span>: This is the entry level and the first tier of ads. It’s
             free.
           </li>
           <li>
-            Silver: This is the second class of ads. It gives your ad more reach
+            <span class="tw-text-blue-800 tw-text-lg">Silver</span>: This is the second class of ads. It gives your ad more reach
             and a unique place on the homepage for 7days. The price can be seen
             at the point of ad creation.
           </li>
           <li>
-            Gold: This is the third and the highest tier of ads. If you need the
+            <span class="tw-text-blue-800 tw-text-lg">Gold</span>: This is the third and the highest tier of ads. If you need the
             greatest reach and visibility for your ad, this will be your best
             option. Ads on this category will appear everywhere that matters on
             the site.
@@ -67,7 +67,7 @@
         </p>
       </div>
       <div>
-        <h3 class="tw-bg-gray-200 tw-p-2 tw-font-bold tw-mt-4">
+        <h3 class="tw-bg-gray-200 tw-p-2 tw-font-bold tw-mt-10">
           Referral Points
         </h3>
         <p>
@@ -82,24 +82,52 @@
         </p>
         <ol class="tw-list-decimal tw-ml-5">
           <li>
-            - Text/SMS message invitation You can send free SMS from our site to
+            Text/SMS message invitation You can send free SMS from our site to
             your friends asking them to register on Hamsuper. You can only
             invite each phone number once and a maximum of 3 SMS per day.
           </li>
           <li>
-            - Email invitation You can invite friends by email. Each email
+            Email invitation You can invite friends by email. Each email
             address can receive a maximum of two invitations from you and you
             can send a maximum of 10 invitations per day.
           </li>
           <li>
-            - Sharing invitation link
+            Sharing invitation link
           </li>
         </ol>
         <p>
-          Please Note: For text and email invitation, we recommend you send it
+          <span class="notice">Please Note:</span> For text and email invitation, we recommend you send it
           to those you know and keep in mind that your name and sending contact
           will be part of the message body. A preview of the sent message can be
           seen at the bottom of the invite page.
+        </p>
+      </div>
+      <div>
+        <h3 class="tw-bg-gray-200 tw-p-2 tw-font-bold tw-mt-10">
+          Cheap Data & Airtime
+        </h3>
+        <p>
+          You can and it is recommended that you buy mobile data plans from our VTU section because we offer one the cheapest prices for data across all the major networks in Nigeria. You can also purchase airtime from the networks listed below.
+        </p>
+        <p>
+          If you are using any or a combination of the following networks, relax, we got you covered:
+        </p>
+        <ul class="collection tw-ml-5">
+          <li class="collection-item">
+            MTN
+          </li>
+          <li class="collection-item">
+            Glo
+          </li>
+          <li class="collection-item">
+            Airtel
+          </li>
+          <li class="collection-item">
+            9mobile
+          </li>
+        </ul>
+        <p>
+          <span class="notice">Follow this link:</span> <router-link to="/vtu" class="link">Hamsuper VTU</router-link>, fund your wallet and start enjoying unrivaled discounts on data purchases.
         </p>
       </div>
     </section>
@@ -113,5 +141,8 @@ export default {
 <style lang="scss" scoped>
 p {
   margin-top: 0.8rem;
+}
+li{
+  margin: 0.8rem 0rem;
 }
 </style>

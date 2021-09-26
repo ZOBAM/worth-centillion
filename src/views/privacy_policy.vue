@@ -1,12 +1,12 @@
 <template>
-  <article class="about tw-p-4 tw-bg-gray-50 tw-pt-6 tw-text-lg">
-    <h1 class="tw-bg-gray-100 tw-text-center tw-text-3xl tw-font-semibold">
+  <article class="about tw-p-4 tw-bg-gray-50 tw-pt-6 tw-font-noto tw-text-lg">
+    <h1 class="tw-bg-gray-100 tw-text-center tw-text-3xl tw-font-semibold tw-font-roboto">
       Our <span class="tw-text-blue-700">P</span>rivacy Policy
     </h1>
     <section class="privacy_policy">
       <p class="">
-        HAMSUPER operates Fundme website (the "Service") - a Platform
-        established to Care for Humanity in a better way.
+        HAMSUPER operates Hamsuper.com and its subdomain (Fundme) website (the "Service") - a Platform
+        established to Provide a platform buyers to meet sellers and Care for Humanity in a better way.
       </p>
       <p class="">
         This page informs you of our policies regarding the collection, use, and
@@ -28,15 +28,9 @@
       <h3>Use of Data</h3>
       <p>
         HAMSUPER uses the collected data for various purposes:
-        <ul class="list-disc">
+        <ul class="tw-list-disc">
           <li>
             To provide and maintain the Service
-
-
-
-
-
-
           </li>
           <li>
             To notify you about changes to our Service
@@ -82,7 +76,7 @@ To provide customer care and support
       <p>
         <span class="font-bold"> Legal Requirements</span><br> 
         HAMSUPER may disclose your Personal Data in the good faith belief that such action is necessary:
-        <ul class="list-disc">
+        <ul class="tw-list-disc">
           <li>
             To comply with a legal obligation   
           </li> 
@@ -156,7 +150,7 @@ To provide customer care and support
 <style lang="scss" scoped>
 .privacy_policy {
   margin-top: 2rem;
-  p {
+  p,ul {
     margin-bottom: 1.5rem;
     text-indent: 2%;
   }

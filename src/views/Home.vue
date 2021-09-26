@@ -269,11 +269,11 @@
       <h3 class="tw-my-4 tw-text-3xl tw-leading-tight tw-text-gray-100">
         Follow the link below to see how seamless the process is.
       </h3>
-      <button
+      <router-link to="/how_it_works"
         class="tw-mx-auto lg:tw-mx-0 hover:tw-underline tw-bg-white tw-text-gray-800 tw-font-bold tw-rounded-full tw-my-6 tw-py-4 tw-px-8 tw-shadow-lg focus:tw-outline-none focus:tw-shadow-outline tw-transform tw-transition hover:tw-scale-105 tw-duration-300 tw-ease-in-out"
       >
         How it Works
-      </button>
+      </router-link>
     </section>
   </template>
 </template>

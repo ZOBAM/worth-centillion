@@ -14,6 +14,7 @@ import Invite from "../views/Invite.vue";
 import SVG from "../views/SVG.vue";
 import store from "../store";
 import HowItWorks from "../views/HowItWorks.vue";
+import FAQ from "../views/FAQ.vue";
 
 const routes = [
   {
@@ -33,6 +34,9 @@ const routes = [
         next({ path: "/userarea" });
       }
     },
+    meta:{
+      title: "Sign In"
+    }
   },
   {
     path: "/userarea",
@@ -53,6 +57,9 @@ const routes = [
         next({ path: "/user/login" });
       }
     },
+    meta:{
+      title: "User Area"
+    }
   },
   {
     path: "/messages",
@@ -73,6 +80,9 @@ const routes = [
         next({ path: "/user/login" });
       }
     },
+    meta:{
+      title: "Messages"
+    }
   },
   {
     path: "/favorites",
@@ -90,6 +100,9 @@ const routes = [
         next({ path: "/user/login" });
       }
     },
+    meta:{
+      title: "Favorites"
+    }
   },
   {
     path: "/invite",
@@ -107,6 +120,9 @@ const routes = [
         next({ path: "/user/login" });
       }
     },
+    meta:{
+      title: "Invite Friends"
+    }
   },
   {
     path: "/create_ad",
@@ -124,6 +140,9 @@ const routes = [
         next({ path: "/user/login" });
       }
     },
+    meta:{
+      title: "Creat New Ad"
+    }
   },
   {
     path: "/verify/:type",
@@ -140,21 +159,41 @@ const routes = [
         next({ path: "/user/login" });
       }
     },
+    meta:{
+      title: "Verify Contact"
+    }
   },
   {
     path: "/ads/:id",
     name: "AdDetails",
     component: AdDetails,
+    meta:{
+      title: "Ad Details"
+    }
   },
   {
     path: "/searchresult",
     name: "SearchResult",
     component: SearchResult,
+    meta:{
+      title: "Search Results"
+    }
   },
   {
     path: "/how_it_works",
     name: "HowItWorks",
     component: HowItWorks,
+    meta:{
+      title: "How it Works"
+    }
+  },
+  {
+    path: "/faq",
+    name: "FAQ",
+    component: FAQ,
+    meta:{
+      title: "FAQs"
+    }
   },
   {
     path: "/vtu/:ref_id?",
@@ -172,6 +211,9 @@ const routes = [
         next({ path: "/user/login" });
       }
     },
+    meta:{
+      title: "VTU Deals"
+    }
   },
   {
     path: "/svg",
@@ -183,18 +225,27 @@ const routes = [
     name: "PrivacyPolicy",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/privacy_policy.vue"),
+    meta:{
+      title: "Privacy Policy"
+    }
   },
   {
     path: "/terms",
     name: "Terms",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Terms.vue"),
+    meta:{
+      title: "Terms of Use"
+    }
   },
   {
     path: "/contact",
     name: "Contact",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Contact.vue"),
+    meta:{
+      title: "Contact Us"
+    }
   },
   {
     path: "/about",
@@ -204,11 +255,17 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
+    meta:{
+      title: "About Us"
+    }
   },
   {
     path: "/:pathMatch(.*)*",
     name: "NotFound",
     component: NotFound,
+    meta:{
+      title: "Page Not Found"
+    }
   },
 ];
 

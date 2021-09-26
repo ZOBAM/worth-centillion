@@ -77,6 +77,7 @@ import store from "../store";
 import M from "materialize-css";
 import { gsap } from "gsap";
 import paginate from "@/utilities/mixins/paginate.js";
+import setTitle from "../utilities/setTitle";
 
 export default {
   components: {},
@@ -109,6 +110,7 @@ export default {
     },
   },
   mounted() {
+    setTitle(this.$route);
     gsap.from("#favorites-heading", { duration: 1.5, color: "red", y: 24 });
     gsap.from(".collection-item", {
       x: 15,

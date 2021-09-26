@@ -109,9 +109,11 @@ import M from "materialize-css";
 //import { computed } from "@vue/runtime-core";
 import store from "../store";
 import Button from "../components/Button.vue";
+import setTitle from "../utilities/setTitle";
 import { ref } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
 import axios from "axios";
+import { useRoute } from 'vue-router';
 //import gsap from "gsap";
 
 export default {
@@ -138,6 +140,7 @@ export default {
     };
   },
   setup() {
+    const route = useRoute();
     const user = store.state.user;
     const loadingPreview = ref(false);
     const currentTab = ref("sms");
@@ -215,6 +218,7 @@ export default {
       }
     };
     onMounted(() => {
+      setTitle(route);
       loadingPreview.value = true;
       setTimeout(() => {
         console.log("mounted");
