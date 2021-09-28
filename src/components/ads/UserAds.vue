@@ -54,11 +54,13 @@
           >
             <button
               class="tw-w-1/3 tw-border-b-2 tw-border-blue-700 tw-text-blue-700 hover:tw-bg-blue-700 hover:tw-text-white"
+              @click="edit(result.id)"
             >
               Edit
             </button>
             <button
               class="tw-w-1/3 tw-border-b-2 tw-border-red-700 tw-text-red-700 tw-p-1 hover:tw-bg-red-700 hover:tw-text-white"
+              @click="deleteAd(result.id)"
             >
               Delete
             </button>
@@ -185,6 +187,7 @@ import paginate from "@/utilities/mixins/paginate.js";
 import Modal from "@/components/Modal.vue";
 import store from "../../store";
 import { mapState } from "vuex";
+import router from "../../router";
 
 export default {
   name: "UserAds",
@@ -205,6 +208,24 @@ export default {
     ...mapState(["user", "promotionPrices", "newAdID"]),
   },
   methods: {
+    edit(adID) {
+      store.dispatch("setProps", { editedAdID: adID });
+      router.push("/create_ad");
+    },
+    deleteAd(adID) {
+      const proceed = confirm("Are you sure you want to delete this Ad?");
+      if (proceed) {
+        this.axios
+          .delete(process.env.VUE_APP_APIURL + "/ads/" + adID)
+          .then((response) => {
+            console.log(response.data);
+            store.dispatch("setProps", response.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    },
     displayModal(adID) {
       if (this.user.balance < this.promotionPrices[0]) {
         this.lowBalance = true;

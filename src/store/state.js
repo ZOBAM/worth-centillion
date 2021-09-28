@@ -14,6 +14,7 @@ var state = {
   ads: null,
   adsIsLoading: true,
   newAdID: null,
+  editedAdID: 0,
   states: localStorage.getItem("states")
     ? JSON.parse(localStorage.getItem("states"))
     : null,

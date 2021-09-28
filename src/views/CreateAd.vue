@@ -3,13 +3,17 @@
     <h1
       class="tw-w-full tw-my-2 tw-pt-8 tw-text-3xl tw-font-bold tw-leading-tight tw-text-center tw-text-gray-800"
     >
-      Create Free Ads
+      {{ editedAdID ? "Editing Ad" : "Create Free Ads" }}
     </h1>
     <div
       class="tw-h-1 tw-mx-auto gradient tw-w-64 opacity-25 tw-my-0 tw-py-0 tw-rounded-t"
     ></div>
     <p class="tw-text-center tw-font-mono">
-      Let bridge the gap between you and your customers
+      {{
+        editedAdID
+          ? "Make the necessary changes and update your ad"
+          : "Let bridge the gap between you and your customers"
+      }}
     </p>
     <section>
       <div id="first-step" v-show="!step2">
@@ -278,7 +282,7 @@
             <button
               class="tw-py-4 tw-px-6 tw-bg-blue-600 tw-text-gray-100 hover:tw-bg-blue-900"
             >
-              Create Ad
+              {{ editedAdID ? "Update Ad" : "Create Ad" }}
             </button>
           </div>
         </form>
@@ -293,7 +297,7 @@
             class="tw-py-3 tw-px-5 tw-border-2 tw-border-gray-500 tw-rounded-xl hover:tw-bg-blue-400"
             @click="onSubmit($event, true)"
           >
-            Skip & Create Ad
+            {{ editedAdID ? "Skip & Update Ad" : "Skip & Create Ad" }}
           </button>
         </div>
         <span v-if="loading">Submitting . . . </span>
@@ -366,6 +370,7 @@ export default {
       adData: null,
       step2: false,
       step1Data: null,
+      editedAd: null,
     };
   },
   computed: {
@@ -375,12 +380,13 @@ export default {
       "accessToken",
       "promotionPrices",
       "user",
+      "editedAdID",
     ]),
   },
   methods: {
     getFormFields(data) {
       this.subcategory = data;
-      //alert(this.category +' : '+ this.subcategory);
+      //alert(this.category + " : " + this.subcategory);
       this.axios
         .post(
           process.env.VUE_APP_APIURL + "/ads/create/get_form_fields",
@@ -406,18 +412,27 @@ export default {
         //console.log(this.categories);
       }
     },
-    addImage(e) {
-      let targetImg = e.target.files[0];
-      var reader = new FileReader();
-      reader.readAsDataURL(targetImg);
-      reader.onload = (e) => {
+    addImage(e = null) {
+      if (e) {
+        let targetImg = e.target.files[0];
+        var reader = new FileReader();
+        reader.readAsDataURL(targetImg);
+        reader.onload = (e) => {
+          this.adImages[this.adImages.length] = {
+            previewURL: e.target.result,
+            uploadImg: targetImg,
+            id: this.adImages.length,
+          };
+          //console.log(targetImg);
+        };
+      } else {
         this.adImages[this.adImages.length] = {
-          previewURL: e.target.result,
-          uploadImg: targetImg,
+          previewURL: this.editedAd.ad_image,
+          uploadImg: null,
           id: this.adImages.length,
         };
-        //console.log(targetImg);
-      };
+      }
+
       //alert("About adding new image to the ad ");
       //console.log(this.adImages);
     },
@@ -495,7 +510,37 @@ export default {
     },
   },
   mounted() {
-    //console.log(this.states);
+    if (this.editedAdID) {
+      //alert("You editing an ad with id from state of : " + this.editedAdID);
+      this.editedAd = this.user.ads.find((ad) => ad.id == this.editedAdID);
+      //set form default values
+      this.formValues.category = this.editedAd.category;
+      //set subcategories
+      this.category = this.editedAd.category;
+      this.setOption(this.editedAd.category, "category");
+      this.formValues.subcategory = this.editedAd.subcategory;
+      this.formValues.title = this.editedAd.title;
+      this.formValues.description = this.editedAd.description;
+      this.formValues.price = this.editedAd.price;
+      this.formValues.negotiable = this.editedAd.negotiable;
+      this.formValues.state = this.editedAd.state;
+      //set lgas so that the corresponding one in the edited ad will show
+      this.setOption(this.editedAd.state);
+      this.formValues.place = this.editedAd.place;
+      this.formValues.promoted = this.editedAd.promoted;
+      //get the form fields
+      this.getFormFields(this.editedAd.subcategory);
+      //display associate images if ad has images
+      if (this.editedAd.num_of_images) {
+        this.addImage();
+      }
+      console.log(this.editedAd);
+    }
+    /*: "",
+      state: "",
+      place: "",
+      : null,
+    */
   },
 };
 </script>
