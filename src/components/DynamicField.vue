@@ -8,7 +8,13 @@
       id=""
       class="tw-w-4/5 md:tw-w-2/3 tw-outline-none tw-border-0 tw-border-b-2 tw-border-gray-400 focus:tw-outline-none focus:tw-border-transparent tw-rounded"
     >
-      <option value="" v-for="opt of field" :key="opt">{{ opt }}</option>
+      <option
+        v-for="opt of field"
+        :key="opt"
+        :selected="adDetails[index.split(':')[1]] == opt"
+        :value="opt"
+        >{{ opt }}</option
+      >
     </select>
   </template>
   <template v-else>
@@ -19,6 +25,7 @@
       type="text"
       :name="index.split(':')[1]"
       id=""
+      :value="adDetails[index.split(':')[1]]"
       @change="checkValue($event, field[0])"
       class="tw-w-4/5 tw-md:w-2/3 tw-outline-none tw-border-0 tw-border-b-2 tw-border-gray-400 focus:tw-outline-none focus:tw-border-transparent tw-rounded"
     />
@@ -33,7 +40,7 @@
 <script>
 export default {
   name: "DynamicField",
-  props: ["field", "index"],
+  props: ["field", "index", "adDetails", "fieldValue"],
   components: {},
   data() {
     return {
@@ -42,6 +49,21 @@ export default {
     };
   },
   methods: {
+    getValue(fieldName, option = null, setValue = false) {
+      //there is a bug that makes this function to run each time form field is changed and makes it impossible to change the values because it reverses the changes by repopulating the field from the edited ad data. I'll have to call this function from the onChange function
+      console.log("get dynamic value was called");
+      if (this.adDetails) {
+        if (option) {
+          return this.adDetails[fieldName] == option ? true : false;
+        } else {
+          if (setValue)
+            console.log("get dynamic value was called to set value");
+          return setValue ? fieldName : this.adDetails[fieldName];
+        }
+      } else {
+        return "";
+      }
+    },
     getMinMax(value) {
       if (this.validationRule.indexOf(value) != -1) {
         if (value == "min") {
@@ -61,9 +83,21 @@ export default {
       this.validationRule = validationRule;
       let fieldName = e.target.name;
       let fieldValue = e.target.value;
+      /* //prevent the input from reverting to former values
+      if (this.adDetails) {
+        let intervalCount = 0;
+        let intervalVar = setInterval(() => {
+          e.target.value = fieldValue;
+          console.log(fieldValue);
+          intervalCount++;
+          if (intervalCount > 2) {
+            clearInterval(intervalVar);
+          }
+        }, 10);
+      } */
       this.errors[fieldName] = false;
-      let ruleArray = this.validationRule.split("|");
-      console.log(ruleArray);
+      //let ruleArray = this.validationRule.split("|");
+      //console.log(ruleArray);
       if (fieldValue.trim() == "") {
         //check empty string
         this.errors[fieldName] = "This field is required";
@@ -100,7 +134,7 @@ export default {
                 fieldName
               ] = `must be at least ${minValue} characters`;
             }
-            console.log(minValue);
+            //console.log(minValue);
           }
           if (this.validationRule.indexOf("max")) {
             //check if passed min requirement
@@ -110,17 +144,16 @@ export default {
                 fieldName
               ] = `must not be more than ${maxValue} characters`;
             }
-            console.log(maxValue);
+            //console.log(maxValue);
           }
         }
       }
       console.log(this.errors);
+      alert(fieldValue);
     },
   },
   computed: {},
-  mounted() {
-    //alert(this.index);
-  },
+  mounted() {},
 };
 </script>
 <style lang="scss" scoped>

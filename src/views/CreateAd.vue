@@ -34,6 +34,7 @@
                 name="category"
                 id="category"
                 v-model="category"
+                :disabled="editedAdID"
                 class="w-4/5 md:w-2/3 tw-outline-none tw-border-0 tw-border-b-2 tw-border-gray-400 focus:tw-outline-none focus:tw-border-transparent rounded"
                 @change="setOption(values.category, 'category')"
               >
@@ -57,6 +58,7 @@
                 as="select"
                 name="subcategory"
                 id="subcategory"
+                :disabled="editedAdID != null"
                 class="w-4/5 md:w-2/3 tw-outline-none tw-border-0 tw-border-b-2 tw-border-gray-400 focus:tw-outline-none focus:tw-border-transparent rounded"
                 @change="getFormFields(values.subcategory)"
               >
@@ -276,11 +278,16 @@
             :key="index"
             class="tw-w-1/2 tw-bg-white tw-my-0.5 tw-p-2 tw-text-center"
           >
-            <dynamic-field :field="field" :index="index"></dynamic-field>
+            <dynamic-field
+              :field="field"
+              :index="index"
+              :adDetails="adDetails"
+              :fieldValue="'V from Parent'"
+            ></dynamic-field>
           </div>
           <div class="tw-w-full tw-flex tw-justify-center tw-mt-4">
             <button
-              class="tw-py-4 tw-px-6 tw-bg-blue-600 tw-text-gray-100 hover:tw-bg-blue-900"
+              class="tw-py-3 tw-px-6 tw-bg-blue-600 tw-text-gray-100 hover:tw-bg-blue-900 tw-rounded-md"
             >
               {{ editedAdID ? "Update Ad" : "Create Ad" }}
             </button>
@@ -289,12 +296,12 @@
         <div class="tw-flex tw-justify-around tw-mt-8">
           <button
             @click="step2 = !step2"
-            class="tw-py-3 tw-px-5 tw-border-2 tw-border-gray-500 tw-rounded-xl hover:tw-bg-blue-400"
+            class="tw-py-2 tw-px-5 tw-border-2 tw-border-gray-500 tw-rounded-md hover:tw-bg-blue-400"
           >
             <span class="mdi mdi-arrow-left"></span> Back
           </button>
           <button
-            class="tw-py-3 tw-px-5 tw-border-2 tw-border-gray-500 tw-rounded-xl hover:tw-bg-blue-400"
+            class="tw-py-1 tw-px-5 tw-border-2 tw-border-gray-500 tw-rounded-md hover:tw-bg-blue-400"
             @click="onSubmit($event, true)"
           >
             {{ editedAdID ? "Skip & Update Ad" : "Skip & Create Ad" }}
@@ -371,6 +378,7 @@ export default {
       step2: false,
       step1Data: null,
       editedAd: null,
+      adDetails: null,
     };
   },
   computed: {
@@ -426,11 +434,13 @@ export default {
           //console.log(targetImg);
         };
       } else {
-        this.adImages[this.adImages.length] = {
-          previewURL: this.editedAd.ad_image,
-          uploadImg: null,
-          id: this.adImages.length,
-        };
+        for (let image of this.editedAd.ad_images) {
+          this.adImages[this.adImages.length] = {
+            previewURL: image.link,
+            uploadImg: null,
+            id: this.adImages.length,
+          };
+        }
       }
 
       //alert("About adding new image to the ad ");
@@ -496,10 +506,13 @@ export default {
           headers: { Authorization: `Bearer ${this.accessToken}` },
         })
         .then((response) => {
+          let num = 2;
+          if (num > 3) {
+            router.push("/userarea");
+            store.dispatch("setProps", response.data);
+          }
           this.loading = false;
-          router.push("/userarea");
-          store.dispatch("setProps", response.data);
-          //console.log(response.data);
+          console.log(response.data);
         })
         .catch(() => {
           alert("Posting Ad failed. Something wrong from the server.");
@@ -531,9 +544,21 @@ export default {
       //get the form fields
       this.getFormFields(this.editedAd.subcategory);
       //display associate images if ad has images
-      if (this.editedAd.num_of_images) {
+      /* if (this.editedAd.num_of_images) {
         this.addImage();
-      }
+      } */
+      //fetch ad details from the server so that dynamic fields can get their values
+      let url = process.env.VUE_APP_APIURL + "/ads/" + this.editedAdID;
+      this.axios.get(url).then((response) => {
+        this.editedAd = response.data;
+        this.adDetails = this.editedAd.details;
+        console.log(this.editedAd);
+        if (this.editedAd.ad_images) {
+          this.addImage();
+        }
+        //console.log("this.adDetails");
+        //console.log(this.adDetails);
+      });
       console.log(this.editedAd);
     }
     /*: "",

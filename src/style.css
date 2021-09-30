@@ -1636,6 +1636,10 @@ select {
   border-radius: 1.5rem;
 }
 
+.tw-rounded-sm {
+  border-radius: 0.125rem;
+}
+
 .tw-rounded-t-md {
   border-top-left-radius: 0.375rem;
   border-top-right-radius: 0.375rem;
@@ -2038,6 +2042,11 @@ select {
 .tw-from-white {
   --tw-gradient-from: #fff;
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+}
+
+.tw-from-gray-100 {
+  --tw-gradient-from: #f3f4f6;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(243, 244, 246, 0));
 }
 
 .tw-from-blue-600 {

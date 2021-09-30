@@ -4,6 +4,11 @@
       <div
         class="tw-py-4 tw-bg-white sm:tw-w-2/3 tw-flex-col tw-justify-center tw-text-gray-700"
       >
+        <div
+          class="tw-from-gray-100 tw-py-1 tw-px-2 tw-bg-gradient-to-r tw-shadow-md"
+        >
+          {{ ad.category + " > " + ad.subcategory }}
+        </div>
         <h1 class="tw-text-center tw-text-2xl tw-mt-3">{{ ad.title }}</h1>
         <swiper
           navigation
