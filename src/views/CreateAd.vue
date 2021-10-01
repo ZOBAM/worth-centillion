@@ -58,7 +58,7 @@
                 as="select"
                 name="subcategory"
                 id="subcategory"
-                :disabled="editedAdID != null"
+                :disabled="editedAdID"
                 class="w-4/5 md:w-2/3 tw-outline-none tw-border-0 tw-border-b-2 tw-border-gray-400 focus:tw-outline-none focus:tw-border-transparent rounded"
                 @change="getFormFields(values.subcategory)"
               >
@@ -223,7 +223,7 @@
               />
             </div>
           </div>
-          <div class="tw-mt-8">
+          <div class="tw-mt-8" v-if="!editedAdID">
             <p>Boost Your Ad</p>
             <label
               class="block tw-cursor-pointer hover:shadow-md hover:tw-text-blue-900"
@@ -273,18 +273,20 @@
           @submit.prevent="onSubmit($event)"
           class="tw-flex tw-flex-wrap tw-justify-around tw-w-full md:tw-w-4/5 tw-m-auto tw-bg-gray-100"
         >
-          <div
-            v-for="(field, index) of detailsFields"
-            :key="index"
-            class="tw-w-1/2 tw-bg-white tw-my-0.5 tw-p-2 tw-text-center"
-          >
-            <dynamic-field
-              :field="field"
-              :index="index"
-              :adDetails="adDetails"
-              :fieldValue="'V from Parent'"
-            ></dynamic-field>
-          </div>
+          <template v-if="detailsFields">
+            <div
+              v-for="(field, index) of detailsFields"
+              :key="index"
+              class="tw-w-1/2 tw-bg-white tw-my-0.5 tw-p-2 tw-text-center"
+            >
+              <dynamic-field
+                :field="field"
+                :index="index"
+                :adDetails="adDetails"
+                :fieldValue="getFieldValue(index)"
+              ></dynamic-field>
+            </div>
+          </template>
           <div class="tw-w-full tw-flex tw-justify-center tw-mt-4">
             <button
               class="tw-py-3 tw-px-6 tw-bg-blue-600 tw-text-gray-100 hover:tw-bg-blue-900 tw-rounded-md"
@@ -379,6 +381,7 @@ export default {
       step1Data: null,
       editedAd: null,
       adDetails: null,
+      deletedImages: [],
     };
   },
   computed: {
@@ -392,6 +395,10 @@ export default {
     ]),
   },
   methods: {
+    getFieldValue(index) {
+      let objKey = index.split(":")[1];
+      return this.adDetails ? this.adDetails[objKey] : "";
+    },
     getFormFields(data) {
       this.subcategory = data;
       //alert(this.category + " : " + this.subcategory);
@@ -403,7 +410,7 @@ export default {
         )
         .then((response) => {
           this.detailsFields = response.data;
-          //console.log(response.data);
+          console.log(response.data);
         });
     },
     setOption(formValue, optionType = false) {
@@ -429,6 +436,7 @@ export default {
           this.adImages[this.adImages.length] = {
             previewURL: e.target.result,
             uploadImg: targetImg,
+            newImage: true,
             id: this.adImages.length,
           };
           //console.log(targetImg);
@@ -438,6 +446,8 @@ export default {
           this.adImages[this.adImages.length] = {
             previewURL: image.link,
             uploadImg: null,
+            newImage: false,
+            imageID: image.id,
             id: this.adImages.length,
           };
         }
@@ -448,6 +458,12 @@ export default {
     },
     deleteImage(id) {
       this.adImages = this.adImages.filter((image) => {
+        if (!image.newImage && image.id == id) {
+          //alert("an old image removed");
+          console.log("deleted image id " + image.imageID);
+          this.deletedImages.push(image.imageID);
+          console.log(this.deletedImages);
+        }
         return image.id != id;
       });
       for (let image of this.adImages) {
@@ -460,7 +476,7 @@ export default {
     },
     postAd(values, actions) {
       this.step1Data = values;
-      if (values.promoted != "bronze") {
+      if (!this.editedAdID && values.promoted != "bronze") {
         let promotionPrice =
           values.promoted == "silver"
             ? this.promotionPrices[0]
@@ -496,7 +512,20 @@ export default {
       }
       for (let image of this.adImages) {
         console.log(image.uploadImg);
-        this.adData.append("images[]", image.uploadImg);
+        if (image.newImage) {
+          //upload only new images in the array.
+          this.adData.append("images[]", image.uploadImg);
+        }
+      }
+      //if edited, attach edited ad Id
+      if (this.editedAd) {
+        this.adData.append("ad_id", this.editedAdID);
+        //check if image(s) were deleted and send their ids to the server
+        if (this.deletedImages.length) {
+          alert(this.deletedImages.length + " image(s) were deleted.");
+          console.log(this.deletedImages);
+          this.adData.append("deleted_images", this.deletedImages);
+        }
       }
       if (skikppedDetails) {
         this.adData.append("skipped_details", true);
@@ -506,11 +535,8 @@ export default {
           headers: { Authorization: `Bearer ${this.accessToken}` },
         })
         .then((response) => {
-          let num = 2;
-          if (num > 3) {
-            router.push("/userarea");
-            store.dispatch("setProps", response.data);
-          }
+          router.push("/userarea");
+          store.dispatch("setProps", response.data);
           this.loading = false;
           console.log(response.data);
         })
@@ -535,7 +561,7 @@ export default {
       this.formValues.title = this.editedAd.title;
       this.formValues.description = this.editedAd.description;
       this.formValues.price = this.editedAd.price;
-      this.formValues.negotiable = this.editedAd.negotiable;
+      this.formValues.negotiable = this.editedAd.negotiable ? undefined : "on";
       this.formValues.state = this.editedAd.state;
       //set lgas so that the corresponding one in the edited ad will show
       this.setOption(this.editedAd.state);

@@ -11,7 +11,7 @@
       <option
         v-for="opt of field"
         :key="opt"
-        :selected="adDetails[index.split(':')[1]] == opt"
+        :selected="fieldValue == opt"
         :value="opt"
         >{{ opt }}</option
       >
@@ -25,27 +25,29 @@
       type="text"
       :name="index.split(':')[1]"
       id=""
-      :value="adDetails[index.split(':')[1]]"
+      :value="fieldValue"
       @change="checkValue($event, field[0])"
       class="tw-w-4/5 tw-md:w-2/3 tw-outline-none tw-border-0 tw-border-b-2 tw-border-gray-400 focus:tw-outline-none focus:tw-border-transparent tw-rounded"
     />
-    <span
-      class="tw-block tw-text-red-500 tw-text-sm"
-      v-if="errors[index.split(':')[1]]"
-      >{{ errors[index.split(":")[1]] }}</span
+    <template v-if="valueChanged">
+      <span class="tw-block tw-text-red-500 tw-text-sm" v-if="errorMessage">{{
+        errorMessage
+      }}</span></template
     >
     <!-- <ErrorMessage :name="index.split(':')[1]" class="tw-block tw-text-red-500 tw-text-sm" /> -->
   </template>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
   name: "DynamicField",
   props: ["field", "index", "adDetails", "fieldValue"],
   components: {},
   data() {
     return {
-      errors: {},
+      errorMessage: "",
       validationRule: null,
+      valueChanged: false,
     };
   },
   methods: {
@@ -81,46 +83,41 @@ export default {
     },
     checkValue(e, validationRule) {
       this.validationRule = validationRule;
+      this.valueChanged = true;
       let fieldName = e.target.name;
       let fieldValue = e.target.value;
-      /* //prevent the input from reverting to former values
-      if (this.adDetails) {
-        let intervalCount = 0;
-        let intervalVar = setInterval(() => {
+      //prevent the input from reverting to former values
+      if (this.editedAdID) {
+        setTimeout(() => {
           e.target.value = fieldValue;
-          console.log(fieldValue);
-          intervalCount++;
-          if (intervalCount > 2) {
-            clearInterval(intervalVar);
-          }
-        }, 10);
-      } */
-      this.errors[fieldName] = false;
+        }, 1);
+      }
+      this.errorMessage = false;
       //let ruleArray = this.validationRule.split("|");
       //console.log(ruleArray);
       if (fieldValue.trim() == "") {
         //check empty string
-        this.errors[fieldName] = "This field is required";
+        this.errorMessage = "This field is required";
         alert("You cannot save empty value for: " + fieldName);
       } else {
         if (this.validationRule.indexOf("numeric") != -1) {
           if (isNaN(fieldValue)) {
             //validate numeric
-            this.errors[fieldName] = `${fieldName} must be a number`;
+            this.errorMessage = `${fieldName} must be a number`;
             //alert('this field must be of number type');
           } else {
             if (this.validationRule.indexOf("min")) {
               //check if passed min requirement
               let minValue = this.getMinMax("min");
               if (fieldValue < minValue) {
-                this.errors[fieldName] = `must not be less than ${minValue}`;
+                this.errorMessage = `must not be less than ${minValue}`;
               }
             }
             if (this.validationRule.indexOf("max")) {
               //check if passed min requirement
               let maxValue = this.getMinMax("max");
               if (fieldValue > maxValue) {
-                this.errors[fieldName] = `must not be more than ${maxValue}`;
+                this.errorMessage = `must not be more than ${maxValue}`;
               }
             }
           }
@@ -130,9 +127,7 @@ export default {
             //check if passed min requirement
             let minValue = this.getMinMax("min");
             if (fieldValue.length < minValue) {
-              this.errors[
-                fieldName
-              ] = `must be at least ${minValue} characters`;
+              this.errorMessage = `must be at least ${minValue} characters`;
             }
             //console.log(minValue);
           }
@@ -140,19 +135,19 @@ export default {
             //check if passed min requirement
             let maxValue = this.getMinMax("max");
             if (fieldValue.length > maxValue) {
-              this.errors[
-                fieldName
-              ] = `must not be more than ${maxValue} characters`;
+              this.errorMessage = `must not be more than ${maxValue} characters`;
             }
             //console.log(maxValue);
           }
         }
       }
-      console.log(this.errors);
-      alert(fieldValue);
+      console.log(this.errorMessage);
+      console.log(fieldValue);
     },
   },
-  computed: {},
+  computed: {
+    ...mapState(["editedAdID"]),
+  },
   mounted() {},
 };
 </script>

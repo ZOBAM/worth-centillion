@@ -12,7 +12,7 @@
           v-if="newAdID == result.id"
           class="tw-absolute tw-p-2 tw-bg-green-400 tw-rounded-full tw--top-2 tw--left-2 tw-rotate-3 tw-animate-pulse"
         >
-          New Ad!
+          {{ editedAdID ? "Ad Updated!" : "New Ad!" }}
         </div>
         <div class="tw-w-1/4 tw-flex tw-justify-center tw-items-center">
           <img :src="result.ad_image" alt="" class="tw-w-20 md:tw-w-2/4" />
@@ -205,7 +205,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["user", "promotionPrices", "newAdID"]),
+    ...mapState(["user", "promotionPrices", "newAdID", "editedAdID"]),
   },
   methods: {
     edit(adID) {
