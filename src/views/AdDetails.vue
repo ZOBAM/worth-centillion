@@ -94,7 +94,7 @@
         </div>
       </div>
       <div class="tw-p-4 tw-bg-blue-50 sm:tw-w-1/3">
-        <div class="tw-p-4 tw-text-gray-800 tw-bg-white">
+        <div v-if="ad.seller" class="tw-p-4 tw-text-gray-800 tw-bg-white">
           <div
             class="tw-text-center tw-bg-blue-500 tw-text-white tw-p-2 tw-font-bold tw-rounded-xl tw-border-4 tw-border-blue-100"
           >
@@ -215,7 +215,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["user", "messageSuccess"]),
+    ...mapState(["user", "messageSuccess", "ads"]),
     adDetails() {
       let adDetails = {};
       for (let fieldName in this.ad.details) {
@@ -306,12 +306,21 @@ export default {
   },
   mounted() {
     let adID = this.$route.params.id;
+    //check if ads is downloaded already and load from there
+    if (this.ads) {
+      this.ad = this.ads.find((ad) => {
+        return (ad.id = adID);
+      });
+      this.ad.ad_images = [{ id: 1, link: this.ad.ad_img }];
+      //alert("ads found in the store");
+    }
+    console.log(this.ad);
     let url = process.env.VUE_APP_APIURL + "/ads/" + adID;
     url += this.user ? "/" + this.user.id : "";
     this.axios.get(url).then((response) => {
       this.ad = response.data;
       this.setHeartIcon(this.ad.liked);
-      //console.log(this.ad);
+      console.log(this.ad);
     });
   },
 };

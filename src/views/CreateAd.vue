@@ -504,9 +504,9 @@ export default {
       //console.log(this.adImages);
       //alert("About to post ad to server");
     },
-    onSubmit(e, skikppedDetails = false) {
+    onSubmit(e, skippedDetails = false) {
       this.loading = true;
-      this.adData = skikppedDetails ? new FormData() : new FormData(e.target);
+      this.adData = skippedDetails ? new FormData() : new FormData(e.target);
       for (let field in this.step1Data) {
         this.adData.append(field, this.step1Data[field]);
       }
@@ -527,7 +527,7 @@ export default {
           this.adData.append("deleted_images", this.deletedImages);
         }
       }
-      if (skikppedDetails) {
+      if (skippedDetails) {
         this.adData.append("skipped_details", true);
       }
       this.axios
