@@ -1,8 +1,8 @@
 <template>
-  <div class="tw-relative tw-text-gray-600 tw-w-full md:tw-w-3/5" style="">
+  <div class="relative text-gray-600 w-full md:w-3/5" style="">
     <form
       action=""
-      class="flex tw-justify-items-center tw-items-center border-2 tw-border-gray-600"
+      class="flex justify-items-center items-center"
       style="display:flex; flex-flow: wrap; justify-items: center; align-items: center;"
       @submit.prevent="search"
     >
@@ -10,36 +10,58 @@
         type="search"
         name="serch"
         placeholder="Search"
+        @keyup="getSuggestions"
         v-model="searchQuery"
-        class="tw-bg-white tw-h-10 tw-px-5 tw-pr-10 tw-rounded-full tw-text-sm focus:tw-outline-none tw-m-auto"
+        class="bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none m-auto"
         style="margin:auto; background-color: white; border-radius: 99px; padding: 0rem .2rem 0rem 1rem; width: 86%; display: block"
       />
-      <hr class="tw-w-full tw-opacity-5" />
+      <div class="bg-gray-100 p-4" v-if="gotSuggestions">
+        hear will contain search suggestions from the server.
+      </div>
+      <hr class="w-full opacity-5" />
       <button
         type="submit"
-        class="tw-block tw-text-white tw-m-auto tw-mt-2 tw-p-2 gradient tw-border-2 tw-rounded-lg hover:tw-text-blue-200 hover:tw-border-blue-400"
+        class="block text-white m-auto mt-2 p-2 gradient border-2 rounded-lg hover:text-blue-200 hover:border-blue-400"
       >
-        Search <span class="mdi mdi-search-web tw-text-xl"></span>
+        Search <span class="mdi mdi-search-web text-xl"></span>
       </button>
     </form>
   </div>
 </template>
 <script>
+import { ref } from "@vue/reactivity";
+//import http from "../utilities/http";
+import { useToast } from "primevue/usetoast";
 export default {
   name: "Search",
-  data() {
-    return {
-      searchQuery: "",
+  setup() {
+    let searchQuery = ref("");
+    let gotSuggestions = ref(false);
+    const toast = useToast();
+    const getSuggestions = () => {
+      if (this.searchQuery.trim != "" && this.searchQuery.length > 1) {
+        alert("About fetching suggestions from the server.");
+      }
     };
-  },
-  methods: {
-    search() {
-      if(this.searchQuery == ""){
-        alert("Please enter what to search for.");
-      }else{
+    const search = () => {
+      if (searchQuery.value.trim() == "") {
+        toast.add({
+          severity: "warn",
+          summary: "Empty value",
+          detail: "Please enter what to search for.",
+          life: 2500,
+        });
+        this.searchQuery = "";
+      } else {
         this.$router.push("/searchresult?query=" + this.searchQuery);
       }
-    },
+    };
+    return {
+      searchQuery,
+      gotSuggestions,
+      getSuggestions,
+      search,
+    };
   },
 };
 </script>

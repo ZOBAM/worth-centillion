@@ -2,16 +2,16 @@
   <div>
     <div
       v-if="categories && forMobile"
-      class="tw-flex tw-flex-wrap tw-p-2 tw-justify-items-center tw-text-center tw-items-center tw-bg-indigo-50 tw-rounded-lg"
+      class="flex flex-wrap p-2 justify-items-center text-center items-center bg-indigo-50 rounded-lg"
       style="width:96%; margin:auto"
     >
       <div
         v-for="category in catCount()"
         v-bind:key="category.index"
-        class="tw-w-1/3 sm:tw-w-1/6 tw-gray-100 tw-p-1"
+        class="w-1/3 sm:w-1/6 gray-100 p-1"
       >
         <div
-          class="tw-bg-white "
+          class="bg-white "
           @click="
             getSubcategory(
               extractCategoryDetails(category).name,
@@ -22,10 +22,10 @@
           <img
             :src="require(`@/${extractCategoryDetails(category).image}`)"
             alt=""
-            class="tw-w-20 tw-h-16 tw-m-auto"
+            class="w-20 h-16 m-auto"
           />
           <div
-            class="tw-text-xs tw-border tw-border-gray-50 tw-h-9 tw-leading-4 tw-flex tw-justify-center tw-items-center"
+            class="text-xs border border-gray-50 h-9 leading-4 flex justify-center items-center"
           >
             {{ extractCategoryDetails(category).name }}
           </div>
@@ -36,9 +36,9 @@
       <li
         v-for="category in catCount()"
         v-bind:key="category.index"
-        class="tw-flex tw-border-b-2 tw-border-white tw-py-2 tw-cursor-pointer tw-relative hover:tw-bg-gray-300 hover:tw-text-gray-900"
+        class="flex border-b-2 border-white py-2 cursor-pointer relative hover:bg-gray-300 hover:text-gray-900"
         :class="{
-          'tw-text-gray-500':
+          'text-gray-500':
             extractCategoryDetails(category).count <= 0 &&
             category.lastIndexOf('Fundme') != false,
         }"
@@ -49,9 +49,9 @@
           )
         "
       >
-        <span class="tw-flex tw-justify-center tw-items-center">
+        <span class="flex justify-center items-center">
           <i
-            class="tw-rounded-lg tw-mr-2"
+            class="rounded-lg mr-2"
             :class="
               getIconClass(
                 extractCategoryDetails(category).icon,
@@ -60,7 +60,7 @@
             "
           ></i>
         </span>
-        <span class="tw-flex tw-justify-center tw-items-center tw-text-sm">
+        <span class="flex justify-center items-center text-sm">
           {{ extractCategoryDetails(category).name }} <br />
           {{
             extractCategoryDetails(category).name == "Fundme"
@@ -70,7 +70,7 @@
         </span>
         <span
           v-if="extractCategoryDetails(category).name != 'Fundme'"
-          class="tw-text-gray-500 tw-bg-gray-200 tw-float-right tw-inline-block tw-absolute tw-right-0 tw-p-1 text-xs tw-bottom-2"
+          class="text-gray-500 bg-gray-200 float-right inline-block absolute right-0 p-1 text-xs bottom-2"
         >
           <span class="mdi mdi-menu"></span>
         </span>
@@ -81,25 +81,22 @@
     </span>
     <div
       v-if="viewSubcategory"
-      class="tw-bg-gray-800 tw-opacity-60 tw-absolute tw-top-0 tw-z-10 tw-w-full"
+      class="bg-gray-800 opacity-60 absolute top-0 z-10 w-full"
       style="height: 140vh"
     ></div>
-    <div
-      v-if="viewSubcategory"
-      class="tw-absolute tw-top-1 tw-bg-blue-500 tw-z-20 tw-w-full"
-    >
-      <div class="tw-px-3">
+    <div v-if="viewSubcategory" class="absolute top-1 bg-blue-500 z-20 w-full">
+      <div class="px-3">
         {{ currentCategory }}
         <span
-          class="tw-float-right tw-cursor-pointer"
+          class="float-right cursor-pointer"
           @click="viewSubcategory = false"
           >X</span
         >
       </div>
-      <ul class="tw-bg-blue-50 tw-p-4">
+      <ul class="bg-blue-50 p-4">
         <li
-          class="tw-p-2 -tw-ml-2 tw-border tw-border-gray-200 tw-border-b-2 tw-text-sm tw-cursor-pointer hover:tw-bg-gray-200 hover:tw-to-blue-900"
-          :class="{ 'tw-text-gray-400': subcategory.split(':')[1] == 0 }"
+          class="p-2 -ml-2 border border-gray-200 border-b-2 text-sm cursor-pointer hover:bg-gray-200 hover:to-blue-900"
+          :class="{ 'text-gray-400': subcategory.split(':')[1] == 0 }"
           v-for="subcategory in subcategories"
           v-bind:key="subcategory.index"
           @click="
@@ -118,7 +115,7 @@
         </li>
       </ul>
       <p
-        class="tw-text-center tw-cursor-pointer tw-bg-red-300"
+        class="text-center cursor-pointer bg-red-300"
         @click="viewSubcategory = false"
       >
         Close Subcategory
@@ -153,8 +150,8 @@ export default {
       //if(icon.lastIndexOf('cash') != -1) alert("found cash in : "+icon);
       icon +=
         count <= 0 && icon.lastIndexOf("cash") == -1
-          ? " tw-text-gray-400"
-          : " tw-text-blue-500";
+          ? " text-gray-400"
+          : " text-blue-500";
       //alert(icon);
       return icon;
     },

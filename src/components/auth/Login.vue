@@ -1,6 +1,6 @@
 <template>
-  <div class="tw-text-center tw-mb-10">
-    <h1 class="tw-font-bold tw-text-3xl tw-text-gray-900">SIGN IN</h1>
+  <div class="text-center mb-10">
+    <h1 class="font-bold text-3xl text-gray-900">SIGN IN</h1>
     <p>Enter your credentials to login</p>
   </div>
   <Form
@@ -11,17 +11,13 @@
   >
     <div>
       <error-alert v-if="error" :messages="errorMessages"></error-alert>
-      <div class="tw-flex -tw-mx-3">
-        <div class="tw-w-full tw-px-3 tw-mb-5">
-          <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
-            >Phone No.</label
-          >
-          <div class="tw-flex tw-flex-wrap">
-            <div
-              class="tw-relative tw-w-full tw-flex tw-items-center tw-justify-center"
-            >
+      <div class="flex -mx-3">
+        <div class="w-full px-3 mb-5">
+          <label for="" class="text-xs font-semibold px-1">Phone No.</label>
+          <div class="flex flex-wrap">
+            <div class="relative w-full flex items-center justify-center">
               <i
-                class="mdi mdi-cellphone tw-absolute block tw-left-0 -tw-ml-10 tw-w-10 tw-pl-1 tw-text-center pointer-events-none"
+                class="mdi mdi-cellphone absolute block left-0 -ml-10 w-10 pl-1 text-center pointer-events-none"
               ></i>
 
               <Field
@@ -29,36 +25,29 @@
                 required
                 v-model="tel"
                 name="tel"
-                class="tw-w-full -tw-ml-10 tw-pl-10 tw-pr-3 tw-py-2 tw-rounded-lg tw-border-2 tw-border-gray-200 tw-outline-none focus:tw-border-indigo-500"
+                class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                 placeholder="08033443344"
                 @keydown="error = false"
               />
             </div>
-            <ErrorMessage
-              name="tel"
-              class="tw-block tw-text-red-500 tw-text-sm"
-            />
+            <ErrorMessage name="tel" class="block text-red-500 text-sm" />
           </div>
         </div>
       </div>
-      <div class="tw-flex -tw-mx-3">
-        <div class="tw-w-full tw-px-3 tw-mb-5">
-          <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
-            >Password</label
-          >
-          <div class="tw-flex tw-flex-wrap">
-            <div
-              class="tw-relative tw-w-full tw-flex tw-items-center tw-justify-center"
-            >
+      <div class="flex -mx-3">
+        <div class="w-full px-3 mb-5">
+          <label for="" class="text-xs font-semibold px-1">Password</label>
+          <div class="flex flex-wrap">
+            <div class="relative w-full flex items-center justify-center">
               <i
-                class="mdi mdi-lock-outline tw-absolute block tw-left-0 -tw-ml-10 tw-w-10 tw-pl-1 tw-text-center pointer-events-none"
+                class="mdi mdi-lock-outline absolute block left-0 -ml-10 w-10 pl-1 text-center pointer-events-none"
               ></i>
 
               <Field
                 type="password"
                 v-model="password"
                 required
-                class="password tw-w-full tw-pl-10 tw-pr-3 tw-py-2 tw-rounded-lg tw-border-2 tw-border-gray-200 tw-outline-none focus:tw-border-indigo-500"
+                class="password w-full pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                 placeholder="************"
                 @keydown="error = false"
                 name="password"
@@ -66,20 +55,20 @@
             </div>
             <ErrorMessage
               name="password"
-              class="tw-block tw-text-red-500 tw-flex-grow tw-text-sm"
+              class="block text-red-500 flex-grow text-sm"
             />
           </div>
         </div>
       </div>
-      <div class="tw-flex -tw-mx-3">
-        <div class="tw-w-full tw-px-3 tw-mb-5">
+      <div class="flex -mx-3">
+        <div class="w-full px-3 mb-5">
           <button
             :disabled="loading"
             :class="buttonStyleClass(meta.valid)"
-            class="tw-block tw-w-full max-w-xs tw-mx-auto tw-text-white tw-rounded-lg tw-px-3 tw-py-3 tw-font-semibold"
+            class="block w-full max-w-xs mx-auto text-white rounded-lg px-3 py-3 font-semibold"
           >
             <span v-if="loading"
-              >Signing in <span class="mdi mdi-star mdi-spin tw-text-xl"></span>
+              >Signing in <span class="mdi mdi-star mdi-spin text-xl"></span>
             </span>
             <span v-else class="animate-spin"
               >LOGIN
@@ -89,11 +78,9 @@
               ></span>
             </span>
           </button>
-          <div class="tw-m-4 tw-text-gray-800">
+          <div class="m-4 text-gray-800">
             Don't have an account?
-            <router-link
-              to="/user/register"
-              class="tw-font-bold tw-text-blue-800"
+            <router-link to="/user/register" class="font-bold text-blue-800"
               >Sign Up</router-link
             >
           </div>
@@ -148,11 +135,11 @@ export default {
       //alert("valid: "+ valid);
       if (this.loading || !valid) {
         return {
-          "tw-bg-indigo-300  tw-cursor-not-allowed": true,
+          "bg-indigo-300  cursor-not-allowed": true,
         };
       }
       return {
-        "tw-bg-indigo-500 focus:bg-indigo-700 hover:bg-indigo-700": true,
+        "bg-indigo-500 focus:bg-indigo-700 hover:bg-indigo-700": true,
       };
     },
     login: function() {
@@ -197,7 +184,7 @@ input:not([type]),
 input[type="text"]:not(.browser-default),
 input[type="password"]:not(.browser-default) {
   background-color: #fff;
-  border: 2px solid rgba(229, 231, 235, var(--tw-border-opacity));
+  border: 2px solid rgba(229, 231, 235, var(--border-opacity));
   border-radius: 0.5rem;
   padding-left: 2.5rem;
   width: 100%;

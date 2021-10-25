@@ -1,97 +1,88 @@
 <template>
   <div
-    class="tw-leading-normal tw-tracking-normal tw-text-white gradient tw-w-full tw-p-0"
+    class="leading-normal tracking-normal text-white gradient w-full p-0"
     style="font-family: 'Source Sans Pro', sans-serif;"
   >
     <!--Nav-->
-    <div id="header" class="tw-fixed tw-w-full tw-z-30 tw-top-0 tw-text-white">
+    <div id="header" class="fixed w-full z-30 top-0 text-white">
       <div
-        class="tw-w-full tw-container tw-mx-auto tw-flex tw-flex-wrap tw-items-center tw-justify-between tw-mt-0 tw-py-2"
+        class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2"
       >
-        <div class="tw-pl-4 tw-flex tw-items-center">
+        <div class="pl-4 flex items-center">
           <router-link
             to="/"
-            class="toggleColour tw-text-white tw-no-underline hover:tw-no-underline tw-font-bold tw-text-2xl lg:tw-text-4xl"
+            class="toggleColour text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
           >
-            <img
-              class="plane-take-off tw-w-12"
-              src="./assets/logo.png"
-              alt=""
-            />
+            <img class="plane-take-off w-12" src="./assets/logo.png" alt="" />
           </router-link>
         </div>
-        <div
-          class="toggleColour lg:tw-pl-16 tw-text-sm"
-          @click="showLocations()"
-        >
-          <span class="mdi mdi-map-marker tw-text-xl"></span>
+        <div class="toggleColour lg:pl-16 text-sm" @click="showLocations()">
+          <span class="mdi mdi-map-marker text-xl"></span>
           <span
-            class="tw-border-b-2 tw-border-blue-500 tw-cursor-pointer hover:tw-bg-blue-300 sm:tw-p-2"
+            class="border-b-2 border-blue-500 cursor-pointer hover:bg-blue-300 sm:p-2"
           >
             {{ location
-            }}<span v-if="lga != null" class="tw-hidden sm:tw-inline"
+            }}<span v-if="lga != null" class="hidden sm:inline"
               >, {{ state }} state
             </span>
           </span>
         </div>
-        <div class="toggleColour md:tw-hidden tw-text-sm" @click="searchOn()">
-          <span class="mdi mdi-search-web tw-text-xl"></span> Search
+        <div class="toggleColour md:hidden text-sm" @click="searchOn()">
+          <span class="mdi mdi-search-web text-xl"></span> Search
         </div>
-        <div class="tw-block lg:tw-hidden tw-pr-4">
+        <div class="block lg:hidden pr-4">
           <button
             id="nav-toggle"
-            class="tw-flex tw-items-center tw-p-1 tw-text-gray-300 hover:tw-text-gray-900 focus:tw-outline-none focus:tw-shadow-outline tw-transform tw-transition hover:tw-scale-105 tw-duration-300 tw-ease-in-out"
+            class="flex items-center p-1 text-gray-300 hover:text-gray-900 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
           >
             <svg
-              class="tw-fill-current tw-h-6 tw-w-6"
+              class="fill-current h-6 w-6"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <title class="tw-bg">Menu</title>
+              <title class="bg">Menu</title>
               <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
             </svg>
           </button>
         </div>
         <div
-          class="tw-w-full tw-flex-grow lg:tw-flex lg:tw-items-center lg:tw-w-auto tw-hidden tw-mt-2 lg:tw-mt-0 tw-bg-white lg:tw-bg-transparent tw-text-black tw-p-4 lg:tw-p-0 tw-z-20"
+          class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent text-black p-4 lg:p-0 z-20"
           id="nav-content"
         >
-          <ul
-            class="tw-list-reset lg:tw-flex tw-justify-end tw-flex-1 tw-items-center"
-          >
+          <ul class="list-reset lg:flex justify-end flex-1 items-center">
             <div
               v-show="isLoggedIn"
-              class="lg:tw-flex tw-justify-end tw-flex-1 tw-items-center"
+              class="lg:flex justify-end flex-1 items-center"
             >
-              <li class="tw-mr-3">
+              <li class="mr-3">
                 <router-link
                   to="/messages"
-                  class="link-item tw-inline-block tw-text-black tw-no-underline hover:tw-text-gray-800 hover:tw-text-underline tw-py-2 tw-px-4"
+                  class="link-item inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
                   ><span
-                    class="mdi mdi-message tw-text-blue-500 lg:tw-text-white"
+                    class="mdi mdi-message text-blue-500 lg:text-white"
                   ></span>
                   Messages
                 </router-link>
               </li>
-              <li class="tw-mr-3">
+              <li class="mr-3">
                 <router-link
                   to="/favorites"
-                  class="link-item tw-inline-block tw-text-black tw-no-underline hover:tw-text-gray-800 hover:tw-text-underline tw-py-2 tw-px-4"
+                  class="link-item inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
                   ><span
-                    class="mdi mdi-heart tw-text-blue-500 lg:tw-text-white"
+                    class="mdi mdi-heart text-blue-500 lg:text-white"
                   ></span>
                   Favorites
                 </router-link>
               </li>
               <li
                 @click="showUserMenu"
-                class="tw-mr-3 tw-relative tw-cursor-pointer tw-ml-4 lg:tw-ml-0"
+                class="mr-3 relative cursor-pointer ml-4 lg:ml-0"
               >
                 <!-- <span
-                  class="mdi mdi-account tw-text-blue-500 lg:tw-text-white"
+                  class="mdi mdi-account text-blue-500 lg:text-white"
                 ></span> -->
                 <span
-                  class="mdi mdi-menu-down-outline tw-text-blue-500  lg:tw-text-white"
+                  class="mdi mdi-menu-down-outline text-blue-500  lg:text-white"
                   :class="{
                     'mdi-rotate-180': showUserLinks,
                     'mdi-rotate-0': !showUserLinks,
@@ -99,30 +90,30 @@
                 ></span>
                 {{ user.first_name }}
                 <ul
-                  class="tw-absolute tw-left-1 tw-whitespace-nowrap tw-bg-[#186AA9] tw-z-40"
+                  class="absolute left-1 whitespace-nowrap bg-[#186AA9] z-40"
                   v-if="showUserLinks"
                 >
-                  <li class="tw-p-1 tw-bg-gray-200 tw-text-black tw-mt-1">
+                  <li class="p-1 bg-gray-200 text-black mt-1">
                     <router-link
                       to="/userarea"
-                      class="link-item tw-inline-block tw-text-black tw-no-underline hover:tw-text-gray-800 hover:tw-text-underline tw-py-2 tw-px-4"
+                      class="link-item inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
                     >
                       User Area
                     </router-link>
                   </li>
-                  <li class="tw-p-1 tw-bg-gray-200 tw-text-black tw-mt-1">
+                  <li class="p-1 bg-gray-200 text-black mt-1">
                     <router-link
                       to="/invite"
-                      class="link-item tw-inline-block tw-text-black tw-no-underline hover:tw-text-gray-800 hover:tw-text-underline tw-py-2 tw-px-4"
+                      class="link-item inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
                     >
                       Invite Friend</router-link
                     >
                   </li>
-                  <li class="tw-p-1 tw-bg-gray-200 tw-text-black tw-mt-1">
+                  <li class="p-1 bg-gray-200 text-black mt-1">
                     <router-link
                       to="/"
                       @click="logout"
-                      class="link-item tw-inline-block tw-text-black tw-no-underline hover:tw-text-gray-800 hover:tw-text-underline tw-py-2 tw-px-4"
+                      class="link-item inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
                       >Sign out</router-link
                     >
                   </li>
@@ -131,19 +122,19 @@
             </div>
             <div
               v-show="!isLoggedIn"
-              class="lg:tw-flex tw-justify-end tw-flex-1 tw-items-center"
+              class="lg:flex justify-end flex-1 items-center"
             >
-              <li class="tw-mr-3">
+              <li class="mr-3">
                 <router-link
                   to="/user/login"
-                  class="link-item tw-inline-block tw-py-2 tw-px-4 tw-text-black tw-no-underline"
+                  class="link-item inline-block py-2 px-4 text-black no-underline"
                   >Sign in</router-link
                 >
               </li>
-              <li class="tw-mr-3">
+              <li class="mr-3">
                 <router-link
                   to="/user/register"
-                  class="link-item tw-inline-block tw-text-black tw-no-underline hover:tw-text-gray-800 hover:tw-text-underline tw-py-2 tw-px-4"
+                  class="link-item inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
                   >Sign up</router-link
                 >
               </li>
@@ -152,55 +143,44 @@
           <button
             id="navAction"
             @click="createAd()"
-            class="tw-mx-auto lg:tw-mx-0 hover:tw-underline tw-bg-white tw-text-gray-800 tw-font-bold tw-rounded-full tw-mt-4 lg:tw-mt-0 tw-p-4 tw-shadow tw-opacity-75 focus:tw-outline-none focus:tw-shadow-outline tw-transform tw-transition hover:tw-scale-105 tw-duration-300 tw-ease-in-out tw-relative"
+            class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 px-4 py-2 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out relative"
           >
             Sell 4 Free!
           </button>
         </div>
       </div>
-      <hr
-        class="tw-border-b tw-border-blue-500 tw-opacity-20 tw--mt-1 tw-py-0"
-      />
+      <hr class="border-b border-blue-500 opacity-20 -mt-1 py-0" />
     </div>
 
     <div
       v-if="searchIsOn"
-      class="tw-pt-24 sm:tw-hidden tw-flex tw-justify-center tw-items-center"
+      class="pt-24 sm:hidden flex justify-center items-center"
     >
       <div class="">
         <search></search>
       </div>
     </div>
-    <main class="about tw-pt-16 tw-text-gray-900">
+    <main class="about pt-16 text-gray-900">
       <router-view />
     </main>
     <pageFooter></pageFooter>
     <div
       id="footer-links"
-      class="footer-links tw-flex tw-fixed tw-text-white tw-bottom-0 tw-justify-between tw-w-full md:tw-hidden tw-h-12 tw-text-center"
+      class="footer-links flex fixed text-white bottom-0 justify-between w-full md:hidden h-12 text-center"
     >
-      <div
-        class="tw-px-4 tw-w-1/3 tw-bg-gray-800 tw-rounded-tr-md"
-        @click="showCategory()"
-      >
+      <div class="px-4 w-1/3 bg-gray-800 rounded-tr-md" @click="showCategory()">
         <span class="mdi mdi-menu"></span> <br />
         Categories
       </div>
-      <div class="tw-w-1/3 gradient tw-rounded-t-md" @click="navigate('/')">
-        <span class="mdi mdi-home tw-text-2xl"></span>
-        <span class="-tw-mt-2 tw-block">Home</span>
+      <div class="w-1/3 gradient rounded-t-md" @click="navigate('/')">
+        <span class="mdi mdi-home text-2xl"></span>
+        <span class="-mt-2 block">Home</span>
       </div>
-      <div
-        @click="createAd()"
-        class="tw-px-4 tw-w-1/3 tw-bg-gray-800 tw-rounded-tl-md"
-      >
+      <div @click="createAd()" class="px-4 w-1/3 bg-gray-800 rounded-tl-md">
         <span class="mdi mdi-plus"></span> <br />Post Ad
       </div>
     </div>
-    <div
-      class="tw-fixed tw-bottom-0 tw-bg-gray-900 tw-p-4"
-      v-if="showCookieMsg"
-    >
+    <div class="fixed bottom-0 bg-gray-900 p-4" v-if="showCookieMsg">
       <p class="text-center">
         Please note that we use cookies to build a more engaging and effective
         service to our visitors by understanding their interests and to help us
@@ -208,16 +188,17 @@
         website and it's associated subdomains, you agree to our use of cookies
         and privacy policy.
       </p>
-      <span class="tw-flex tw-justify-center tw-items-center">
+      <span class="flex justify-center items-center">
         <button
           @click="seenCookiesMsg()"
-          class="tw-m-4 tw-bg-blue-900 tw-py-2 tw-px-8 tw-text-xl tw-rounded-xl tw-border tw-border-indigo-200 hover:tw-bg-black"
+          class="m-4 bg-blue-900 py-2 px-8 text-xl rounded-xl border border-indigo-200 hover:bg-black"
         >
           OK, I'm in
         </button>
       </span>
     </div>
   </div>
+  <Toast />
 </template>
 
 <script>
@@ -226,7 +207,6 @@ import Search from "@/components/Search";
 import store from "../src/store";
 import { mapState, mapActions } from "vuex";
 import router from "./router";
-import M from "materialize-css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import setTitle from "./utilities/setTitle";
@@ -282,9 +262,9 @@ export default {
         clearTimeout(this.menuTimeout);
       }
     },
-    toast() {
+    /* toast() {
       M.toast({ html: this.toastMessage, displayLength: 4000 });
-    },
+    }, */
     createAd() {
       router.push("/create_ad");
     },
@@ -398,34 +378,34 @@ export default {
       scrollpos = window.scrollY;
 
       if (scrollpos > 10) {
-        header.classList.add("tw-bg-white");
-        navaction.classList.remove("tw-bg-white");
+        header.classList.add("bg-white");
+        navaction.classList.remove("bg-white");
         navaction.classList.add("gradient");
-        navaction.classList.remove("tw-text-gray-800");
-        navaction.classList.add("tw-text-white");
+        navaction.classList.remove("text-gray-800");
+        navaction.classList.add("text-white");
         //Use to switch toggleColour colours
         for (var i = 0; i < toToggle.length; i++) {
-          toToggle[i].classList.add("tw-text-gray-800");
-          toToggle[i].classList.remove("tw-text-white");
+          toToggle[i].classList.add("text-gray-800");
+          toToggle[i].classList.remove("text-white");
         }
-        header.classList.add("tw-shadow");
-        navcontent.classList.remove("tw-bg-gray-100");
-        navcontent.classList.add("tw-bg-white");
+        header.classList.add("shadow");
+        navcontent.classList.remove("bg-gray-100");
+        navcontent.classList.add("bg-white");
       } else {
-        header.classList.remove("tw-bg-white");
+        header.classList.remove("bg-white");
         navaction.classList.remove("gradient");
-        navaction.classList.add("tw-bg-white");
-        navaction.classList.remove("tw-text-white");
-        navaction.classList.add("tw-text-gray-800");
+        navaction.classList.add("bg-white");
+        navaction.classList.remove("text-white");
+        navaction.classList.add("text-gray-800");
         //Use to switch toggleColour colours
         for (let i = 0; i < toToggle.length; i++) {
-          toToggle[i].classList.add("tw-text-white");
-          toToggle[i].classList.remove("tw-text-gray-800");
+          toToggle[i].classList.add("text-white");
+          toToggle[i].classList.remove("text-gray-800");
         }
 
-        header.classList.remove("tw-shadow");
-        navcontent.classList.remove("tw-bg-white");
-        navcontent.classList.add("tw-bg-gray-100");
+        header.classList.remove("shadow");
+        navcontent.classList.remove("bg-white");
+        navcontent.classList.add("bg-gray-100");
       }
     }); //end of document.scroll
 
@@ -441,21 +421,21 @@ export default {
         // click NOT on the menu
         if (checkParent(target, navMenu)) {
           // click on the link
-          if (navMenuDiv.classList.contains("tw-hidden")) {
-            navMenuDiv.classList.remove("tw-hidden");
+          if (navMenuDiv.classList.contains("hidden")) {
+            navMenuDiv.classList.remove("hidden");
           } else {
-            navMenuDiv.classList.add("tw-hidden");
+            navMenuDiv.classList.add("hidden");
           }
         } else {
           // click both outside link and outside menu, hide menu
-          navMenuDiv.classList.add("tw-hidden");
+          navMenuDiv.classList.add("hidden");
         }
       }
     }
     let linkItems = document.querySelectorAll(".link-item");
     for (let linkItem of linkItems) {
       linkItem.addEventListener("click", function() {
-        navMenuDiv.classList.add("tw-hidden");
+        navMenuDiv.classList.add("hidden");
       });
     }
     //alert(linkItems.length);

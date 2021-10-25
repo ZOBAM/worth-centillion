@@ -1,16 +1,14 @@
 <template>
   <div class="about">
     <div
-      class="tw-min-w-screen tw-min-h-screen tw-bg-white tw-flex tw-items-center tw-justify-center tw-px-5 tw-py-5"
+      class="min-w-screen min-h-screen bg-white flex items-center justify-center px-5 py-5"
     >
       <div
-        class="tw-bg-gray-100 tw-text-gray-500 tw-rounded-3xl tw-shadow-xl tw-w-full tw-overflow-hidden tw-my-16"
+        class="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden my-16"
         style="max-width: 1000px"
       >
-        <div class="md:tw-flex tw-w-full">
-          <div
-            class="tw-hidden md:tw-block tw-w-1/2 tw-bg-indigo-500 tw-py-10 tw-px-10"
-          >
+        <div class="md:flex w-full">
+          <div class="hidden md:block w-1/2 bg-indigo-500 py-10 px-10">
             <svg
               id="a87032b8-5b37-4b7e-a4d9-4dbfbe394641"
               data-name="Layer 1"
@@ -215,7 +213,7 @@
               />
             </svg>
           </div>
-          <div class="tw-w-full md:tw-w-1/2 tw-py-10 tw-px-5 md:tw-px-10">
+          <div class="w-full md:w-1/2 py-10 px-5 md:px-10">
             <!-- register the user if register is true -->
             <template v-if="isReg">
               <register></register>

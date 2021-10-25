@@ -1,12 +1,12 @@
 <template>
   <article>
-    <div class="tw-flex tw-justify-center tw-p-12">
-      <div class="tw-w-auto">
+    <div class="flex justify-center p-12">
+      <div class="w-auto">
         <span
           @click="vtuTransactions = true"
           :class="{
             [btnStyle]: true,
-            'tw-text-white tw-bg-blue-700 tw--mr-4 tw-z-50': vtuTransactions,
+            'text-white bg-blue-700 -mr-4 z-50': vtuTransactions,
           }"
         >
           VTU
@@ -15,7 +15,7 @@
           @click="vtuTransactions = false"
           :class="{
             [btnStyle]: true,
-            'tw-text-white tw-bg-blue-700 tw--ml-4 tw-z-10': !vtuTransactions,
+            'text-white bg-blue-700 -ml-4 z-10': !vtuTransactions,
           }"
         >
           Others
@@ -24,12 +24,12 @@
     </div>
     <section
       v-if="user.transactions.length || user.vtuTransactions.length"
-      class="tw-text-gray-700"
+      class="text-gray-700"
     >
       <div v-if="vtuTransactions">
         <div
           v-if="user.vtuTransactions.length"
-          class="tw-w-full md:tw-w-3/4 tw-text-center tw-m-auto"
+          class="w-full md:w-3/4 text-center m-auto"
         >
           <table class="striped ">
             <thead>
@@ -130,7 +130,7 @@ export default {
     return {
       vtuTransactions: false,
       btnStyle:
-        "tw-cursor-pointer hover:tw-bg-indigo-900 tw-inline-block tw-rounded-xl tw-min-w-[8rem] tw-text-center tw-text-2xl tw-py-2 tw-px-4 tw-border-2 tw-border-blue-700",
+        "cursor-pointer hover:bg-indigo-900 inline-block rounded-xl min-w-[8rem] text-center text-2xl py-2 px-4 border-2 border-blue-700",
     };
   },
   computed: {

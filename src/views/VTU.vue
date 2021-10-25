@@ -1,58 +1,58 @@
 <template>
-  <article class="tw-bg-white md:tw-p-6">
-    <div class="tw-text-center">
+  <article class="bg-white md:p-6">
+    <div class="text-center">
       <h1
-        class="tw-my-2 tw-pt-8 tw-text-3xl tw-font-bold tw-leading-tight tw-text-center tw-text-gray-800"
+        class="my-2 pt-8 text-3xl font-bold leading-tight text-center text-gray-800"
       >
         Hamsuper VTU
       </h1>
-      <p class="tw-font-mono tw-text-green-700">
+      <p class="font-mono text-green-700">
         Buy airtime, buy data and pay bills at ease
       </p>
     </div>
     <section
       v-if="processing_payment"
-      class="tw-bg-green-700 tw-text-white tw-p-5 tw-my-5 tw-relative"
+      class="bg-green-700 text-white p-5 my-5 relative"
     >
       <div
-        class="tw-absolute tw-top-2 tw-right-2 tw-w-8 tw-h-8 tw-rounded-full tw-bg-green-50 tw-text-center tw-text-gray-900 tw-flex tw-justify-center tw-items-center tw-cursor-pointer hover:tw-bg-red-800 hover:tw-text-white"
+        class="absolute top-2 right-2 w-8 h-8 rounded-full bg-green-50 text-center text-gray-900 flex justify-center items-center cursor-pointer hover:bg-red-800 hover:text-white"
       >
-        <span class="tw-text-xl" @click="closeInfo()">X</span>
+        <span class="text-xl" @click="closeInfo()">X</span>
       </div>
       <span v-if="loading">processing payment . . .</span>
       <p v-if="paymentData">{{ paymentData.message }}</p>
     </section>
-    <article class="tw-flex tw-flex-col md:tw-flex-row">
+    <article class="flex flex-col md:flex-row">
       <section
-        class="tw-bg-gradient-to-b tw-from-white tw-to-blue-900 tw-text-blue-700 tw-p-4 tw-mt-10 md:tw-mt-0"
+        class="bg-gradient-to-b from-white to-blue-900 text-blue-700 p-4 mt-10 md:mt-0"
       >
-        <ul class="nav tw-flex tw-justify-around md:tw-block">
+        <ul class="nav flex justify-around md:block">
           <li
             @click="setDealType('airtime')"
-            class="tw-p-2 hover:tw-bg-blue-300 hover:tw-text-gray-800 tw-cursor-pointer tw-border-2 tw-rounded-md tw-border-blue-50 tw-bg-gray-100"
+            class="p-2 hover:bg-blue-300 hover:text-gray-800 cursor-pointer border-2 rounded-md border-blue-50 bg-gray-100"
           >
             Buy Airtime
           </li>
           <li
             @click="setDealType('data')"
-            class="tw-p-2 hover:tw-bg-blue-300 hover:tw-text-gray-800 tw-cursor-pointer tw-border-2 tw-rounded-md tw-border-blue-50 md:tw-mt-4 tw-bg-gray-100"
+            class="p-2 hover:bg-blue-300 hover:text-gray-800 cursor-pointer border-2 rounded-md border-blue-50 md:mt-4 bg-gray-100"
           >
             Buy Data
           </li>
           <li
             @click="setDealType('fundWallet')"
-            class="tw-p-2 hover:tw-bg-blue-300 hover:tw-text-gray-800 tw-cursor-pointer tw-border-2 tw-rounded-md tw-border-blue-50 md:tw-mt-4 tw-bg-green-100"
+            class="p-2 hover:bg-blue-300 hover:text-gray-800 cursor-pointer border-2 rounded-md border-blue-50 md:mt-4 bg-green-100"
           >
             Fund Wallet
           </li>
         </ul>
       </section>
-      <section class="tw-p-4 tw-pt-6 md:tw-p-6 tw-flex-grow">
+      <section class="p-4 pt-6 md:p-6 flex-grow">
         <template v-if="networkDeal">
           <Form @submit="onSubmit" :validation-schema="schema" v-if="stepOne">
             <div class="col s12">
               <span
-                class="tw-px-2 tw-py-1 tw-bg-black tw-text-gray-300 tw-rounded-lg tw-mb-8 tw-inline-block"
+                class="px-2 py-1 bg-black text-gray-300 rounded-lg mb-8 inline-block"
                 v-html="currentAction"
               ></span>
               <div class="row">
@@ -78,15 +78,12 @@
                   </Field>
                   <ErrorMessage
                     name="network"
-                    class="tw-block tw-text-red-500 tw-text-sm"
+                    class="block text-red-500 text-sm"
                   />
                 </div>
                 <div class="input-field col m6">
-                  <label
-                    for="number"
-                    class="tw-text-xs tw-font-semibold tw-px-1"
-                    ><span class="tw-hidden md:tw-inline">Phone</span>
-                    Number</label
+                  <label for="number" class="text-xs font-semibold px-1"
+                    ><span class="hidden md:inline">Phone</span> Number</label
                   >
                   <Field
                     type="text"
@@ -97,7 +94,7 @@
                   />
                   <ErrorMessage
                     name="phone_number"
-                    class="block tw-text-red-500 tw-text-sm"
+                    class="block text-red-500 text-sm"
                   />
                 </div>
               </div>
@@ -124,13 +121,11 @@
                     </Field>
                     <ErrorMessage
                       name="data_plan"
-                      class="tw-block tw-text-red-500 tw-text-sm"
+                      class="block text-red-500 text-sm"
                     />
                   </template>
                   <template v-else>
-                    <label
-                      for="amount"
-                      class="tw-text-xs tw-font-semibold tw-px-1"
+                    <label for="amount" class="text-xs font-semibold px-1"
                       >Amount</label
                     >
                     <Field
@@ -143,7 +138,7 @@
                     />
                     <ErrorMessage
                       name="amount"
-                      class="tw-block tw-text-red-500 tw-text-sm"
+                      class="block text-red-500 text-sm"
                     />
                   </template>
                 </div>
@@ -157,54 +152,48 @@
                     placeholder=""
                     class=""
                   />
-                  <span
-                    v-if="balanceError"
-                    class="tw-block tw-text-red-500 tw-text-sm"
+                  <span v-if="balanceError" class="block text-red-500 text-sm"
                     >Amount cannot be more than {{ getWalletBalance }}</span
                   >
                 </div>
               </div>
             </div>
-            <div class="tw-flex tw-justify-center tw-items-center tw-mt-4">
-              <button class="btn-primary tw-rounded-lg">Next</button>
+            <div class="flex justify-center items-center mt-4">
+              <button class="btn-primary rounded-lg">Next</button>
             </div>
           </Form>
-          <div v-else class="tw-bg-gray-100 tw-bg-gray-700 tw-p-2 md:tw-p-6">
-            <h2 class="tw-text-center tw-font-bold tw-text-white tw-p-2">
+          <div v-else class="bg-gray-100 bg-gray-700 p-2 md:p-6">
+            <h2 class="text-center font-bold text-white p-2">
               Transaction Summary
             </h2>
-            <div class="tw-bg-white tw-p-4 tw-rounded-2xl">
-              <ul class="tw-text-center">
-                <li class="tw-uppercase tw-text-indigo-900">
+            <div class="bg-white p-4 rounded-2xl">
+              <ul class="text-center">
+                <li class="uppercase text-indigo-900">
                   {{ buyData ? "Data" : "Airtime" }} Purchase
                 </li>
                 <li v-if="buyData && dataPlan != null">{{ dataPlan.name }}</li>
                 <li>
                   Amount:
-                  <span class="tw-font-semibold tw-text-xl"
-                    >NGN{{ amount }}</span
-                  >
+                  <span class="font-semibold text-xl">NGN{{ amount }}</span>
                 </li>
                 <li>
                   Recipient:
-                  <span class="tw-text-xl">{{ phone_number }}</span>
+                  <span class="text-xl">{{ phone_number }}</span>
                 </li>
               </ul>
             </div>
-            <div
-              class="tw-flex tw-justify-center tw-items-center tw-mt-4 tw-mb-4"
-            >
+            <div class="flex justify-center items-center mt-4 mb-4">
               <Button
                 :loading="loading"
                 @click="purchase()"
-                class="tw-border-2 tw-border-gray-50 tw-rounded-lg"
+                class="border-2 border-gray-50 rounded-lg"
               >
                 Purchase
               </Button>
             </div>
             <button
               @click="stepOne = true"
-              class="tw-border-2 tw-border-gray-100 tw-p-2 tw-text-purple-50"
+              class="border-2 border-gray-100 p-2 text-purple-50"
             >
               Back
             </button>
@@ -215,23 +204,21 @@
         </template>
       </section>
     </article>
-    <div
-      class="tw-bg-gray-700 tw-text-white tw-text-center tw-font-bold  tw-p-2"
-    >
+    <div class="bg-gray-700 text-white text-center font-bold  p-2">
       Transaction History
     </div>
     <div
-      class="tw-bg-gray-300 md:tw-p-4 tw-max-w-full tw-overflow-auto"
+      class="bg-gray-300 md:p-4 max-w-full overflow-auto"
       v-if="transactionHistory"
     >
-      <table class="striped tw-m-auto tw-bg-gray-50 tw-p-2 ">
+      <table class="striped m-auto bg-gray-50 p-2 ">
         <thead>
-          <tr class="tw-p-4">
-            <th class="tw-text-center">S/N</th>
-            <th class="tw-text-center">Type</th>
-            <th class="tw-text-center">Amount</th>
-            <th class="tw-text-center">Recipient</th>
-            <th class="tw-text-center">Date</th>
+          <tr class="p-4">
+            <th class="text-center">S/N</th>
+            <th class="text-center">Type</th>
+            <th class="text-center">Amount</th>
+            <th class="text-center">Recipient</th>
+            <th class="text-center">Date</th>
           </tr>
         </thead>
         <tbody>
@@ -239,7 +226,7 @@
             v-for="(transaction, index) in transactionHistory"
             :key="transaction.id"
           >
-            <td class="tw-text-center">{{ index + 1 }}</td>
+            <td class="text-center">{{ index + 1 }}</td>
             <td>{{ transaction.type }}</td>
             <td>{{ transaction.amount }}</td>
             <td>{{ transaction.recipient }}</td>
@@ -253,11 +240,9 @@
       <p v-else>You currently don't have any transaction yet.</p>
     </div>
   </article>
-  <div
-    class="tw-shadow-lg tw-bg-gray-800 tw-px-3 tw-py-1 tw-text-green-100 tw-text-center"
-  >
+  <div class="shadow-lg bg-gray-800 px-3 py-1 text-green-100 text-center">
     Your wallet balance is
-    <span class="tw-font-bold tw-text-yellow-200 tw-text-lg"
+    <span class="font-bold text-yellow-200 text-lg"
       >N{{ getWalletBalance }}</span
     >
   </div>
@@ -318,8 +303,8 @@ export default {
       this.currentAction = "";
       setTimeout(() => {
         let text = this.buyData
-          ? "Buying <span class='tw-p-1 tw-bg-green-600 tw-rounded-lg tw-font-bold'>data</span>"
-          : "Buying <span class='tw-p-1 tw-bg-green-600 tw-rounded-lg tw-font-bold'>airtime</span>";
+          ? "Buying <span class='p-1 bg-green-600 rounded-lg font-bold'>data</span>"
+          : "Buying <span class='p-1 bg-green-600 rounded-lg font-bold'>airtime</span>";
         this.currentAction = text;
       }, 500);
     },

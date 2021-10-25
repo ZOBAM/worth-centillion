@@ -1,42 +1,36 @@
 <template>
-  <article class="tw-flex sm:tw-flex-row tw-flex-col">
+  <article class="flex sm:flex-row flex-col">
     <div
-      class="tw-cursor-pointer tw-flex tw-h-28 tw-w-full md:tw-w-1/3 tw-bg-gradient-to-r tw-from-black tw-to-blue-900 tw-p-2 hover:tw-from-indigo-900 tw--mt-8 sm:tw-max-w-[23rem] tw-m-auto"
+      class="cursor-pointer flex h-28 w-full md:w-1/3 bg-gradient-to-r from-black to-blue-900 p-2 hover:from-indigo-900 -mt-8 sm:max-w-[23rem] m-auto"
       @click="go()"
     >
-      <div class="tw-text-white tw-w-2/3">
-        <span class="act-get tw-bg-red-500 tw-py-1 tw-px-2 tw-rounded-xl"
-          >Get</span
-        >
+      <div class="text-white w-2/3">
+        <span class="act-get bg-red-500 py-1 px-2 rounded-xl">Get</span>
         <br />
         <span
-          class="rate-desc tw-border tw-border-gray-200 tw-mt-2 -tw-mx-8 tw-py-1 tw-px-2 tw-w-28 tw-text-center tw-inline-block tw-rounded-md tw--mt-3 sm:tw--mt-0"
+          class="rate-desc border border-gray-200 mt-2 -mx-8 py-1 px-2 w-28 text-center inline-block rounded-md -mt-3 sm:-mt-0"
         >
-          <span class="tw-text-yellow-300 tw-font-medium">Cheap Data </span>
+          <span class="text-yellow-300 font-medium">Cheap Data </span>
           <br />
-          <span class="tw-text-blue-200 tw-font-medium">& airtime</span>
+          <span class="text-blue-200 font-medium">& airtime</span>
         </span>
       </div>
-      <div class="vtu-title tw-w-1/3 tw-text-gray-300 tw-text-right opacity-0">
+      <div class="vtu-title w-1/3 text-gray-300 text-right opacity-0">
         Hamsuper VTU
       </div>
     </div>
     <div
-      class="tw-cursor-pointer tw-flex tw-flex-col tw-h-28 tw-w-full md:tw-w-1/3 tw-bg-gradient-to-b tw-from-white tw-to-blue-300 hover:tw-from-indigo-900 tw--mt-8 sm:tw-max-w-[23rem] tw-m-auto"
+      class="cursor-pointer flex flex-col h-28 w-full md:w-1/3 bg-gradient-to-b from-white to-blue-300 hover:from-indigo-900 -mt-8 sm:max-w-[23rem] m-auto"
       @click="go('invite')"
     >
-      <div class="tw-text-white tw-w-2/3 tw-m-auto">
-        <div
-          class="act-get tw-bg-red-500 tw-py-1 tw-px-2 tw-rounded-xl tw-text-center"
-        >
+      <div class="text-white w-2/3 m-auto">
+        <div class="act-get bg-red-500 py-1 px-2 rounded-xl text-center">
           {{ currentMessage }}
         </div>
       </div>
-      <div
-        class="tw-w-full tw-bg-indigo-600 tw-text-yellow-500 tw-flex tw-justify-between"
-      >
-        <span class="tw-bg-blue-900 tw-px-2">Invite friends</span>
-        <span class="tw-bg-blue-900 tw-px-2">Post Your Ads</span>
+      <div class="w-full bg-indigo-600 text-yellow-500 flex justify-between">
+        <span class="bg-blue-900 px-2">Invite friends</span>
+        <span class="bg-blue-900 px-2">Post Your Ads</span>
       </div>
     </div>
   </article>
@@ -179,7 +173,7 @@ export default {
   }
   100% {
     opacity: 1;
-    tw-font-weight: bolder;
+    font-weight: bolder;
   }
 } */
 .act-get {

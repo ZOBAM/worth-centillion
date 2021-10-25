@@ -1,39 +1,36 @@
 <template>
-  <article class="tw-bg-white md:tw-p-4">
-    <section class="tw-bg-gradient-to-b tw-from-white tw-to-blue-300 tw-p-2">
-      <section
-        v-if="items.length"
-        class="tw-p-2 md:tw-p-4 tw-bg-white tw-rounded-lg"
-      >
+  <article class="bg-white md:p-4">
+    <section class="bg-gradient-to-b from-white to-blue-300 p-2">
+      <section v-if="items.length" class="p-2 md:p-4 bg-white rounded-lg">
         <!-- <div
         v-for="ad of user.favorites"
         :key="ad.id"
-        class="tw-shadow-md tw-rounded-md tw-bg-gray-100"
+        class="shadow-md rounded-md bg-gray-100"
       >
         {{ ad.title }}
       </div> -->
         <h4
-          class="tw-bg-blue-100/50 tw-p-2 tw-text-[#22226] tw-text-2xl tw-text-center"
+          class="bg-blue-100/50 p-2 text-[#22226] text-2xl text-center"
           id="favorites-heading"
         >
-          <span class="mdi mdi-heart tw-text-blue-400"></span> Favorite Ads
+          <span class="mdi mdi-heart text-blue-400"></span> Favorite Ads
         </h4>
         <transition-group name="list" tag="ul" class="collection with-header">
           <template v-for="(ad, index) of items" :key="ad.id">
             <li
-              class="collection-item hover:tw-bg-red-400"
+              class="collection-item hover:bg-red-400"
               v-if="index >= startIndex && index < endIndex"
             >
-              <div class="tw-flex tw-mt-2">
-                <span class="tw-flex-grow">
+              <div class="flex mt-2">
+                <span class="flex-grow">
                   {{ ++index }})
-                  <router-link :to="'/ads/' + ad.id" class="tw-text-blue-600"
+                  <router-link :to="'/ads/' + ad.id" class="text-blue-600"
                     >{{ ad.title }}
                   </router-link>
                 </span>
                 <span
                   href="#!"
-                  class="secondary-content tw-cursor-pointer"
+                  class="secondary-content cursor-pointer"
                   title="remove from favorite"
                   ><i class="material-icons red-text" @click="removeAd(ad.id)"
                     >delete</i
@@ -46,12 +43,12 @@
       </section>
       <section
         v-else
-        class="tw-p-4 tw-flex tw-justify-center tw-items-center tw-flex-col tw-bg-gray-50"
+        class="p-4 flex justify-center items-center flex-col bg-gray-50"
       >
         <ul class="collection with-header">
-          <li class="collection-header tw-text-center">
+          <li class="collection-header text-center">
             <h4>
-              <span class="mdi mdi-heart tw-text-blue-400 tw-w-full"></span>
+              <span class="mdi mdi-heart text-blue-400 w-full"></span>
               Favorite Ads
             </h4>
           </li>
@@ -74,7 +71,6 @@
 <script>
 import { mapState } from "vuex";
 import store from "../store";
-import M from "materialize-css";
 import { gsap } from "gsap";
 import paginate from "@/utilities/mixins/paginate.js";
 import setTitle from "../utilities/setTitle";
@@ -97,10 +93,10 @@ export default {
       this.axios
         .get(process.env.VUE_APP_APIURL + "/like/" + adID)
         .then(() => {
-          M.toast({
+          /* M.toast({
             html: "Removed from Favorites",
             displayLength: 4000,
-          });
+          }); */
           //console.log(response.data);
         })
         .catch(() => {

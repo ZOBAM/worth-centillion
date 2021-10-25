@@ -1,12 +1,12 @@
 <template>
   <template v-if="field.length > 1">
-    <label for="" class="tw-block tw-text-xs tw-font-semibold tw-px-1">{{
+    <label for="" class="block text-xs font-semibold px-1">{{
       index.split(":")[0]
     }}</label>
     <select
       :name="index.split(':')[1]"
       id=""
-      class="tw-w-4/5 md:tw-w-2/3 tw-outline-none tw-border-0 tw-border-b-2 tw-border-gray-400 focus:tw-outline-none focus:tw-border-transparent tw-rounded"
+      class="w-4/5 md:w-2/3 outline-none border-0 border-b-2 border-gray-400 focus:outline-none focus:border-transparent rounded"
     >
       <option
         v-for="opt of field"
@@ -18,7 +18,7 @@
     </select>
   </template>
   <template v-else>
-    <label for="" class="tw-block tw-text-xs tw-font-semibold tw-px-1">{{
+    <label for="" class="block text-xs font-semibold px-1">{{
       index.split(":")[0]
     }}</label>
     <input
@@ -27,14 +27,14 @@
       id=""
       :value="fieldValue"
       @change="checkValue($event, field[0])"
-      class="tw-w-4/5 tw-md:w-2/3 tw-outline-none tw-border-0 tw-border-b-2 tw-border-gray-400 focus:tw-outline-none focus:tw-border-transparent tw-rounded"
+      class="w-4/5 md:w-2/3 outline-none border-0 border-b-2 border-gray-400 focus:outline-none focus:border-transparent rounded"
     />
     <template v-if="valueChanged">
-      <span class="tw-block tw-text-red-500 tw-text-sm" v-if="errorMessage">{{
+      <span class="block text-red-500 text-sm" v-if="errorMessage">{{
         errorMessage
       }}</span></template
     >
-    <!-- <ErrorMessage :name="index.split(':')[1]" class="tw-block tw-text-red-500 tw-text-sm" /> -->
+    <!-- <ErrorMessage :name="index.split(':')[1]" class="block text-red-500 text-sm" /> -->
   </template>
 </template>
 <script>

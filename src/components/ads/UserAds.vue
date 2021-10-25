@@ -3,68 +3,64 @@
     <template v-for="(result, index) in items" :key="result.id">
       <li
         v-if="index >= startIndex && index < endIndex"
-        class="tw-flex tw-shadow-md tw-p-2 tw-bg-white hover:tw-bg-indigo-50 tw-mt-1 border"
+        class="flex shadow-md p-2 bg-white hover:bg-indigo-50 mt-1 border"
         :class="{
-          'tw-border-2 tw-border-green-200 tw-relative': newAdID == result.id,
+          'border-2 border-green-200 relative': newAdID == result.id,
         }"
       >
         <div
           v-if="newAdID == result.id"
-          class="tw-absolute tw-p-2 tw-bg-green-400 tw-rounded-full tw--top-2 tw--left-2 tw-rotate-3 tw-animate-pulse"
+          class="absolute p-2 bg-green-400 rounded-full -top-2 -left-2 rotate-3 animate-pulse"
         >
           {{ editedAdID ? "Ad Updated!" : "New Ad!" }}
         </div>
-        <div class="tw-w-1/4 tw-flex tw-justify-center tw-items-center">
-          <img :src="result.ad_image" alt="" class="tw-w-20 md:tw-w-2/4" />
+        <div class="w-1/4 flex justify-center items-center">
+          <img :src="result.ad_image" alt="" class="w-20 md:w-2/4" />
         </div>
-        <div class="tw-relative tw-w-3/4">
-          <h4 class="tw-text-black tw-font-bold tw-p-2">
+        <div class="relative w-3/4">
+          <h4 class="text-black font-bold p-2">
             <router-link :to="'/ads/' + result.id"
               >{{ result.title }} (₦{{ result.price }})</router-link
             >
           </h4>
-          <p class="tw-p-2 tw-text-gray-700 tw-text-right md:tw-text-center">
+          <p class="p-2 text-gray-700 text-right md:text-center">
             <button
               @click="displayModal(result.id)"
               v-if="result.promoted == 'bronze'"
-              class="tw-border-2 tw-bg-blue-100 tw-border-blue-600 tw-px-3 tw-py-2 tw-rounded-2xl tw-border-double hover:tw-bg-gray-50"
+              class="border-2 bg-blue-100 border-blue-600 px-3 py-2 rounded-2xl border-double hover:bg-gray-50"
             >
               Promote
             </button>
             <span
               v-else
-              class="tw-border-2 tw-bg-green-400 tw-border-blue-600 tw-border-double hover:tw-bg-gray-50"
+              class="border-2 bg-green-400 border-blue-600 border-double hover:bg-gray-50"
             >
-              <!-- <span class="tw-bg-blue-300 tw-px-3 tw-py-2 tw-rounded-lg"
+              <!-- <span class="bg-blue-300 px-3 py-2 rounded-lg"
                 >Promoted</span
               > -->
-              <span class="tw-bg-blue-400 tw-py-2">
-                <span class=" tw-text-white tw-px-2 tw-py-1">{{
-                  result.promoted
-                }}</span>
+              <span class="bg-blue-400 py-2">
+                <span class=" text-white px-2 py-1">{{ result.promoted }}</span>
 
-                <span class="tw-bg-gray-50 tw-text-blue-900 tw-px-2 tw-py-1"
+                <span class="bg-gray-50 text-blue-900 px-2 py-1"
                   >{{ result.days_left }} days left</span
                 >
               </span>
             </span>
           </p>
-          <div
-            class="tw-bg-gray-50 tw-px-2 tw-py-1 tw-flex tw-justify-between tw-w-full  "
-          >
+          <div class="bg-gray-50 px-2 py-1 flex justify-between w-full  ">
             <button
-              class="tw-w-1/3 tw-border-b-2 tw-border-blue-700 tw-text-blue-700 hover:tw-bg-blue-700 hover:tw-text-white"
+              class="w-1/3 border-b-2 border-blue-700 text-blue-700 hover:bg-blue-700 hover:text-white"
               @click="edit(result.id)"
             >
               Edit
             </button>
             <button
-              class="tw-w-1/3 tw-border-b-2 tw-border-red-700 tw-text-red-700 tw-p-1 hover:tw-bg-red-700 hover:tw-text-white"
+              class="w-1/3 border-b-2 border-red-700 text-red-700 p-1 hover:bg-red-700 hover:text-white"
               @click="deleteAd(result.id)"
             >
               Delete
             </button>
-            <div class="tw-w-1/3 tw-text-center">{{ result.hits }} Views</div>
+            <div class="w-1/3 text-center">{{ result.hits }} Views</div>
           </div>
         </div>
       </li>
@@ -85,98 +81,87 @@
   >
     <template v-if="!lowBalance">
       <div
-        class="tw-border-2 tw-border-purple-600 tw-bg-blue-50 tw-text-center tw-relative"
+        class="border-2 border-purple-600 bg-blue-50 text-center relative"
         style="border-right: 4px dashed purple"
       >
-        <div
-          class="tw-absolute tw-justify-center tw-items-center tw-flex tw-w-full"
-        >
-          <span
-            class="tw-bg-purple-600 tw-text-white tw-rounded-2xl tw-px-3 tw--mt-3"
-          >
+        <div class="absolute justify-center items-center flex w-full">
+          <span class="bg-purple-600 text-white rounded-2xl px-3 -mt-3">
             Silver Ad
           </span>
         </div>
 
-        <div class=" tw-p-2 tw-mt-10">
-          <p class="tw-mb-4 tw-text-2xl tw-font-bold tw-text-center">
+        <div class=" p-2 mt-10">
+          <p class="mb-4 text-2xl font-bold text-center">
             N{{ promotionPrices[0] }}
           </p>
-          <ul class="collection tw-text-left">
+          <ul class="collection text-left">
             <li class="collection-item">
-              <span class="mdi mdi-check tw-text-blue-400 tw-text-xl"></span>
+              <span class="mdi mdi-check text-blue-400 text-xl"></span>
               Reach more buyers
             </li>
             <li class="collection-item">
-              <span class="mdi mdi-check tw-text-blue-400 tw-text-xl"></span>
+              <span class="mdi mdi-check text-blue-400 text-xl"></span>
               Secure deal faster
             </li>
             <li class="collection-item">
-              <span class="mdi mdi-check tw-text-blue-400 tw-text-xl"></span>
+              <span class="mdi mdi-check text-blue-400 text-xl"></span>
               Stay on the Top Ads for <strong>7days</strong>
             </li>
           </ul>
         </div>
-        <div class="text-center tw-my-4">
-          <button
-            @click="promoteAd('silver')"
-            class="btn-primary tw-rounded-3xl"
-          >
+        <div class="text-center my-4">
+          <button @click="promoteAd('silver')" class="btn-primary rounded-3xl">
             SELECT
           </button>
         </div>
       </div>
       <div
-        class="tw-border-2 tw-border-dashed tw-border-purple-600 tw-bg-purple-700 tw-text-center tw-relative tw-text-white"
+        class="border-2 border-dashed border-purple-600 bg-purple-700 text-center relative text-white"
       >
-        <div
-          class="tw-absolute tw-justify-center tw-items-center tw-flex tw-w-full"
-        >
-          <span
-            class="tw-bg-gray-100 tw-text-purple-800 tw-rounded-2xl tw-px-3 tw--mt-3"
-          >
+        <div class="absolute justify-center items-center flex w-full">
+          <span class="bg-gray-100 text-purple-800 rounded-2xl px-3 -mt-3">
             Gold Ad
           </span>
         </div>
 
-        <div class=" tw-p-2 tw-mt-10">
-          <p class="tw-mb-4 tw-text-2xl tw-font-bold tw-text-center">
+        <div class=" p-2 mt-10">
+          <p class="mb-4 text-2xl font-bold text-center">
             N{{ promotionPrices[1] }}
           </p>
-          <ul class="collection tw-text-left tw-text-purple-900">
+          <ul class="collection text-left text-purple-900">
             <li class="collection-item">
-              <span class="mdi mdi-check tw-text-blue-400 tw-text-xl"></span>
+              <span class="mdi mdi-check text-blue-400 text-xl"></span>
               Reach more buyers
             </li>
             <li class="collection-item">
-              <span class="mdi mdi-check tw-text-blue-400 tw-text-xl"></span>
+              <span class="mdi mdi-check text-blue-400 text-xl"></span>
               Secure deal faster
             </li>
             <li class="collection-item">
-              <span class="mdi mdi-check tw-text-blue-400 tw-text-xl"></span>
+              <span class="mdi mdi-check text-blue-400 text-xl"></span>
               Stay on the Top Ads for <strong>30days</strong>
             </li>
           </ul>
         </div>
-        <div class="text-center tw-my-4">
+        <div class="text-center my-4">
           <button
             @click="promoteAd('gold')"
-            class="btn-primary tw-rounded-3xl tw-border-2 tw-border-white tw-bg-purple-600"
+            class="btn-primary rounded-3xl border-2 border-white bg-purple-600"
             :disabled="user.balance < promotionPrices[1]"
             :class="{
-              'tw-border-purple-900 tw-text-gray-500':
+              'border-purple-900 text-gray-500':
                 user.balance < promotionPrices[1],
             }"
           >
             SELECT</button
           ><br />
-          <span v-if="user.balance < promotionPrices[1]" class="tw-p-2"
+          <span v-if="user.balance < promotionPrices[1]" class="p-2"
             >Low Balance (N{{ user.balance.toFixed(2) }})</span
           >
         </div>
       </div>
     </template>
-    <section v-if="lowBalance" class="tw-bg-red-100 tw-p-4 tw-w-full">
+    <section v-if="lowBalance" class="bg-red-100 p-4 w-full">
       Your account balance is too low for this transaction. Please, fund your
       wallet and try again.
     </section>

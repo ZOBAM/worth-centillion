@@ -1,52 +1,47 @@
 <template>
   <div class="about">
-    <div class="tw-p-0 gradient">
+    <div class="p-0 gradient">
       <!-- <loading v-if="adsIsLoading"></loading> -->
-      <div class="tw-p-4 tw-bg-white">
+      <div class="p-4 bg-white">
         <div class="">
           <img
             :src="user.dp"
             alt=""
-            class="tw-bg-gray-300 tw-block tw-m-auto tw-rounded-full tw--mt-2 tw-border-8 tw-border-gray-100 tw-w-32 tw-relative"
+            class="bg-gray-300 block m-auto rounded-full -mt-2 border-8 border-gray-100 w-32 relative"
           />
           <!-- <span
-            class="tw-text-3xl mdi mdi-camera tw-text-red-700 tw-absolute tw-right-1/3 tw--mt-4"
+            class="text-3xl mdi mdi-camera text-red-700 absolute right-1/3 -mt-4"
           ></span> -->
-          <div class="tw-text-center tw-text-gray-800 tw-mt-4">
-            <span class="tw-font-bold">{{
+          <div class="text-center text-gray-800 mt-4">
+            <span class="font-bold">{{
               `${user.first_name} ${user.last_name}`
             }}</span
             ><br />
             <template v-if="user.email"
               ><span>{{ user.email }}</span></template
             >
-            <span class="tw-block tw-font-serif tw-font-bold">{{
-              `${user.tel}`
-            }}</span>
+            <span class="block font-serif font-bold">{{ `${user.tel}` }}</span>
           </div>
         </div>
-        <div
-          id="action-tabs"
-          class="tw-bg-blue-600 tw-flex tw-justify-around tw-pt-2 tw-mt-8"
-        >
+        <div id="action-tabs" class="bg-blue-600 flex justify-around pt-2 mt-8">
           <div
             v-for="tab in actions"
             :key="tab.name"
-            class="tw-p-2 tw-cursor-pointer"
+            class="p-2 cursor-pointer"
             @click="setAction(tab.name)"
             :class="isAction(tab.name)"
           >
             <span :class="tab.icon"></span> <sup>{{ getCount(tab.name) }}</sup>
             <br />
-            <span class="tw-capitalize">{{ tab.name }}</span>
+            <span class="capitalize">{{ tab.name }}</span>
           </div>
         </div>
       </div>
-      <div id="action-area" class=" tw-bg-white tw-text-red-900 tw-p-4">
+      <div id="action-area" class=" bg-white text-red-900 p-4">
         <div v-if="currentAction == 'ads'">
           <user-ads :items="items"></user-ads>
         </div>
-        <div class="tw-p-2" v-if="currentAction == 'profile'">
+        <div class="p-2" v-if="currentAction == 'profile'">
           <div>
             <register
               @updated="readOnly = true"
@@ -57,19 +52,19 @@
               @click="readOnly = !readOnly"
               class="btn-primary"
               :class="{
-                'tw-border-2 tw-border-red-600 tw-text-red-600 tw-bg-white': !readOnly,
+                'border-2 border-red-600 text-red-600 bg-white': !readOnly,
               }"
             >
               {{ !readOnly ? "Cancel Editing" : "Edit Details" }}
             </button>
           </div>
         </div>
-        <div class="tw-p-2" v-if="currentAction == 'wallet'">
+        <div class="p-2" v-if="currentAction == 'wallet'">
           <div>
             <wallet />
           </div>
         </div>
-        <div class="tw-p-2" v-if="currentAction == 'transactions'">
+        <div class="p-2" v-if="currentAction == 'transactions'">
           <div>
             <transactions></transactions>
           </div>
@@ -100,33 +95,33 @@ export default {
       actions: [
         {
           name: "ads",
-          icon: "mdi mdi-shopping-outline tw-text-sm",
+          icon: "mdi mdi-shopping-outline text-sm",
           count: 0,
         },
         {
           name: "wallet",
-          icon: "mdi mdi-cash tw-text-sm",
+          icon: "mdi mdi-cash text-sm",
           count: 0,
         },
         {
           name: "transactions",
-          icon: "mdi mdi-message-bulleted tw-text-sm",
+          icon: "mdi mdi-message-bulleted text-sm",
           count: 0,
         },
         {
           name: "profile",
-          icon: "mdi mdi-account-settings tw-text-sm",
+          icon: "mdi mdi-account-settings text-sm",
           count: 0,
         },
       ],
       activeStyle: {
-        "tw-bg-white": true,
-        "tw-text-black": true,
-        "tw-rounded-t-md": true,
+        "bg-white": true,
+        "text-black": true,
+        "rounded-t-md": true,
       },
       inactiveStyle: {
-        "tw-bg-blue-500": true,
-        "tw-text-white": true,
+        "bg-blue-500": true,
+        "text-white": true,
       },
     };
   },

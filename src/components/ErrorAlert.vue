@@ -1,15 +1,13 @@
 <template>
   <div
-    class="tw-bg-white tw-text-red-800 tw-p-2 tw-rounded-xl tw-shadow-md"
+    class="bg-white text-red-800 p-2 rounded-xl shadow-md"
     v-if="messages.length"
   >
-    <span
-      class="tw-h-4 tw-w-4 tw-bg-red-400 tw-inline-block tw-animate-ping tw-rounded-full"
-    >
+    <span class="h-4 w-4 bg-red-400 inline-block animate-ping rounded-full">
     </span>
-    <span class="mdi mdi-information tw-text-red-500 tw--m-4"></span>
+    <span class="mdi mdi-information text-red-500 -m-4"></span>
     <ul>
-      <li v-for="(message, index) in messages" :key="index" class="tw-text-sm">
+      <li v-for="(message, index) in messages" :key="index" class="text-sm">
         {{ message }}
       </li>
     </ul>

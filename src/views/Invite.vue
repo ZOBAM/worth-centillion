@@ -1,36 +1,34 @@
 <template>
-  <div class="tw-bg-gray-100 tw-p-4">
-    <h1
-      class="tw-text-blue-700 tw-font-bold tw-text-3xl tw-text-center tw-my-8"
-    >
+  <div class="bg-gray-100 p-4">
+    <h1 class="text-blue-700 font-bold text-3xl text-center my-8">
       Invite & Earn Bonus
     </h1>
-    <article class=" tw-max-w-[54rem] tw-m-auto">
-      <section class="tw-flex tw-justify-between tw-text-center">
+    <article class=" max-w-[54rem] m-auto">
+      <section class="flex justify-between text-center">
         <div
           @click="setTab('sms')"
-          class="bg-blue-100 tw-p-2 tw-border-2 tw-border-blue-600 tw-w-1/3 tw-cursor-pointer"
-          :class="{ 'tw-bg-blue-100': currentTab == 'sms' }"
+          class="bg-blue-100 p-2 border-2 border-blue-600 w-1/3 cursor-pointer"
+          :class="{ 'bg-blue-100': currentTab == 'sms' }"
         >
           Text/SMS
         </div>
         <div
           @click="setTab('email')"
-          class="bg-blue-100 tw-p-2 tw-border-2 tw-border-blue-600 tw-w-1/3 tw-cursor-pointer"
-          :class="{ 'tw-bg-blue-100': currentTab == 'email' }"
+          class="bg-blue-100 p-2 border-2 border-blue-600 w-1/3 cursor-pointer"
+          :class="{ 'bg-blue-100': currentTab == 'email' }"
         >
           Email
         </div>
         <div
           @click="setTab('share')"
-          class="bg-blue-100 tw-p-2 tw-border-2 tw-border-blue-600 tw-w-1/3 tw-cursor-pointer"
-          :class="{ 'tw-bg-blue-100': currentTab == 'share' }"
+          class="bg-blue-100 p-2 border-2 border-blue-600 w-1/3 cursor-pointer"
+          :class="{ 'bg-blue-100': currentTab == 'share' }"
         >
           Share Link
         </div>
       </section>
-      <section class="tw-bg-gray-200 tw-p-2">
-        <p class="tw-p-2 tw-bg-white tw-w-5/6 tw-m-auto tw-text-center">
+      <section class="bg-gray-200 p-2">
+        <p class="p-2 bg-white w-5/6 m-auto text-center">
           <span v-if="currentTab != 'share'"
             >A message will be sent to the contact you provide below. You can
             check the preview of the sent message after providing the contact
@@ -45,31 +43,31 @@
         <div
           v-if="inviteReport"
           id="report"
-          class="tw-p-4 tw-mt-6 tw-text-center"
+          class="p-4 mt-6 text-center"
           :class="{
-            'tw-bg-green-200': status == 1,
-            'tw-bg-red-200': status == 2,
-            'tw-bg-blue-200': status == 0,
+            'bg-green-200': status == 1,
+            'bg-red-200': status == 2,
+            'bg-blue-200': status == 0,
           }"
         >
           {{ inviteReport }}
         </div>
-        <Form @submit="invite" :validation-schema="schema" class="tw-my-8">
-          <div class="tw-overflow-hidden">
+        <Form @submit="invite" :validation-schema="schema" class="my-8">
+          <div class="overflow-hidden">
             <label for="tel">{{ inputLabel }}</label>
             <Field
               type="text"
               :name="inputName"
               :placeholder="inputPlaceholder"
               style="padding-left:1rem; background-color: white"
-              class="tw-w-full tw-bg-white"
+              class="w-full bg-white"
               v-model="inputValue"
               id="inputField"
               @keyup="resistLinkChange"
             />
             <ErrorMessage
               :name="inputName"
-              class="tw-block tw-text-red-500 tw-text-sm"
+              class="block text-red-500 text-sm"
               v-if="currentTab != 'share'"
             />
           </div>
@@ -80,18 +78,18 @@
           </div>
         </Form>
         <div v-if="currentTab != 'share'" class="">
-          <div class="tw-bg-blue-200 tw-text-right tw-px-2 tw-py-1">
+          <div class="bg-blue-200 text-right px-2 py-1">
             Invite Message Preview
           </div>
-          <div class="tw-bg-blue-200 tw-px-2 tw-pb-2">
+          <div class="bg-blue-200 px-2 pb-2">
             <p
-              class="tw-bg-gray-50 tw-p-2 tw-rounded-2xl tw-overflow-x-auto"
+              class="bg-gray-50 p-2 rounded-2xl overflow-x-auto"
               v-if="loadingPreview"
             >
               Loading . . .
             </p>
             <p
-              class="tw-bg-gray-50 tw-p-2 tw-rounded-2xl tw-overflow-x-auto"
+              class="bg-gray-50 p-2 rounded-2xl overflow-x-auto"
               v-html="previewMsg"
               v-else
             ></p>
@@ -105,7 +103,6 @@
 import { Field, Form, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 //import { mapState } from "vuex";
-import M from "materialize-css";
 //import { computed } from "@vue/runtime-core";
 import store from "../store";
 import Button from "../components/Button.vue";
@@ -113,7 +110,7 @@ import setTitle from "../utilities/setTitle";
 import { ref } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
 import axios from "axios";
-import { useRoute } from 'vue-router';
+import { useRoute } from "vue-router";
 //import gsap from "gsap";
 
 export default {
@@ -195,10 +192,10 @@ export default {
         document.execCommand("copy");
         copyClue.value = "Copied";
         setTimeout(() => (copyClue.value = "Copy Link Again"), 3000);
-        M.toast({
+        /* M.toast({
           html: "Link Copied!",
           displayLength: 4000,
-        });
+        }); */
       } else {
         loading.value = true;
         axios
@@ -209,11 +206,12 @@ export default {
             inviteReport.value = response.data.msg;
             setTimeout(() => {
               inviteReport.value = "";
-              loading.value = false
+              loading.value = false;
             }, 9500);
-          }).catch(error=>{
+          })
+          .catch((error) => {
             console.log(error);
-            loading.value = false
+            loading.value = false;
           });
       }
     };
@@ -255,17 +253,17 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-#report{
+#report {
   animation-name: report-animate;
   animation-duration: 1s;
   animation-delay: 8.5s;
 }
 @keyframes report-animate {
-  0%{
+  0% {
     height: auto;
     background-color: red;
   }
-  100%{
+  100% {
     height: 0px;
     background-color: none;
     padding: 0px;

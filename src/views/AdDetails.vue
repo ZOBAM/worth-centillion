@@ -1,15 +1,11 @@
 <template>
   <div class="about">
-    <div v-if="ad" class="sm:tw-flex">
-      <div
-        class="tw-py-4 tw-bg-white sm:tw-w-2/3 tw-flex-col tw-justify-center tw-text-gray-700"
-      >
-        <div
-          class="tw-from-gray-100 tw-py-1 tw-px-2 tw-bg-gradient-to-r tw-shadow-md"
-        >
+    <div v-if="ad" class="sm:flex">
+      <div class="py-4 bg-white sm:w-2/3 flex-col justify-center text-gray-700">
+        <div class="from-gray-100 py-1 px-2 bg-gradient-to-r shadow-md">
           {{ ad.category + " > " + ad.subcategory }}
         </div>
-        <h1 class="tw-text-center tw-text-2xl tw-mt-3">{{ ad.title }}</h1>
+        <h1 class="text-center text-2xl mt-3">{{ ad.title }}</h1>
         <swiper
           navigation
           :pagination="{ clickable: true }"
@@ -18,7 +14,7 @@
           <swiper-slide v-for="image of ad.ad_images" :key="image.id">
             <img
               :src="ad.ad_images ? image.link : ad.no_images"
-              class="tw-block tw-m-auto tw-my-8 border-2 tw-border-red-600"
+              class="block m-auto my-8 border-2 border-blue-50 shadow-md"
               style="max-height: 70vh; display: block;"
             />
           </swiper-slide>
@@ -26,66 +22,64 @@
         <template v-else>
           <img
             :src="ad.no_images"
-            class="tw-block tw-m-auto tw-my-8 border-2 tw-border-red-600"
+            class="block m-auto my-8 border-2 border-blue-50 shadow-md"
             style="max-height: 70vh; display: block;"
           />
         </template>
-        <div
-          id="action-links"
-          class="tw-flex tw-justify-around tw-shadow-md tw-mx-4"
-        >
-          <span class="tw-inline-block tw-bg-gray-200" aria-disabled="true"
+        <div id="action-links" class="flex justify-around shadow-md mx-4">
+          <span class="inline-block bg-gray-200" aria-disabled="true"
             >{{ ad.hits }} <span class="mdi mdi-eye"></span>
           </span>
-          <span
-            v-if="ad.ad_images"
-            class="tw-inline-block tw-bg-gray-200"
-            aria-disabled="true"
-            >{{ ad.ad_images.length }} <span class="mdi mdi-image"></span>
+          <span class="inline-block bg-gray-200" aria-disabled="true">
+            <span v-if="ad.ad_images">
+              {{ ad.num_of_images }} <span class="mdi mdi-image"></span>
+            </span>
+            <span v-else>
+              <span
+                class="mdi mdi-image-off-outline text-xl text-red-300"
+              ></span>
+              <span class="text-gray-400">No Image </span>
+            </span>
           </span>
-          <div class="tw-relative tw-border-2 ">
-            <span class="tw-inline-block tw-top-3 tw-absolute tw-pl-2">{{
-              likes
-            }}</span>
+          <div class="relative border-2 ">
+            <span class="inline-block top-3 absolute pl-2">{{ likes }}</span>
             <a
               href=""
-              class="tw-inline-block tw-relative"
+              class="inline-block relative"
               @click.prevent="like(ad.id)"
             >
               <span :class="heartIcon" id="like-button"></span>
             </a>
           </div>
         </div>
-        <div class="tw-bg-gray-200 md:tw-p-4">
-          <h5 class="tw-text-center tw-relative tw-p-2">
-            <span class="tw-font-extrabold tw-text-center"
+        <div class="bg-gray-200 md:p-4">
+          <h5 class="text-center relative p-2">
+            <span class="font-extrabold text-center"
               >₦{{ ad.price }}<br />
-              <span v-if="ad.negotiable" class="tw-text-sm"> (Negotiable)</span>
+              <span v-if="ad.negotiable" class="text-sm"> (Negotiable)</span>
             </span>
-            <span
-              class="tw-absolute tw-right-0 tw-font-thin"
-              style="font-size: .6em"
-              >{{ ad.created }}</span
-            >
+            <span class="absolute right-0 font-thin" style="font-size: .6em">{{
+              ad.created
+            }}</span>
           </h5>
-          <div class="tw-bg-gray-50 tw-p-4">
+          <div class="bg-gray-50 p-4">
             <ul>
               <!-- <li v-for="(value, name, index) in ad" v-bind:key = "index">
               {{name}} : {{value}}
             </li> -->
               <li>
-                <strong class="tw-font-bold ">Location:</strong>
+                <strong class="font-bold ">Location:</strong>
                 {{ ad.place.split(":")[0] }},
                 {{ ad.state.split(":")[0] }}
               </li>
               <li v-for="(fieldName, index) of adDetails" :key="index">
-                <strong class="tw-capitalize tw-font-bold">{{
+                <strong class="capitalize font-bold">{{
                   index.replace("_", " ")
                 }}</strong>
                 {{ fieldName }}
               </li>
-              <li class="tw-overflow-hidden">
-                <strong class="tw-font-bold">Description:</strong>
+              <li class="overflow-hidden">
+                <strong class="font-bold">Description:</strong>
                 {{ ad.description }}
               </li>
               <li></li>
@@ -93,79 +87,90 @@
           </div>
         </div>
       </div>
-      <div class="tw-p-4 tw-bg-blue-50 sm:tw-w-1/3">
-        <div v-if="ad.seller" class="tw-p-4 tw-text-gray-800 tw-bg-white">
+      <div class="p-4 bg-blue-50 sm:w-1/3">
+        <div
+          class="bg-blue-500 p-4 text-center min-h-[12rem] flex justify-center items-center"
+          v-if="loading"
+        >
+          <span
+            class="w-1/2 m-auto bg-blue-500 text-white p-4 text-center animate-pulse font-bold rounded-xl border-4"
+          >
+            Loading seller's details
+            <span class=""> . . .</span>
+          </span>
+        </div>
+        <div
+          v-if="ad.seller && !loading"
+          class="p-4 text-gray-800 bg-white"
+          id="seller-details"
+        >
           <div
-            class="tw-text-center tw-bg-blue-500 tw-text-white tw-p-2 tw-font-bold tw-rounded-xl tw-border-4 tw-border-blue-100"
+            class="w-0 h-0 opacity-0 text-center bg-blue-500 text-white p-2 font-bold rounded-xl border-4 border-blue-100"
           >
             {{ ad.seller.first_name + " " + ad.seller.last_name }}
           </div>
           <img
             :src="ad.seller.dp"
             alt="seller profile picture"
-            class="tw-block tw-m-auto tw-rounded-full tw-mt-4 tw-w-20 tw-max-h-24"
+            class="block m-auto rounded-full mt-4 w-20 max-h-24"
           />
-          <div
-            class="tw-flex tw-mt-12 tw-justify-between tw-text-xs tw-text-center"
-          >
-            <div class="tw-px-2 tw-py-1 tw-border-b-4 tw-border-blue-100">
-              <span class="mdi mdi-account-plus tw-text-sm"></span> <br />
-              <span class="tw-font-bold">Joined</span> <br />
+          <div class="flex mt-12 justify-between text-xs text-center">
+            <div class="px-2 py-1 border-b-4 border-blue-100">
+              <span class="mdi mdi-account-plus text-sm"></span> <br />
+              <span class="font-bold">Joined</span> <br />
               <h-date :date="ad.seller.created_at" :shorten="true" />
             </div>
-            <div class="tw-bg-blue-500 tw-text-white tw-p-2">
-              <span class="mdi mdi-shopping-outline tw-text-sm"></span> <br />
-              <span class="tw-font-bold">Total Ads</span> <br />
+            <div class="bg-blue-500 text-white p-2">
+              <span class="mdi mdi-shopping-outline text-sm"></span> <br />
+              <span class="font-bold">Total Ads</span> <br />
               {{ ad.seller.ads_count }}
             </div>
-            <div class="tw-px-2 tw-py-1 tw-border-b-4 tw-border-blue-100">
-              <span class="mdi mdi-eye-check-outline tw-text-sm"></span> <br />
-              <span class="tw-font-bold">Last Seen</span> <br />
+            <div class="px-2 py-1 border-b-4 border-blue-100">
+              <span class="mdi mdi-eye-check-outline text-sm"></span> <br />
+              <span class="font-bold">Last Seen</span> <br />
               <h-date :date="ad.seller.updated_at" :shorten="true" />
             </div>
           </div>
           <div
-            class="tw-from-blue-600 tw-via-blue-400 tw-bg-gradient-to-r tw-mt-6 tw-rounded-2xl tw-p-2 tw-relative"
+            class="from-blue-600 via-blue-400 bg-gradient-to-r mt-6 rounded-2xl p-2 relative"
           >
-            <span class="tw-text-white">Call Seller:</span>
-            <div
-              class="tw-bg-gray-100 tw-rounded-2xl tw-p-2 tw-absolute tw-right-4 tw-bottom-0"
-            >
+            <span class="text-white">Call Seller:</span>
+            <div class="bg-gray-100 rounded-2xl p-2 absolute right-4 bottom-0">
               {{ ad.seller.tel }}
             </div>
           </div>
           <div
-            class="tw-flex tw-justify-center tw-flex-wrap"
+            class="flex justify-center flex-wrap"
             v-if="user && ad.seller.id != user.id"
           >
             <button
-              class="tw-bg-white tw-text-blue-500 tw-shadow-lg tw-text-center tw-font-semibold tw-mt-3 tw-p-3 tw-m-auto hover:tw-bg-blue-500 hover:tw-text-white"
+              class="bg-white text-blue-500 shadow-lg text-center font-semibold mt-3 p-3 m-auto hover:bg-blue-500 hover:text-white"
               @click="chatSeller = !chatSeller"
             >
               Chat Seller <span class="mdi mdi-message"></span>
             </button>
-            <template v-if="chatSeller" class="tw-w-full">
-              <div class="tw-p-2 tw-w-full">
+            <template v-if="chatSeller" class="w-full">
+              <div class="p-2 w-full">
                 <textarea
                   v-model="chatMessage"
                   name=""
                   id=""
                   cols="30"
                   rows="20"
-                  class="tw-h-20 tw-rounded-lg border-2 tw-border-blue-500 tw-shadow-lg"
+                  class="h-20 rounded-lg border-2 border-blue-500 shadow-lg"
                 ></textarea>
               </div>
               <button class="btn-primary" @click="sendMessage(ad.id)">
                 Send <span class="mdi mdi-send"></span>
               </button>
             </template>
-            <div class="tw-w-full" v-if="messageSuccess">
+            <div class="w-full" v-if="messageSuccess">
               {{ resetVariables() }}
               <div
-                class="tw-text-center tw-w-24 tw-h-24 tw-mt-3 tw-m-auto tw-rounded-full tw-border-2 tw-border-blue-500"
+                class="text-center w-24 h-24 mt-3 m-auto rounded-full border-2 border-blue-500"
               >
-                <span class="mdi mdi-check tw-text-5xl tw-text-blue-400"></span>
-                <p class="tw-p-2 tw-text-xs tw--mt-2">Message sent</p>
+                <span class="mdi mdi-check text-5xl text-blue-400"></span>
+                <p class="p-2 text-xs -mt-2">Message sent</p>
               </div>
             </div>
           </div>
@@ -186,7 +191,6 @@ import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
 import "swiper/components/pagination/pagination.scss";
 import "swiper/components/scrollbar/scrollbar.scss";
-import M from "materialize-css";
 
 // import Swiper core and required modules
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
@@ -209,9 +213,11 @@ export default {
       addedLike: 0,
       hiddenFields: ["id", "ad_id", "created_at", "updated_at"],
       heartIcon: {
-        "mdi mdi-heart-outline tw-text-blue-500 tw-text-3xl tw-absolute tw-right-4 tw-top-1 hover:tw-text-green-400": true,
+        "mdi mdi-heart-outline text-blue-500 text-3xl absolute right-4 top-1 hover:text-green-400": true,
       },
       likedMessage: "",
+      loading: false,
+      liked: false,
     };
   },
   computed: {
@@ -229,7 +235,7 @@ export default {
       return adDetails;
     },
     likes() {
-      return this.ad.likes * 1 + this.addedLike * 1;
+      return this.ad.likes * 1;
     },
   },
   methods: {
@@ -240,11 +246,11 @@ export default {
     setHeartIcon(liked) {
       if (liked)
         this.heartIcon = {
-          "mdi mdi-heart tw-text-blue-500 tw-text-3xl tw-absolute tw-right-4 tw-top-1 hover:tw-text-green-400": true,
+          "mdi mdi-heart text-blue-500 text-3xl absolute right-4 top-1 hover:text-green-400": true,
         };
       else
         this.heartIcon = {
-          "mdi mdi-heart-outline tw-text-blue-500 tw-text-3xl tw-absolute tw-right-4 tw-top-1 hover:tw-text-green-400": true,
+          "mdi mdi-heart-outline text-blue-500 text-3xl absolute right-4 top-1 hover:text-green-400": true,
         };
     },
     like(ad_id) {
@@ -255,38 +261,48 @@ export default {
         scaleX: 2,
         scaleY: 2,
       });
+      setTimeout(() => {
+        gsap.to("#like-button", {
+          duration: 1,
+          y: "0rem",
+          yoyoEase: "elastic",
+          rotate: 0,
+          scaleY: 1,
+          scaleX: 1,
+          onComplete: () => {
+            this.addedLike = this.liked ? this.ad.likes-- : this.ad.likes++;
+            this.liked = !this.liked;
+          },
+        });
+      }, 500);
+
       this.axios
         .get(process.env.VUE_APP_APIURL + "/like/" + ad_id)
         .then((response) => {
           if (response.data.type == "like") {
             this.setHeartIcon(true);
             this.likedMessage = "You liked this Ad";
-            this.addedLike++;
           } else {
             this.setHeartIcon(false);
             this.likedMessage = "You unliked this Ad";
-            this.addedLike--;
           }
-          M.toast({
-            html: this.likedMessage,
-            displayLength: 4000,
+          this.$toast.add({
+            severity: "success",
+            summary: "Success",
+            detail: this.likedMessage,
+            life: 3000,
           });
           store.dispatch("setProps", response.data);
           //console.log(response.data);
         })
         .catch(() => {
-          alert("An error occurred from the server");
-          //console.log(error);
-        })
-        .then(() => {
-          gsap.to("#like-button", {
-            duration: 1,
-            y: "0rem",
-            yoyoEase: "elastic",
-            rotate: 0,
-            scaleY: 1,
-            scaleX: 1,
+          this.$toast.add({
+            severity: "error",
+            summary: "Error",
+            detail: "Something went wrong, please try again.",
+            life: 3000,
           });
+          //console.log(error);
         });
     },
     sendMessage(adID) {
@@ -299,7 +315,13 @@ export default {
         };
         store.dispatch("messages", data);
       } else {
-        alert("Can't send empty message");
+        //alert("Can't send empty message");
+        this.$toast.add({
+          severity: "warn",
+          summary: "Empty value",
+          detail: "Please enter the message you want to send",
+          life: 2000,
+        });
         this.chatMessage = "";
       }
     },
@@ -308,11 +330,27 @@ export default {
     let adID = this.$route.params.id;
     //check if ads is downloaded already and load from there
     if (this.ads) {
-      this.ad = this.ads.find((ad) => {
-        return (ad.id = adID);
+      let ad = this.ads.find((ad) => {
+        return ad.id == adID;
       });
-      this.ad.ad_images = [{ id: 1, link: this.ad.ad_img }];
+      if (ad) {
+        this.ad = ad;
+        this.ad.ad_images = [{ id: 1, link: this.ad.ad_img }];
+      } else {
+        if (this.user) {
+          let ad = this.user.ads.find((ad) => {
+            return ad.id == adID;
+          });
+          if (ad) {
+            //alert("found user ad");
+            this.ad = ad;
+            this.ad.ad_images = [{ id: 1, link: this.ad.ad_img }];
+          }
+        }
+      }
+
       //alert("ads found in the store");
+      this.loading = true;
     }
     console.log(this.ad);
     let url = process.env.VUE_APP_APIURL + "/ads/" + adID;
@@ -320,6 +358,19 @@ export default {
     this.axios.get(url).then((response) => {
       this.ad = response.data;
       this.setHeartIcon(this.ad.liked);
+      this.liked = this.ad.liked ? true : false;
+      this.loading = false;
+      setTimeout(() => {
+        gsap.to("#seller-details", {
+          opacity: 1,
+          duration: 1,
+          width: "100%",
+          height: "auto",
+          x: 0,
+          y: 0,
+        });
+      }, 5);
+      //this.loading = false;
       console.log(this.ad);
     });
   },
@@ -341,5 +392,10 @@ export default {
   text-align: center;
   padding: 0.5rem 1rem;
   color: royalblue;
+}
+#seller-details {
+  width: 0%;
+  height: 0px;
+  overflow: hidden;
 }
 </style>

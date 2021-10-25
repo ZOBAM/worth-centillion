@@ -3,40 +3,36 @@
     <div
       v-show="!fundWallet"
       id="fund-button-container"
-      class="tw-flex tw-justify-around"
+      class="flex justify-around"
     >
-      <div
-        class="tw-text-white tw-max-w-[358px] tw-border-2 tw-border-blue-500"
-      >
-        <span class="tw-bg-blue-500 tw-py-1 tw-px-2">
+      <div class="text-white max-w-[358px] border-2 border-blue-500">
+        <span class="bg-blue-500 py-1 px-2">
           Ballance:
         </span>
-        <p class="tw-text-center tw-text-5xl tw-text-gray-800 tw-p-4">
+        <p class="text-center text-5xl text-gray-800 p-4">
           {{ (user.balance * 1).toFixed(2) }}
         </p>
-        <p class="tw-bg-blue-50 tw-text-center tw-text-blue-500 tw-my-4">
+        <p class="bg-blue-50 text-center text-blue-500 my-4">
           Naira
         </p>
-        <div class="tw-bg-blue-600 tw-text-center">
-          Points: {{ user.points }}
-        </div>
+        <div class="bg-blue-600 text-center">Points: {{ user.points }}</div>
       </div>
-      <div class="tw-bg-blue-500 tw-p-4 tw-text-center">
-        <p class="tw-text-white tw-mb-6">Empower yourself to do more.</p>
+      <div class="bg-blue-500 p-4 text-center">
+        <p class="text-white mb-6">Empower yourself to do more.</p>
         <button
           @click="displayForm(true)"
-          class="btn-primary  tw-bg-blue-50 tw-text-black"
+          class="btn-primary  bg-blue-50 text-black"
         >
           Fund Wallet
         </button>
       </div>
     </div>
 
-    <template v-if="fundWallet == true" class="tw-border-2 tw-border-red-600">
-      <div class="tw-bg-gray-800 tw-relative tw-w-full tw-p-2 tw-my-8">
+    <template v-if="fundWallet == true" class="border-2 border-red-600">
+      <div class="bg-gray-800 relative w-full p-2 my-8">
         <span
           @click="displayForm(false)"
-          class="tw-relative tw--right-3/4 tw-p-4 tw-bg-red-500 tw-text-white tw-cursor-pointer hover:tw-bg-red-900"
+          class="relative -right-3/4 p-4 bg-red-500 text-white cursor-pointer hover:bg-red-900"
           >Close X</span
         >
       </div>
@@ -44,10 +40,10 @@
         @submit="onSubmit"
         :validation-schema="schema"
         :initial-values="formValues"
-        class="tw-w-full md:tw-w-1/2 tw-m-auto"
+        class="w-full md:w-1/2 m-auto"
       >
         <div class="">
-          <label for="amount" class="tw-text-xs tw-font-semibold tw-px-1"
+          <label for="amount" class="text-xs font-semibold px-1"
             >Amount (N)</label
           >
           <Field
@@ -55,35 +51,30 @@
             type="number"
             step="100"
             v-model="amount"
-            class="tw-w-3/5 md:tw-w-2/3 outline-none tw-border-0 tw-border-b-2 tw-border-gray-400 focus:outline-none focus:tw-border-transparent rounded"
+            class="w-3/5 md:w-2/3 outline-none border-0 border-b-2 border-gray-400 focus:outline-none focus:border-transparent rounded"
           />
-          <ErrorMessage
-            name="amount"
-            class="tw-block tw-text-red-500 tw-text-sm"
-          />
+          <ErrorMessage name="amount" class="block text-red-500 text-sm" />
         </div>
-        <section class="tw-w-full tw-m-auto tw-p-4 tw-shadow-xl mt-4">
-          <table class="tw-w-full tw-border-2">
+        <section class="w-full m-auto p-4 shadow-xl mt-4">
+          <table class="w-full border-2">
             <tr>
-              <td class="tw-text-right tw-pr-4">Amount:</td>
+              <td class="text-right pr-4">Amount:</td>
               <td>{{ getAmount }}</td>
             </tr>
             <tr>
-              <td class="tw-text-right tw-pr-4">Processing Fee:</td>
+              <td class="text-right pr-4">Processing Fee:</td>
               <td>
-                {{ processingFee }} (<span class="tw-font-mono"
-                  >to Paystack</span
-                >)
+                {{ processingFee }} (<span class="font-mono">to Paystack</span>)
               </td>
             </tr>
-            <tr class="tw-font-bold tw-text-xl">
-              <td class="tw-text-right tw-pr-4">Total:</td>
+            <tr class="font-bold text-xl">
+              <td class="text-right pr-4">Total:</td>
               <td>N{{ total }}</td>
             </tr>
           </table>
         </section>
-        <div class="tw-flex tw-justify-center tw-items-center tw-mt-4">
-          <Button :loading="loading" class="tw-rounded-lg">Fund Wallet</Button>
+        <div class="flex justify-center items-center mt-4">
+          <Button :loading="loading" class="rounded-lg">Fund Wallet</Button>
         </div>
       </Form>
     </template>

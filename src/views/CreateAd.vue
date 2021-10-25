@@ -1,14 +1,12 @@
 <template>
-  <article class="tw-bg-white tw-pb-4">
+  <article class="bg-white pb-4">
     <h1
-      class="tw-w-full tw-my-2 tw-pt-8 tw-text-3xl tw-font-bold tw-leading-tight tw-text-center tw-text-gray-800"
+      class="w-full my-2 pt-8 text-3xl font-bold leading-tight text-center text-gray-800"
     >
       {{ editedAdID ? "Editing Ad" : "Create Free Ads" }}
     </h1>
-    <div
-      class="tw-h-1 tw-mx-auto gradient tw-w-64 opacity-25 tw-my-0 tw-py-0 tw-rounded-t"
-    ></div>
-    <p class="tw-text-center tw-font-mono">
+    <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
+    <p class="text-center font-mono">
       {{
         editedAdID
           ? "Make the necessary changes and update your ad"
@@ -18,24 +16,22 @@
     <section>
       <div id="first-step" v-show="!step2">
         <Form
-          class="tw-mb-4 tw-p-4 md:tw-px-10"
+          class="mb-4 p-4 md:px-10"
           @submit="postAd"
           :validation-schema="schema"
           :initial-values="formValues"
           v-slot="{ values }"
         >
-          <div class="tw-flex tw-justify-around tw-mt-8">
-            <div class="tw-text-left tw-w-1/2">
-              <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
-                >Category</label
-              >
+          <div class="flex justify-around mt-8">
+            <div class="text-left w-1/2">
+              <label for="" class="text-xs font-semibold px-1">Category</label>
               <Field
                 as="select"
                 name="category"
                 id="category"
                 v-model="category"
                 :disabled="editedAdID"
-                class="w-4/5 md:w-2/3 tw-outline-none tw-border-0 tw-border-b-2 tw-border-gray-400 focus:tw-outline-none focus:tw-border-transparent rounded"
+                class="w-4/5 md:w-2/3 outline-none border-0 border-b-2 border-gray-400 focus:outline-none focus:border-transparent rounded"
                 @change="setOption(values.category, 'category')"
               >
                 <option
@@ -47,11 +43,11 @@
               </Field>
               <ErrorMessage
                 name="category"
-                class="block tw-text-red-500 tw-text-sm"
+                class="block text-red-500 text-sm"
               />
             </div>
-            <div class="tw-text-left tw-w-1/2">
-              <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
+            <div class="text-left w-1/2">
+              <label for="" class="text-xs font-semibold px-1"
                 >Subcategory</label
               >
               <Field
@@ -59,7 +55,7 @@
                 name="subcategory"
                 id="subcategory"
                 :disabled="editedAdID"
-                class="w-4/5 md:w-2/3 tw-outline-none tw-border-0 tw-border-b-2 tw-border-gray-400 focus:tw-outline-none focus:tw-border-transparent rounded"
+                class="w-4/5 md:w-2/3 outline-none border-0 border-b-2 border-gray-400 focus:outline-none focus:border-transparent rounded"
                 @change="getFormFields(values.subcategory)"
               >
                 <option
@@ -71,17 +67,17 @@
               </Field>
               <ErrorMessage
                 name="subcategory"
-                class="block tw-text-red-500 tw-text-sm"
+                class="block text-red-500 text-sm"
               />
             </div>
           </div>
           <div>
-            <p class="tw-text-center tw-mt-8">
+            <p class="text-center mt-8">
               Ads with pictures sell faster than others. Ad some to get deal
               fast.
             </p>
             <div
-              class="tw-flex tw-flex-wrap tw-p-4 tw-justify-center items-center tw-bg-gray-100"
+              class="flex flex-wrap p-4 justify-center items-center bg-gray-100"
             >
               <div
                 v-for="(image, index) of adImages"
@@ -89,14 +85,14 @@
                 class="self-center"
               >
                 <figure
-                  class="tw-w-28 tw-h-24 tw-overflow-hidden tw-relative tw-border-4 hover:tw-border-blue-200 tw-text-center"
+                  class="w-28 h-24 overflow-hidden relative border-4 hover:border-blue-200 text-center"
                 >
                   <img class="" :src="image.previewURL" alt="" />
                   <figcaption>
                     <button
                       type="button"
                       @click="deleteImage(image.id)"
-                      class="tw-text-xs tw-rounded-md tw-bg-red-700 tw-text-white tw-p-1 tw-absolute tw-bottom-0  tw-cursor-pointer"
+                      class="text-xs rounded-md bg-red-700 text-white p-1 absolute bottom-0  cursor-pointer"
                     >
                       X Delete
                     </button>
@@ -105,7 +101,7 @@
               </div>
               <div class="inline">
                 <figure
-                  class="tw-w-28 tw-h-24 tw-overflow-hidden tw-rounded-2xl  tw-cursor-pointer tw-border-4 hover:tw-border-blue-500 tw-text-center tw-border-gray-400"
+                  class="w-28 h-24 overflow-hidden rounded-2xl  cursor-pointer border-4 hover:border-blue-500 text-center border-gray-400"
                   @click="$refs.uploadImg.click()"
                 >
                   <img class="w-24" :src="previewURL" alt="" />
@@ -121,24 +117,21 @@
               </div>
             </div>
           </div>
-          <div class="tw-flex tw-justify-around tw-mt-8">
-            <div class="tw-text-left tw-w-1/2">
-              <label for="title" class="tw-text-xs tw-font-semibold tw-px-1"
+          <div class="flex justify-around mt-8">
+            <div class="text-left w-1/2">
+              <label for="title" class="text-xs font-semibold px-1"
                 >Ad Title</label
               >
               <Field
                 type="text"
                 name="title"
                 id="title"
-                class="w-4/5 md:w-2/3 tw-outline-none tw-border-0 tw-border-b-2 tw-border-gray-400 focus:tw-outline-none focus:tw-border-transparent tw-rounded"
+                class="w-4/5 md:w-2/3 outline-none border-0 border-b-2 border-gray-400 focus:outline-none focus:border-transparent rounded"
               />
-              <ErrorMessage
-                name="title"
-                class="block tw-text-red-500 tw-text-sm"
-              />
+              <ErrorMessage name="title" class="block text-red-500 text-sm" />
             </div>
-            <div class="tw-text-left tw-w-1/2">
-              <label for="price" class="tw-text-xs tw-font-semibold tw-px-1"
+            <div class="text-left w-1/2">
+              <label for="price" class="text-xs font-semibold px-1"
                 >Price (N)</label
               >
               <Field
@@ -147,45 +140,38 @@
                 step="50"
                 name="price"
                 id="price"
-                class="w-4/5 md:w-2/3 tw-outline-none tw-border-0 tw-border-b-2 tw-border-gray-400 focus:tw-outline-none focus:tw-border-transparent rounded"
+                class="w-4/5 md:w-2/3 outline-none border-0 border-b-2 border-gray-400 focus:outline-none focus:border-transparent rounded"
               />
-              <ErrorMessage
-                name="price"
-                class="block tw-text-red-500 tw-text-sm"
-              />
+              <ErrorMessage name="price" class="block text-red-500 text-sm" />
               <label for="negotiable">
                 <Field type="checkbox" name="negotiable" id="negotiable" />
                 <span>Negotiable</span>
               </label>
             </div>
           </div>
-          <div class="tw-mt-8">
+          <div class="mt-8">
             <label for="description">Description</label> <br />
             <Field
               as="textarea"
               name="description"
               id="description"
               cols="30"
-              class="tw-w-full tw-rounded-xl"
+              class="w-full rounded-xl"
             />
             <ErrorMessage
               name="description"
-              class="block tw-text-red-500 tw-text-sm"
+              class="block text-red-500 text-sm"
             />
           </div>
-          <div
-            class="tw-flex tw-flex-wrap tw-justify-around tw-mt-8 tw-text-left"
-          >
-            <p class="tw-mb-4 tw-w-full">Location Details</p>
-            <div class="tw-text-left tw-w-1/2">
-              <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
-                >State
-              </label>
+          <div class="flex flex-wrap justify-around mt-8 text-left">
+            <p class="mb-4 w-full">Location Details</p>
+            <div class="text-left w-1/2">
+              <label for="" class="text-xs font-semibold px-1">State </label>
               <Field
                 as="select"
                 name="state"
                 id="state"
-                class="w-4/5 md:w-2/3 tw-outline-none tw-border-0 tw-border-b-2 tw-border-gray-400 focus:tw-outline-none focus:tw-border-transparent rounded"
+                class="w-4/5 md:w-2/3 outline-none border-0 border-b-2 border-gray-400 focus:outline-none focus:border-transparent rounded"
                 @change="setOption(values.state)"
               >
                 <option
@@ -195,20 +181,15 @@
                   >{{ index.split(":")[0] }}</option
                 >
               </Field>
-              <ErrorMessage
-                name="state"
-                class="block tw-text-red-500 tw-text-sm"
-              />
+              <ErrorMessage name="state" class="block text-red-500 text-sm" />
             </div>
-            <div class="tw-text-left tw-w-1/2">
-              <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
-                >Place</label
-              >
+            <div class="text-left w-1/2">
+              <label for="" class="text-xs font-semibold px-1">Place</label>
               <Field
                 as="select"
                 name="place"
                 id="place"
-                class="w-4/5 md:w-2/3 tw-outline-none tw-border-0 tw-border-b-2 tw-border-gray-400 focus:tw-outline-none focus:tw-border-transparent rounded"
+                class="w-4/5 md:w-2/3 outline-none border-0 border-b-2 border-gray-400 focus:outline-none focus:border-transparent rounded"
               >
                 <option
                   v-for="(lga, index) of lgas"
@@ -217,23 +198,20 @@
                   >{{ lga.split(":")[0] }}</option
                 >
               </Field>
-              <ErrorMessage
-                name="place"
-                class="block tw-text-red-500 tw-text-sm"
-              />
+              <ErrorMessage name="place" class="block text-red-500 text-sm" />
             </div>
           </div>
-          <div class="tw-mt-8" v-if="!editedAdID">
+          <div class="mt-8" v-if="!editedAdID">
             <p>Boost Your Ad</p>
             <label
-              class="block tw-cursor-pointer hover:shadow-md hover:tw-text-blue-900"
+              class="block cursor-pointer hover:shadow-md hover:text-blue-900"
               style="display: block"
             >
               <Field type="radio" name="promoted" value="bronze" />
               <span><strong>Bronze</strong> Free Ad</span>
             </label>
             <label
-              class="block tw-cursor-pointer hover:shadow-md hover:tw-text-blue-900"
+              class="block cursor-pointer hover:shadow-md hover:text-blue-900"
             >
               <Field type="radio" name="promoted" value="silver" />
               <span
@@ -242,7 +220,7 @@
               </span>
             </label>
             <label
-              class="block tw-cursor-pointer hover:shadow-md hover:tw-text-blue-900"
+              class="block cursor-pointer hover:shadow-md hover:text-blue-900"
               style="display: block"
             >
               <Field type="radio" name="promoted" value="gold" />
@@ -253,14 +231,11 @@
                 ></span
               >
             </label>
-            <ErrorMessage
-              name="promoted"
-              class="tw-block tw-text-red-500 tw-text-sm"
-            />
+            <ErrorMessage name="promoted" class="block text-red-500 text-sm" />
           </div>
-          <div class="tw-text-center tw-mt-8">
+          <div class="text-center mt-8">
             <button
-              class="tw-py-3 tw-px-5 tw-border-2 tw-border-gray-100 tw-bg-blue-400 rounded hover:tw-bg-white shadow-lg"
+              class="py-3 px-5 border-2 border-gray-100 bg-blue-400 rounded hover:bg-white shadow-lg"
             >
               Next
               <span class="mdi mdi-arrow-right"></span>
@@ -268,16 +243,16 @@
           </div>
         </Form>
       </div>
-      <div v-show="step2" class="tw-w-full tw-bg-white tw-mt-4">
+      <div v-show="step2" class="w-full bg-white mt-4">
         <form
           @submit.prevent="onSubmit($event)"
-          class="tw-flex tw-flex-wrap tw-justify-around tw-w-full md:tw-w-4/5 tw-m-auto tw-bg-gray-100"
+          class="flex flex-wrap justify-around w-full md:w-4/5 m-auto bg-gray-100"
         >
           <template v-if="detailsFields">
             <div
               v-for="(field, index) of detailsFields"
               :key="index"
-              class="tw-w-1/2 tw-bg-white tw-my-0.5 tw-p-2 tw-text-center"
+              class="w-1/2 bg-white my-0.5 p-2 text-center"
             >
               <dynamic-field
                 :field="field"
@@ -287,23 +262,23 @@
               ></dynamic-field>
             </div>
           </template>
-          <div class="tw-w-full tw-flex tw-justify-center tw-mt-4">
+          <div class="w-full flex justify-center mt-4">
             <button
-              class="tw-py-3 tw-px-6 tw-bg-blue-600 tw-text-gray-100 hover:tw-bg-blue-900 tw-rounded-md"
+              class="py-3 px-6 bg-blue-600 text-gray-100 hover:bg-blue-900 rounded-md"
             >
               {{ editedAdID ? "Update Ad" : "Create Ad" }}
             </button>
           </div>
         </form>
-        <div class="tw-flex tw-justify-around tw-mt-8">
+        <div class="flex justify-around mt-8">
           <button
             @click="step2 = !step2"
-            class="tw-py-2 tw-px-5 tw-border-2 tw-border-gray-500 tw-rounded-md hover:tw-bg-blue-400"
+            class="py-2 px-5 border-2 border-gray-500 rounded-md hover:bg-blue-400"
           >
             <span class="mdi mdi-arrow-left"></span> Back
           </button>
           <button
-            class="tw-py-1 tw-px-5 tw-border-2 tw-border-gray-500 tw-rounded-md hover:tw-bg-blue-400"
+            class="py-1 px-5 border-2 border-gray-500 rounded-md hover:bg-blue-400"
             @click="onSubmit($event, true)"
           >
             {{ editedAdID ? "Skip & Update Ad" : "Skip & Create Ad" }}

@@ -1,7 +1,7 @@
 <template>
-  <article class="about tw-p-4 tw-bg-gray-50 tw-pt-6 tw-font-noto tw-text-lg">
-    <h1 class="tw-bg-gray-100 tw-text-center tw-text-3xl tw-font-semibold tw-font-roboto">
-      <span class="tw-text-blue-700">C</span>ontact Us
+  <article class="p-4 bg-gray-50 pt-6 font-noto text-lg">
+    <h1 class="bg-gray-100 text-center text-3xl font-semibold font-roboto">
+      <span class="text-blue-700">C</span>ontact Us
     </h1>
     <section class="about">
       <p class="">
@@ -11,19 +11,19 @@
       </p>
     </section>
     <section>
-      <h5 class="tw-font-bold tw-p-2">Call Us:</h5>
+      <h5 class="font-bold p-2">Call Us:</h5>
       <p>
         0814 687 0699
       </p>
     </section>
-    <section class="tw-mt-6">
-      <h5 class="tw-font-bold tw-p-2">Email:</h5>
+    <section class="mt-6">
+      <h5 class="font-bold p-2">Email:</h5>
       <p>
         info@hamsuper.com
       </p>
     </section>
-    <section class="tw-mt-6">
-      <h5 class="tw-font-bold tw-p-2">Address:</h5>
+    <section class="mt-6">
+      <h5 class="font-bold p-2">Address:</h5>
       <p>
         2ND AVENUE, BLOCK 59, HOUSE 10, NAVY TOWN, OJO LAGOS
       </p>

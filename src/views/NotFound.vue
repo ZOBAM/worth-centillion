@@ -1,6 +1,6 @@
 <template>
-  <article class="tw-bg-white tw-p-4">
-    <h3 class="tw-text-center">
+  <article class="bg-white p-4">
+    <h3 class="text-center">
       Oops! It's like you entered the wrong address.
     </h3>
     <p>

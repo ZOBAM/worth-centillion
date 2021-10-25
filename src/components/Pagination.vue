@@ -1,5 +1,5 @@
 <template class="">
-  <ul class="pagination tw-bg-gray-100 tw-p-2 tw-py-4">
+  <ul class="pagination bg-gray-100 p-2 py-4">
     <li class="">
       <a href="#!"
         ><i class="material-icons" @click="$emit('myEvent', currentPage - 1)"

@@ -1,7 +1,7 @@
 <template>
-  <article class="about tw-p-4 tw-bg-gray-50 tw-pt-6  tw-font-noto tw-text-lg">
-    <h1 class="tw-bg-gray-100 tw-text-center tw-text-3xl tw-font-semibold tw-font-roboto">
-      <span class="tw-text-blue-700">T</span>erms of Use
+  <article class="about p-4 bg-gray-50 pt-6  font-noto text-lg">
+    <h1 class="bg-gray-100 text-center text-3xl font-semibold font-roboto">
+      <span class="text-blue-700">T</span>erms of Use
     </h1>
     <section class="terms">
       <p class="">

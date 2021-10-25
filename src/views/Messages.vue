@@ -1,11 +1,11 @@
 <template>
   <article class="">
     <section
-      class="tw-bg-gray-50 tw-py-4 tw-flex tw-flex-wrap"
+      class="bg-gray-50 py-4 flex flex-wrap"
       v-if="user.adChats.length > 0"
     >
-      <section class="tw-w-full md:tw-w-2/5 tw-p-3">
-        <h3 class="tw-text-lg tw-text-center tw-bg-blue-100 tw-p-2">
+      <section class="w-full md:w-2/5 p-3">
+        <h3 class="text-lg text-center bg-blue-100 p-2">
           Messages
         </h3>
         <div>
@@ -13,8 +13,8 @@
             v-for="msg of user.adChats"
             :key="msg"
             :class="{
-              'tw-p-2 tw-bg-gray-200 tw-mb-2 tw-rounded-3xl tw-flex tw-cursor-pointer hover:tw-bg-blue-500': true,
-              'tw-bg-blue-500': msg.ad_id == currentAdID,
+              'p-2 bg-gray-200 mb-2 rounded-3xl flex cursor-pointer hover:bg-blue-500': true,
+              'bg-blue-500': msg.ad_id == currentAdID,
             }"
             @click="
               getChats(msg.ad_id, msg.ad.title, msg.chatter, msg.ad_image)
@@ -22,10 +22,10 @@
           >
             <img
               :src="msg.ad_image"
-              class="tw-bg-gray-100 tw-h-16 tw-w-16 tw-rounded-full"
+              class="bg-gray-100 h-16 w-16 rounded-full"
             />
             <div
-              class="tw-p-4 tw-bg-white tw-flex-grow tw-rounded-xl"
+              class="p-4 bg-white flex-grow rounded-xl"
               style="min-height:4rem"
             >
               {{ msg.ad.title }}
@@ -33,38 +33,31 @@
           </div>
         </div>
       </section>
-      <section
-        class="tw-p-2 tw-w-full md:tw-w-3/5"
-        v-if="currentChat && chatter"
-      >
-        <div class="tw-bg-blue-500 tw-text-white tw-text-center tw-p-2">
+      <section class="p-2 w-full md:w-3/5" v-if="currentChat && chatter">
+        <div class="bg-blue-500 text-white text-center p-2">
           <p>{{ chatter.first_name + " " + chatter.last_name }}</p>
         </div>
-        <div class="tw-bg-blue-200 tw-flex tw-flex-grow tw-p-1">
-          <img
-            :src="adImage"
-            alt=""
-            class="tw-h-16 tw-w-16 tw-rounded-md tw-bg-pink-600"
-          />
-          <p class="tw-p-2">
+        <div class="bg-blue-200 flex flex-grow p-1">
+          <img :src="adImage" alt="" class="h-16 w-16 rounded-md bg-pink-600" />
+          <p class="p-2">
             {{ adTitle }}
           </p>
         </div>
         <div
-          class="tw-overflow-x-auto tw-p-3"
+          class="overflow-x-auto p-3"
           style="min-height: 40vh; max-height:40vh"
           id="chatContainer"
         >
           <template v-for="(chat, index) of currentChat" :key="chat.id">
             <div
               :class="{
-                'tw-justify-end': chatter.id != chat.sender_id,
-                'tw-mt-2 tw-flex tw-flex-wrap': true,
+                'justify-end': chatter.id != chat.sender_id,
+                'mt-2 flex flex-wrap': true,
               }"
             >
               <p
                 :class="{
-                  'shadow-lg tw-bg-purple-50 tw-rounded-lg tw-border tw-mt-2 tw-p-2 tw-border-blue-200': true,
+                  'shadow-lg bg-purple-50 rounded-lg border mt-2 p-2 border-blue-200': true,
                   'shadow-gray': chatter.id != chat.sender_id,
                   'shadow-blue': chatter.id == chat.sender_id,
                 }"
@@ -74,65 +67,58 @@
             </div>
             <!-- <div v-if="chatter.id != chat.sender_id" :class="receiverStyle">
               <p
-                class="shadow-lg tw-bg-purple-50 tw-rounded-lg tw-border tw-mt-2 tw-p-2 tw-border-blue-200 shadow-gray"
+                class="shadow-lg bg-purple-50 rounded-lg border mt-2 p-2 border-blue-200 shadow-gray"
               >
                 {{ chat.message }}
               </p>
             </div>
             <div v-if="chatter.id != chat.sender_id" :class="senderStyle">
               <p
-                class="tw-shadow-lg tw-bg-purple-50 tw-rounded-lg tw-border tw-mt-2 tw-p-2 tw-border-blue-200 shadow-blue"
+                class="shadow-lg bg-purple-50 rounded-lg border mt-2 p-2 border-blue-200 shadow-blue"
               >
                 {{ chat.message }}
               </p>
             </div> -->
             <div
-              class="tw-w-full tw-h-2 tw-mt-2 tw-bg-blue-200"
+              class="w-full h-2 mt-2 bg-blue-200"
               v-if="currentChat.length - 1 == index && messageSuccess"
             >
               {{ updateScroll() }}
             </div>
           </template>
         </div>
-        <div class="tw-flex tw-bg-gray-50 tw-py-2">
-          <div class="tw-flex-grow tw-bg-gray-50 tw-px-2">
+        <div class="flex bg-gray-50 py-2">
+          <div class="flex-grow bg-gray-50 px-2">
             <textarea
               name="message"
               id=""
-              cols="4"
               rows="14"
-              class="tw-rounded-md tw-bg-white tw-h-16"
+              class="rounded-md bg-white h-16 w-full"
               v-model="chatMessage"
             ></textarea>
           </div>
           <div
-            class="tw-bg-blue-50 tw-p-2 tw-text-white tw-flex tw-z-10 tw-items-center tw-justify-items-center tw-rounded-xl tw--ml-1 hover:tw-bg-blue-800 tw-cursor-pointe"
+            class="bg-blue-50 p-2 text-white flex z-10 items-center justify-items-center rounded-xl -ml-1 hover:bg-blue-800 cursor-pointe"
             @click="sendMessage()"
           >
-            <button class="tw-bg-white tw-text-black tw-px-3 tw-py-2">
+            <button class="bg-white text-black px-3 py-2">
               Send <span class="mdi mdi-send"></span>
             </button>
           </div>
         </div>
-        <aside
-          class="tw-bg-red-600 tw-text-white tw-font-bold"
-          v-if="messageSuccess"
-        >
+        <aside class="bg-red-600 text-white font-bold" v-if="messageSuccess">
           Message succefully sent.
         </aside>
       </section>
       <section
         v-else
-        class="tw-w-full md:tw-w-3/5 tw-p-3 tw-mt-6 tw-flex tw-justify-center tw-items-center tw-bg-indigo-300 tw-h-24"
+        class="w-full md:w-3/5 p-3 mt-6 flex justify-center items-center bg-indigo-300 h-24"
       >
         <p>Select an Ad to continue chatting</p>
       </section>
     </section>
-    <section
-      v-else
-      class="tw-flex tw-justify-center tw-items-center tw-h-32 tw-bg-white"
-    >
-      <p class="tw-p-2 tw-bg-red-100">You currently do not have any message.</p>
+    <section v-else class="flex justify-center items-center h-32 bg-white">
+      <p class="p-2 bg-red-100">You currently do not have any message.</p>
     </section>
   </article>
 </template>
@@ -153,10 +139,10 @@ export default {
       currentAdID: null,
       listChatStyle: null,
       receiverStyle: {
-        "tw-mt-2 tw-flex tw-flex-wrap": true,
+        "mt-2 flex flex-wrap": true,
       },
       senderStyle: {
-        "tw-mt-2 tw-flex tw-justify-end tw-flex-wrap": true,
+        "mt-2 flex justify-end flex-wrap": true,
       },
     };
   },
@@ -172,12 +158,12 @@ export default {
     getChatStyle(chat) {
       if (this.chatter.id != chat.sender_id) {
         this.listChatStyle = {
-          "shadow-lg tw-bg-purple-50 tw-rounded-lg tw-border tw-mt-2 tw-p-2 tw-border-blue-200 shadow-gray": true,
+          "shadow-lg bg-purple-50 rounded-lg border mt-2 p-2 border-blue-200 shadow-gray": true,
         };
         return this.senderStyle;
       } else {
         this.listChatStyle = {
-          "tw-shadow-lg tw-bg-purple-50 tw-rounded-lg tw-border tw-mt-2 tw-p-2 tw-border-blue-200 shadow-blue": true,
+          "shadow-lg bg-purple-50 rounded-lg border mt-2 p-2 border-blue-200 shadow-blue": true,
         };
         return this.receiverStyle;
       }

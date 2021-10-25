@@ -1,7 +1,7 @@
 <template>
-  <article class="about tw-p-4 tw-bg-gray-50 tw-pt-6 tw-font-noto tw-text-lg">
-    <h1 class="tw-bg-gray-100 tw-text-center tw-text-3xl tw-font-semibold tw-font-roboto">
-      About <span class="tw-text-blue-700">H</span>amsuper
+  <article class="p-6 bg-white text-xl font-noto">
+    <h1 class="bg-gray-100 text-center text-3xl font-semibold font-roboto">
+      About <span class="text-blue-700">H</span>amsuper
     </h1>
     <section class="about">
       <p class="">
@@ -33,14 +33,14 @@
       </p>
     </section>
     <section>
-      <h5 class="tw-font-bold tw-p-2">Vision</h5>
+      <h5 class="font-bold p-2">Vision</h5>
       <p>
         To simplify and provide a consolidated platform for buying, selling and
         utility transactions.
       </p>
     </section>
     <section class="mt-6">
-      <h5 class="tw-font-bold tw-p-2">Mission</h5>
+      <h5 class="font-bold p-2">Mission</h5>
       <p>
         Simplifying and providing a meeting point for sellers and buyers and
         making available convenient channels through which individuals can

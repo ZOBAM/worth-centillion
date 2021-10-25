@@ -1,17 +1,17 @@
 <template>
-  <div v-if="!isEditing" class="tw-text-center tw-mb-10">
-    <h1 class="tw-font-bold tw-text-3xl tw-text-gray-900">SIGN UP</h1>
+  <div v-if="!isEditing" class="text-center mb-10">
+    <h1 class="font-bold text-3xl text-gray-900">SIGN UP</h1>
     <p>Enter your information to register</p>
   </div>
-  <div v-else class="tw-text-center tw-mb-10">
-    <h1 class="tw-font-bold tw-text-3xl tw-text-gray-900">UPDATE DETAILS</h1>
+  <div v-else class="text-center mb-10">
+    <h1 class="font-bold text-3xl text-gray-900">UPDATE DETAILS</h1>
     <p>Make changes and save</p>
   </div>
   <Form @submit="register" :validation-schema="schema" v-slot="{ meta }">
     <div>
-      <div class="tw-flex tw-flex-wrap tw-justify-center">
+      <div class="flex flex-wrap justify-center">
         <figure
-          class="tw-w-28 -mt-4 tw-mb-4 tw-cursor-pointer tw-border-8 hover:tw-border-blue-500 tw-text-center"
+          class="w-28 -mt-4 mb-4 cursor-pointer border-8 hover:border-blue-500 text-center"
           @click="$refs.fileInput.click()"
         >
           <img class="" :src="dpURL" alt="" />
@@ -19,7 +19,7 @@
             <button
               type="button"
               v-if="!readOnly"
-              class="tw-text-xs tw-rounded-md tw-bg-blue-700 tw-text-white p-1"
+              class="text-xs rounded-md bg-blue-700 text-white p-1"
             >
               <template v-if="isEditing">Change Image</template>
               <template v-else>
@@ -38,165 +38,137 @@
           @change="selectImage($event)"
         />
       </div>
-      <div class="tw-flex -tw-mx-3">
-        <div class="tw-w-1/2 tw-px-3 tw-mb-5">
-          <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
-            >First name</label
-          >
-          <div class="tw-flex tw-flex-wrap">
-            <div
-              class="tw-relative tw-w-full tw-flex tw-items-center tw-justify-center"
-            >
+      <div class="flex -mx-3">
+        <div class="w-1/2 px-3 mb-5">
+          <label for="" class="text-xs font-semibold px-1">First name</label>
+          <div class="flex flex-wrap">
+            <div class="relative w-full flex items-center justify-center">
               <i
-                class="mdi mdi-account-outline tw-absolute block tw-left-0 -tw-ml-10 tw-w-10 tw-pl-1 tw-text-center pointer-events-none"
+                class="mdi mdi-account-outline absolute block left-0 -ml-10 w-10 pl-1 text-center pointer-events-none"
               ></i>
 
               <Field
                 type="text"
                 name="first_name"
                 v-model="firstName"
-                class="tw-w-full -tw-ml-10 tw-pl-10 tw-pr-3 tw-py-2 tw-rounded-lg tw-border-2 tw-border-gray-200 tw-outline-none focus:tw-border-indigo-500"
+                class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                 placeholder="Your first name"
                 :disabled="readOnly"
               />
             </div>
             <ErrorMessage
               name="first_name"
-              class="tw-block tw-text-red-500 tw-text-sm"
+              class="block text-red-500 text-sm"
             />
           </div>
         </div>
-        <div class="tw-w-1/2 tw-px-3 tw-mb-5">
-          <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
-            >Last name</label
-          >
-          <div class="tw-flex tw-flex-wrap">
-            <div
-              class="tw-relative tw-w-full tw-flex tw-items-center tw-justify-center"
-            >
+        <div class="w-1/2 px-3 mb-5">
+          <label for="" class="text-xs font-semibold px-1">Last name</label>
+          <div class="flex flex-wrap">
+            <div class="relative w-full flex items-center justify-center">
               <i
-                class="mdi mdi-account-outline tw-absolute block tw-left-0 -tw-ml-10 tw-w-10 tw-pl-1 tw-text-center pointer-events-none"
+                class="mdi mdi-account-outline absolute block left-0 -ml-10 w-10 pl-1 text-center pointer-events-none"
               ></i>
 
               <Field
                 type="text"
                 name="last_name"
                 v-model="lastName"
-                class="tw-w-full -tw-ml-10 tw-pl-10 tw-pr-3 tw-py-2 tw-rounded-lg tw-border-2 tw-border-gray-200 tw-outline-none focus:tw-border-indigo-500"
+                class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                 placeholder="Your last name"
                 :disabled="readOnly"
               />
             </div>
-            <ErrorMessage
-              name="last_name"
-              class="tw-block tw-text-red-500 tw-text-sm"
-            />
+            <ErrorMessage name="last_name" class="block text-red-500 text-sm" />
           </div>
         </div>
       </div>
-      <div class="tw-flex -tw-mx-3">
-        <div class="tw-w-full tw-px-3 tw-mb-5">
-          <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
-            >Phone No.</label
-          >
-          <div class="tw-flex tw-flex-wrap">
-            <div
-              class="tw-relative tw-w-full tw-flex tw-items-center tw-justify-center"
-            >
+      <div class="flex -mx-3">
+        <div class="w-full px-3 mb-5">
+          <label for="" class="text-xs font-semibold px-1">Phone No.</label>
+          <div class="flex flex-wrap">
+            <div class="relative w-full flex items-center justify-center">
               <i
-                class="mdi mdi-cellphone tw-absolute block tw-left-0 -tw-ml-10 tw-w-10 tw-pl-1 tw-text-center pointer-events-none"
+                class="mdi mdi-cellphone absolute block left-0 -ml-10 w-10 pl-1 text-center pointer-events-none"
               ></i>
 
               <Field
                 type="text"
                 name="tel"
-                class="tw-w-full -tw-ml-10 tw-pl-10 tw-pr-3 tw-py-2 tw-rounded-lg tw-border-2 tw-border-gray-200 tw-outline-none focus:tw-border-indigo-500"
+                class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                 placeholder="Enter phone no"
                 @change="checkAvailability('tel')"
                 v-model="tel"
                 :disabled="readOnly"
               />
             </div>
-            <ErrorMessage
-              name="tel"
-              class="tw-block tw-text-red-500 tw-text-sm"
-            />
+            <ErrorMessage name="tel" class="block text-red-500 text-sm" />
           </div>
         </div>
       </div>
       <template v-if="!isEditing">
-        <div class="tw-flex -tw-mx-3">
-          <div class="tw-w-full tw-px-3 tw-mb-5">
-            <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
-              >Password</label
-            >
-            <div class="tw-flex tw-flex-wrap">
-              <div
-                class="tw-relative tw-w-full tw-flex tw-items-center tw-justify-center"
-              >
+        <div class="flex -mx-3">
+          <div class="w-full px-3 mb-5">
+            <label for="" class="text-xs font-semibold px-1">Password</label>
+            <div class="flex flex-wrap">
+              <div class="relative w-full flex items-center justify-center">
                 <i
-                  class="mdi mdi-lock-outline tw-absolute block tw-left-0 -tw-ml-10 tw-w-10 tw-pl-1 tw-text-center pointer-events-none"
+                  class="mdi mdi-lock-outline absolute block left-0 -ml-10 w-10 pl-1 text-center pointer-events-none"
                 ></i>
 
                 <Field
                   type="password"
                   name="password"
-                  class="tw-w-full -tw-ml-10 tw-pl-10 tw-pr-3 tw-py-2 tw-rounded-lg tw-border-2 tw-border-gray-200 tw-outline-none focus:tw-border-indigo-500"
+                  class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                   placeholder="************"
                 />
               </div>
               <ErrorMessage
                 name="password"
-                class="tw-block tw-text-red-500 tw-text-sm"
+                class="block text-red-500 text-sm"
               />
             </div>
           </div>
         </div>
-        <div class="tw-flex -tw-mx-3">
-          <div class="tw-w-full tw-px-3 tw-mb-5">
-            <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
+        <div class="flex -mx-3">
+          <div class="w-full px-3 mb-5">
+            <label for="" class="text-xs font-semibold px-1"
               >Confirm Password</label
             >
-            <div class="tw-flex tw-flex-wrap">
-              <div
-                class="tw-relative tw-w-full tw-flex tw-items-center tw-justify-center"
-              >
+            <div class="flex flex-wrap">
+              <div class="relative w-full flex items-center justify-center">
                 <i
-                  class="mdi mdi-lock-outline tw-absolute block tw-left-0 -tw-ml-10 tw-w-10 tw-pl-1 tw-text-center pointer-events-none"
+                  class="mdi mdi-lock-outline absolute block left-0 -ml-10 w-10 pl-1 text-center pointer-events-none"
                 ></i>
 
                 <Field
                   type="password"
                   name="password_confirmation"
-                  class="tw-w-full -tw-ml-10 tw-pl-10 tw-pr-3 tw-py-2 tw-rounded-lg tw-border-2 tw-border-gray-200 tw-outline-none focus:tw-border-indigo-500"
+                  class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                   placeholder="************"
                 />
               </div>
               <ErrorMessage
                 name="password_confirmation"
-                class="tw-block tw-text-red-500 tw-text-sm"
+                class="block text-red-500 text-sm"
               />
             </div>
           </div>
         </div>
       </template>
-      <div class="tw-flex -tw-mx-3">
-        <div class="tw-w-1/2 tw-px-3 tw-mb-3">
-          <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
-            >State</label
-          >
-          <div class="tw-flex tw-flex-wrap">
-            <div
-              class="tw-relative tw-w-full tw-flex tw-items-center tw-justify-center"
-            >
+      <div class="flex -mx-3">
+        <div class="w-1/2 px-3 mb-3">
+          <label for="" class="text-xs font-semibold px-1">State</label>
+          <div class="flex flex-wrap">
+            <div class="relative w-full flex items-center justify-center">
               <i
-                class="mdi mdi-google-maps tw-absolute block tw-left-0 -tw-ml-10 tw-w-10 tw-pl-1 tw-text-center pointer-events-none"
+                class="mdi mdi-google-maps absolute block left-0 -ml-10 w-10 pl-1 text-center pointer-events-none"
               ></i>
 
               <Field
                 type="text"
                 name="state"
-                class="tw-w-full -tw-ml-10 tw-pl-10 tw-pr-3 tw-py-2 tw-rounded-lg tw-border-2 tw-border-gray-200 tw-outline-none focus:tw-border-indigo-500"
+                class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                 placeholder="Your state"
                 list="state"
                 @change="setLocation()"
@@ -204,10 +176,7 @@
                 :disabled="readOnly"
               />
             </div>
-            <ErrorMessage
-              name="state"
-              class="tw-block tw-text-red-500 tw-text-sm"
-            />
+            <ErrorMessage name="state" class="block text-red-500 text-sm" />
             <datalist id="state">
               <option
                 v-for="state in statesData"
@@ -218,22 +187,18 @@
             </datalist>
           </div>
         </div>
-        <div class="tw-w-1/2 tw-px-3 tw-mb-5">
-          <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
-            >LGA/Place</label
-          >
-          <div class="tw-flex tw-flex-wrap">
-            <div
-              class="tw-relative tw-w-full tw-flex tw-items-center tw-justify-center"
-            >
+        <div class="w-1/2 px-3 mb-5">
+          <label for="" class="text-xs font-semibold px-1">LGA/Place</label>
+          <div class="flex flex-wrap">
+            <div class="relative w-full flex items-center justify-center">
               <i
-                class="mdi mdi-location-enter tw-absolute block tw-left-0 -tw-ml-10 tw-w-10 tw-pl-1 tw-text-center pointer-events-none"
+                class="mdi mdi-location-enter absolute block left-0 -ml-10 w-10 pl-1 text-center pointer-events-none"
               ></i>
 
               <Field
                 type="text"
                 name="lga"
-                class="tw-w-full -tw-ml-10 tw-pl-10 tw-pr-3 tw-py-2 tw-rounded-lg tw-border-2 tw-border-gray-200 tw-outline-none focus:tw-border-indigo-500"
+                class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                 placeholder="enter lga"
                 list="lga"
                 v-model="lga"
@@ -241,10 +206,7 @@
                 :disabled="state == '' || readOnly"
               />
             </div>
-            <ErrorMessage
-              name="lga"
-              class="tw-block tw-text-red-500 tw-text-sm"
-            />
+            <ErrorMessage name="lga" class="block text-red-500 text-sm" />
             <datalist id="lga">
               <option
                 v-for="lga in lgaData"
@@ -256,12 +218,10 @@
           </div>
         </div>
       </div>
-      <div v-if="!isEditing" class="tw-flex -tw-mx-3">
-        <div class="tw-w-full tw-px-3 tw-mb-12">
-          <label for="" class="tw-text-xs tw-font-semibold tw-px-1"
-            >Gender</label
-          >
-          <div class="tw-flex">
+      <div v-if="!isEditing" class="flex -mx-3">
+        <div class="w-full px-3 mb-12">
+          <label for="" class="text-xs font-semibold px-1">Gender</label>
+          <div class="flex">
             <p>
               <label>
                 <input
@@ -289,17 +249,17 @@
         </div>
       </div>
       <error-alert v-if="error" :messages="errorMessages"></error-alert>
-      <div class="tw-flex -tw-mx-3">
-        <div class="tw-w-full tw-px-3 tw-mb-5">
+      <div class="flex -mx-3">
+        <div class="w-full px-3 mb-5">
           <button
             :disabled="loading"
             v-if="!readOnly"
             :class="buttonStyleClass(meta.valid)"
-            class="block tw-w-full max-w-xs tw-mx-auto tw-text-white tw-rounded-lg tw-px-3 tw-py-3 tw-font-semibold"
+            class="block w-full max-w-xs mx-auto text-white rounded-lg px-3 py-3 font-semibold"
           >
             <span v-if="loading">
               {{ isEditing ? "Updating" : "Signing up" }}
-              <span class="mdi mdi-star mdi-spin tw-text-xl"></span>
+              <span class="mdi mdi-star mdi-spin text-xl"></span>
             </span>
             <span v-else class="animate-spin"
               >{{ isEditing ? "SAVE CHANGES" : "SIGN UP" }}
@@ -320,7 +280,6 @@ import { Field, Form, ErrorMessage } from "vee-validate";
 import ErrorAlert from "../ErrorAlert.vue";
 import * as yup from "yup";
 import store from "../../store";
-import M from "materialize-css";
 
 export default {
   name: "Register",
@@ -403,11 +362,11 @@ export default {
       //alert("valid: "+ valid);
       if (this.loading || !valid) {
         return {
-          "tw-bg-indigo-300  tw-cursor-not-allowed": true,
+          "bg-indigo-300  cursor-not-allowed": true,
         };
       }
       return {
-        "tw-bg-indigo-500 focus:bg-indigo-700 hover:bg-indigo-700": true,
+        "bg-indigo-500 focus:bg-indigo-700 hover:bg-indigo-700": true,
       };
     },
     checkAvailability(fieldName) {
@@ -511,10 +470,10 @@ export default {
               });
           } else if (response.data.status == 1) {
             //updating successful
-            M.toast({
+            /* M.toast({
               html: "updating successful",
               displayLength: 4000,
-            });
+            }); */
             this.$emit("updated");
             for (let value in values) {
               store.dispatch("setProps", {
@@ -565,7 +524,7 @@ input:not([type]),
 input[type="text"]:not(.browser-default),
 input[type="password"]:not(.browser-default) {
   background-color: #fff;
-  border: 2px solid rgba(229, 231, 235, var(--tw-border-opacity));
+  border: 2px solid rgba(229, 231, 235, var(--border-opacity));
   border-radius: 0.5rem;
   padding-left: 2.5rem;
   width: 100%;

@@ -1,65 +1,68 @@
 <template>
   <!--Hero ../assets/images/galaxy_s21.png-->
-  <div class="tw-relative">
+  <div class="relative pt-6">
     <div
-      class="sm:tw-h-36 md:tw-h-64 tw-hidden sm:tw-flex tw-justify-center tw-items-center md:tw-bg-cover sm:tw-bg-cover -tw-mt-5 tw-bg-no-repeat"
+      class="sm:h-36 md:h-64 hidden sm:flex justify-center items-center md:bg-cover sm:bg-cover -mt-5 bg-no-repeat"
       :style="'background-image: url(' + header_bg + ')'"
     >
       <search class="" style="margin-left: 7%"></search>
     </div>
     <location v-if="displayLocation"></location>
-    <div class="tw-bg-gray-200 tw-text-black tw-p-1 tw-flex tw-flex-wrap">
-      <div
-        class="tw-border-blue-200 tw-border-r-2 tw-w-1/4 tw-p-2 tw-h-[80vh] tw-overflow-auto tw-relative tw-overflow-x-hidden tw-hidden md:tw-block"
-      >
-        <category-list :forMobile="false"></category-list>
+    <div class="bg-gray-200 text-black p-1 flex flex-wrap">
+      <!-- <div
+        class="border-blue-200 border-r-2 w-1/4 p-2 h-[80vh] overflow-auto relative overflow-x-hidden hidden md:block"
+      > -->
+      <div class="w-1/4">
+        <ScrollPanel
+          style="width: 100%; height: 80vh;"
+          class="custom pl-1 hidden md:block"
+        >
+          <category-list :forMobile="false"></category-list>
+        </ScrollPanel>
       </div>
-      <section class="tw-bg-white tw-border-b tw-py-8 md:tw-w-3/4">
-        <VTUAd class="tw--mt-1"></VTUAd>
+
+      <!-- </div> -->
+      <section class="bg-white border-b py-8 md:w-3/4">
+        <VTUAd class="-mt-1"></VTUAd>
         <div
           v-if="showCategories"
-          class="tw-border-blue-200 gradient tw--mt-1 tw-border-r-2 tw-w-screen tw-p-2 tw-overflow-y-scroll tw-overflow-x-hidden md:tw-hidden"
+          class="border-blue-200 gradient -mt-1 border-r-2 w-screen p-2 overflow-y-scroll overflow-x-hidden md:hidden"
         >
           <category-list :forMobile="true"></category-list>
         </div>
-        <div
-          class="tw-container tw-mx-auto tw-flex tw-flex-wrap tw-pt-4 tw-pb-12 tw-relative"
-        >
+        <div class="container mx-auto flex flex-wrap pt-4 pb-12 relative">
           <h1
-            class="tw-w-full tw-my-2 tw-text-5xl tw-font-bold tw-leading-tight tw-text-center tw-text-gray-800"
+            class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800"
           >
             Hot Deals
           </h1>
-          <div class="tw-w-full tw-mb-4">
+          <div class="w-full mb-4">
             <div
-              class="tw-h-1 tw-mx-auto tw-gradient tw-w-64 tw-opacity-25 tw-my-0 tw-py-0 tw-rounded-t"
+              class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"
             ></div>
             <!-- display the specified category and subcategory name -->
-            <div
-              v-if="category && ads.length"
-              class="tw-px-4 tw-pt-4 tw-text-xs "
-              >
-              <span @click="clear('category')" class="tw-cursor-pointer">
-                <span class="mdi mdi-close tw-text-red-600"></span>
+            <div v-if="category && ads.length" class="px-4 pt-4 text-xs ">
+              <span @click="clear('category')" class="cursor-pointer">
+                <span class="mdi mdi-close text-red-600"></span>
                 {{ category }} ({{ currentCategoryAdsCount }})
               </span>
               <span
                 v-if="subcategory"
                 @click="clear('subcategory')"
-                class="tw-cursor-pointer"
+                class="cursor-pointer"
               >
                 <span class="mdi mdi-arrow-right"></span>
-                <span class="mdi mdi-close tw-text-red-600"></span
+                <span class="mdi mdi-close text-red-600"></span
                 >{{ subcategory }} ({{ currentSubcategoryAdsCount }})
               </span>
             </div>
           </div>
           <loading v-if="adsIsLoading"></loading>
-          <div v-if="ads != null" class="tw-flex tw-flex-wrap tw-w-full">
+          <div v-if="ads != null" class="flex flex-wrap w-full">
             <div
               v-for="(ad, index) in ads"
               v-bind:key="index"
-              class="hot-ads tw-w-1/2 sm:tw-w-1/3 md:tw-w-1/4 tw-p-2 tw-flex tw-flex-col tw-flex-shrink tw-bg-blue-50"
+              class="hot-ads w-1/2 sm:w-1/3 md:w-1/4 p-2 flex flex-col flex-shrink bg-blue-50"
             >
               <template v-if="index <= maxIndex">
                 <AdListHP :ad="ad" />
@@ -68,7 +71,7 @@
           </div>
           <div
             v-if="ads != null && !ads.length"
-            class="tw-p-2 md:tw-p-4 tw-text-xl tw-bg-red-100 tw-m-auto"
+            class="p-2 md:p-4 text-xl bg-red-100 m-auto"
           >
             There is no ads in this category and/or location
           </div>
@@ -78,37 +81,37 @@
   </div>
   <template v-if="reachedEndOfAds">
     <div
-      class="tw-container tw-px-3 tw-mx-auto tw-flex tw-flex-wrap tw-flex-col md:tw-flex-row tw-items-center"
+      class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center"
     >
       <!--Left Col-->
       <div
-        class="tw-flex tw-flex-col tw-w-full md:tw-w-2/5 tw-justify-center tw-items-start tw-text-center md:tw-text-left tw-text-white"
+        class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left text-white"
       >
-        <p class="tw-uppercase tw-tracking-loose tw-w-full"></p>
-        <h1 class="tw-my-4 tw-text-5xl tw-font-bold tw-leading-tight">
-          <span class="tw-text-gray-300">Hamsuper</span> Got You Covered. Fast,
+        <p class="uppercase tracking-loose w-full"></p>
+        <h1 class="my-4 text-5xl font-bold leading-tight">
+          <span class="text-gray-300">Hamsuper</span> Got You Covered. Fast,
           Easy and Cost Effective!
         </h1>
-        <p class="tw-leading-normal tw-text-2xl mb-8">
+        <p class="leading-normal text-2xl mb-8">
           Register and start posting Ads for FREE!
         </p>
         <router-link to="/user/register">
           <button
-            class="tw-mx-auto lg:tw-mx-0 hover:tw-underline tw-bg-white tw-text-gray-800 tw-font-bold tw-rounded-full tw-my-6 tw-py-4 tw-px-8 tw-shadow-lg focus:tw-outline-none focus:tw-shadow-outline tw-transform tw-transition hover:tw-scale-105 tw-duration-300 tw-ease-in-out"
+            class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
           >
             Register Now
           </button>
         </router-link>
       </div>
       <!--Right Col-->
-      <div class="tw-w-full md:tw-w-3/5 tw-py-6 tw-text-center">
+      <div class="w-full md:w-3/5 py-6 text-center">
         <img
-          class="tw-w-full md:tw-w-4/5 tw-z-50 tw-rounded-lg md:tw-float-right"
+          class="w-full md:w-4/5 z-50 rounded-lg md:float-right"
           src="../assets/images/mobile_purchase.png"
         />
       </div>
     </div>
-    <div class="tw-relative -tw-mt-12 lg:-tw-mt-24">
+    <div class="relative -mt-12 lg:-mt-24">
       <svg
         viewBox="0 0 1428 174"
         version="1.1"
@@ -147,26 +150,24 @@
         </g>
       </svg>
     </div>
-    <section class="tw-bg-white tw-border-b tw-py-8">
-      <div class="tw-container tw-max-w-5xl tw-mx-auto tw-m-8">
+    <section class="bg-white border-b py-8">
+      <div class="container max-w-5xl mx-auto m-8">
         <h1
-          class="tw-w-full tw-my-2 tw-text-5xl tw-font-bold tw-leading-tight tw-text-center tw-text-gray-800"
+          class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800"
         >
           Latest
         </h1>
-        <div class="tw-w-full tw-mb-4">
+        <div class="w-full mb-4">
           <div
-            class="tw-h-1 tw-mx-auto tw-gradient tw-w-64 tw-opacity-25 tw-my-0 tw-py-0 tw-rounded-t"
+            class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"
           ></div>
         </div>
-        <div class="tw-flex tw-flex-wrap">
-          <div class="tw-w-5/6 sm:tw-w-1/2 tw-p-6">
-            <h3
-              class="tw-text-3xl tw-text-gray-800 tw-font-bold tw-leading-none tw-mb-3"
-            >
+        <div class="flex flex-wrap">
+          <div class="w-5/6 sm:w-1/2 p-6">
+            <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
               Galaxy S21 Ultra 5G
             </h3>
-            <p class="tw-text-gray-600 tw-mb-8">
+            <p class="text-gray-600 mb-8">
               Introducing Galaxy S21 Ultra 5G. Designed with a unique
               contour-cut camera to create a revolution in photography Never
               miss that perfect shot again. Meet Galaxy S21 5G and S21+ 5G.
@@ -181,35 +182,33 @@
               <a class="text-pink-500 underline" href="https://undraw.co/">undraw.co</a> -->
             </p>
           </div>
-          <div class="tw-w-full sm:tw-w-1/2 tw-p-6">
+          <div class="w-full sm:w-1/2 p-6">
             <img
-              class="tw-w-full sm:tw-h-64 tw-mx-auto"
+              class="w-full sm:h-64 mx-auto"
               viewBox="0 0 1177 598.5"
               src="../assets/images/galaxy_s21.png"
               alt=""
             />
           </div>
         </div>
-        <div class="tw-flex tw-flex-wrap tw-flex-col-reverse sm:tw-flex-row">
-          <div class="tw-w-full sm:tw-w-1/2 tw-p-6 tw-mt-6">
+        <div class="flex flex-wrap flex-col-reverse sm:flex-row">
+          <div class="w-full sm:w-1/2 p-6 mt-6">
             <img
-              class="tw-w-5/6 sm:tw-h-64 tw-mx-auto"
+              class="w-5/6 sm:h-64 mx-auto"
               src="../assets/images/map_of_nigeria.png"
               alt=""
             />
           </div>
-          <div class="tw-w-full sm:tw-w-1/2 tw-p-6 tw-mt-6">
-            <div class="tw-align-middle">
-              <h3
-                class="tw-text-3xl tw-text-gray-800 tw-font-bold tw-leading-none tw-mb-3"
-              >
+          <div class="w-full sm:w-1/2 p-6 mt-6">
+            <div class="align-middle">
+              <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
                 Our Reach is Broad
               </h3>
-              <p class="tw-text-gray-600 tw-mb-8">
+              <p class="text-gray-600 mb-8">
                 Deal from anywhere whether at work, on vacation. From the
                 nearest point to the farthest, it is the same bliss of service.
               </p>
-              <p class="tw-text-gray-600 tw-mb-8">
+              <p class="text-gray-600 mb-8">
                 Deal from anywhere whether at work, on vacation. From the
                 nearest point to the farthest, it is the same bliss of service.
               </p>
@@ -221,7 +220,7 @@
 
     <!-- Change the colour #f8fafc to match the previous section colour -->
     <svg
-      class="tw-wave-top"
+      class="wave-top"
       viewBox="0 0 1439 147"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
@@ -229,7 +228,7 @@
     >
       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g transform="translate(-1.000000, -14.000000)" fill-rule="nonzero">
-          <g class="tw-wave" fill="#f8fafc">
+          <g class="wave" fill="#f8fafc">
             <path
               d="M1440,84 C1383.555,64.3 1342.555,51.3 1317,45 C1259.5,30.824 1206.707,25.526 1169,22 C1129.711,18.326 1044.426,18.475 980,22 C954.25,23.409 922.25,26.742 884,32 C845.122,37.787 818.455,42.121 804,45 C776.833,50.41 728.136,61.77 713,65 C660.023,76.309 621.544,87.729 584,94 C517.525,105.104 484.525,106.438 429,108 C379.49,106.484 342.823,104.484 319,102 C278.571,97.783 231.737,88.736 205,84 C154.629,75.076 86.296,57.743 0,32 L0,0 L1440,0 L1440,84 Z"
             ></path>
@@ -255,22 +254,23 @@
         </g>
       </g>
     </svg>
-    <section class="tw-container tw-mx-auto tw-text-center tw-py-6 tw-mb-12">
+    <section class="container mx-auto text-center py-6 mb-12">
       <h1
-        class="tw-w-full tw-my-2 tw-text-5xl tw-font-bold tw-leading-tight tw-text-center tw-text-white"
+        class="w-full my-2 text-5xl font-bold leading-tight text-center text-white"
       >
         Need a guide?
       </h1>
-      <div class="tw-w-full tw-mb-4">
+      <div class="w-full mb-4">
         <div
-          class="tw-h-1 tw-mx-auto tw-bg-white tw-w-1/6 tw-opacity-25 tw-my-0 tw-py-0 tw-rounded-t"
+          class="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"
         ></div>
       </div>
-      <h3 class="tw-my-4 tw-text-3xl tw-leading-tight tw-text-gray-100">
+      <h3 class="my-4 text-3xl leading-tight text-gray-100">
         Follow the link below to see how seamless the process is.
       </h3>
-      <router-link to="/how_it_works"
-        class="tw-mx-auto lg:tw-mx-0 hover:tw-underline tw-bg-white tw-text-gray-800 tw-font-bold tw-rounded-full tw-my-6 tw-py-4 tw-px-8 tw-shadow-lg focus:tw-outline-none focus:tw-shadow-outline tw-transform tw-transition hover:tw-scale-105 tw-duration-300 tw-ease-in-out"
+      <router-link
+        to="/how_it_works"
+        class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
       >
         How it Works
       </router-link>
@@ -367,5 +367,18 @@ export default {
 <style lang="scss" scoped>
 .gradient {
   background: linear-gradient(90deg, #014a7f 0%, #2a84cc 100%);
+}
+::v-deep(.p-scrollpanel) {
+  &.custom .p-scrollpanel-wrapper {
+    border-right: 9px solid var(--surface-b);
+  }
+  .p-scrollpanel-bar {
+    background-color: rgb(149, 149, 153);
+    opacity: 0.6;
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: #135ba1;
+    }
+  }
 }
 </style>

@@ -1,30 +1,30 @@
 <template>
   <div
-    class="tw-fixed tw-w-full tw-top-0 tw-bg-gray-900 tw-z-20 tw-mt-20 tw-p-2 tw-opacity-95"
+    class="fixed w-full top-0 bg-gray-900 z-20 mt-20 p-2 opacity-95"
     id="location-div"
   >
     <div
-      class=" tw-bg-gray-100 tw-rounded-xl tw-text-gray-800 tw-p-2 tw-h-auto tw-opacity-100 shadow-md tw-text-sm tw-relative"
+      class=" bg-gray-100 rounded-xl text-gray-800 p-2 h-auto opacity-100 shadow-md text-sm relative"
     >
       <div
-        class="tw-text-gray-700 tw-w-full tw-p-2 tw-border-b-2 tw-border-blue-200 tw-text-center"
+        class="text-gray-700 w-full p-2 border-b-2 border-blue-200 text-center"
       >
         <span class="mdi mdi-location-enter"></span>Location:<span
-          class="tw-font-bold tw-text-lg"
+          class="font-bold text-lg"
           >{{ currentLocation }}</span
         >
       </div>
-      <div class="tw-flex">
-        <div class="tw-overflow-y-scroll tw-w-1/3 tw-h-96">
-          <ul v-if="states != null" class="tw-px-2 tw-text-gray-800">
-            <li v-if="state" @click="clearLocation()" class="tw-cursor-pointer">
+      <div class="flex">
+        <div class="overflow-y-scroll w-1/3 h-96">
+          <ul v-if="states != null" class="px-2 text-gray-800">
+            <li v-if="state" @click="clearLocation()" class="cursor-pointer">
               All of Nigeria
             </li>
             <li
               v-for="(state, index) in states"
               @click="getLGA(index, extractLocation(index).adsCount)"
               :key="index"
-              class="hover:tw-bg-gray-200"
+              class="hover:bg-gray-200"
               :class="extractLocation(index).listClass"
             >
               {{ extractLocation(index).name }} ({{
@@ -33,13 +33,13 @@
             </li>
           </ul>
         </div>
-        <div class="tw-overflow-y-scroll tw-w-2/3 tw-h-96">
-          <ul class="tw-px-2 " v-if="states != null">
+        <div class="overflow-y-scroll w-2/3 h-96">
+          <ul class="px-2 " v-if="states != null">
             <li
               v-for="(lga, index) in states[currentState]"
               @click="setLGA(index, extractLocation(lga).adsCount)"
               :key="index"
-              class="hover:tw-bg-blue-200"
+              class="hover:bg-blue-200"
               :class="extractLocation(lga).listClass"
             >
               {{ extractLocation(lga).name }} ({{
@@ -50,10 +50,10 @@
         </div>
       </div>
       <button
-        class="tw-bg-blue-700 tw-text-blue-200 tw-float-right tw-absolute tw-bottom-1 tw-p-2 tw-rounded-lg tw-transition-transform tw-transform"
+        class="bg-blue-700 text-blue-200 float-right absolute bottom-1 p-2 rounded-lg transition-transform transform"
         :class="{
-          'tw-rotate-0 tw-right-2': currentLGAState,
-          'tw-rotate-90 tw-bottom-12 tw--right-8': !currentLGAState,
+          'rotate-0 right-2': currentLGAState,
+          'rotate-90 bottom-12 -right-8': !currentLGAState,
         }"
         @click="saveLocation()"
       >
@@ -86,7 +86,7 @@ export default {
     },
     extractLocation(data) {
       let [name, adsCount] = data.split(":");
-      let listClass = adsCount > 0 ? "tw-cursor-pointer " : "tw-text-gray-400";
+      let listClass = adsCount > 0 ? "cursor-pointer " : "text-gray-400";
       return { name, adsCount, listClass };
     },
     saveLocation() {

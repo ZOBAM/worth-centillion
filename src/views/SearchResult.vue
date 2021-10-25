@@ -1,33 +1,31 @@
 <template>
-  <div class="tw-pt-24">
-    <div
-      class="tw-bg-gray-100 tw-flex tw-flex-col md:tw-flex-row tw-text-gray-800"
-    >
-      <div class="tw-w-full md:w-1/4 tw-bg-blue-50 tw-p-4">
+  <div class="pt-4">
+    <div class="bg-gray-100 flex flex-col md:flex-row text-gray-800">
+      <div class="w-full md:w-1/4 bg-blue-50 p-4">
         <h1>Filter search result</h1>
-        <div class="h-14 tw-bg-gray-300 tw-mt-4 tw-p-4">
+        <div class="h-14 bg-gray-300 mt-4 p-4">
           Loading . . .
         </div>
       </div>
-      <div class="tw-w-full md:w-3/4 tw-p-4">
+      <div class="w-full md:w-3/4 p-4">
         <loading v-if="results == null"></loading>
-        <div v-else class="tw-bg-gray-100">
-          <h1 class="tw-text-center">Found {{ resultCount }} results</h1>
+        <div v-else class="bg-gray-100">
+          <h1 class="text-center">Found {{ resultCount }} results</h1>
           <ul v-if="resultCount > 0">
             <li
               v-for="result in results"
               :key="result.id"
-              class="tw-flex tw-shadow-md tw-p-2 tw-cursor-pointer tw-bg-white hover:tw-bg-indigo-50 tw-mt-1"
+              class="flex shadow-md p-2 cursor-pointer bg-white hover:bg-indigo-50 mt-1"
               @click="showAd(result.id)"
             >
-              <div class="tw-w-1/4 tw-flex tw-justify-center tw-items-center">
+              <div class="w-1/4 flex justify-center items-center">
                 <img :src="result.ad_image" alt="" />
               </div>
-              <div class="tw-p-4 tw-w-3/4">
-                <h2 class="tw-bg-blue-200 tw-text-black tw-font-bold tw-p-2">
+              <div class="p-4 w-3/4">
+                <h2 class="bg-blue-200 text-black font-bold p-2">
                   {{ result.title }}
                 </h2>
-                <p class="tw-pt-2">
+                <p class="pt-2">
                   {{ result.description }}
                 </p>
               </div>
