@@ -19,7 +19,7 @@
               @click="showAd(result.id)"
             >
               <div class="w-1/4 flex justify-center items-center">
-                <img :src="result.ad_image" alt="" />
+                <img :src="result.ad_image" alt="" class="max-h-[20vh]" />
               </div>
               <div class="p-4 w-3/4">
                 <h2 class="bg-blue-200 text-black font-bold p-2">
@@ -53,9 +53,14 @@ export default {
   },
   mounted() {
     let query = this.$route.query.query;
+    let queryURL = "/search?query=" + query;
+    if (this.$route.query.category) {
+      let category = this.$route.query.category;
+      queryURL += "&category=" + category;
+    }
     let _this = this;
     this.axios
-      .get(process.env.VUE_APP_APIURL + "/search?query=" + query)
+      .get(process.env.VUE_APP_APIURL + queryURL)
       .then(function(response) {
         console.log(response.data);
         _this.results = response.data.search_results;

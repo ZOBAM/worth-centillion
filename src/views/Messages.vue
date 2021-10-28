@@ -9,26 +9,37 @@
           Messages
         </h3>
         <div>
-          <div
-            v-for="msg of user.adChats"
-            :key="msg"
-            :class="{
-              'p-2 bg-gray-200 mb-2 rounded-3xl flex cursor-pointer hover:bg-blue-500': true,
-              'bg-blue-500': msg.ad_id == currentAdID,
-            }"
-            @click="
-              getChats(msg.ad_id, msg.ad.title, msg.chatter, msg.ad_image)
-            "
-          >
-            <img
-              :src="msg.ad_image"
-              class="bg-gray-100 h-16 w-16 rounded-full"
-            />
+          <div v-for="msg of user.adChats" :key="msg">
             <div
-              class="p-4 bg-white flex-grow rounded-xl"
-              style="min-height:4rem"
+              :class="{
+                'p-2 bg-gray-200 mb-2 rounded-3xl flex cursor-pointer hover:bg-blue-500': true,
+                'bg-blue-500': msg.ad_id == currentAdID,
+              }"
+              @click="
+                getChats(msg.ad_id, msg.ad.title, msg.chatter, msg.ad_image)
+              "
+              v-if="msg.ad"
             >
-              {{ msg.ad.title }}
+              <img
+                :src="msg.ad_image"
+                class="bg-gray-100 h-16 w-16 rounded-full"
+              />
+              <div
+                class="p-4 bg-white flex-grow rounded-xl"
+                style="min-height:4rem"
+              >
+                {{ msg.ad.title }}
+              </div>
+            </div>
+            <div
+              v-else
+              class="mt-4"
+              :class="{
+                'p-2 bg-gray-200 mb-2 rounded-3xl flex cursor-pointer hover:bg-blue-500': true,
+                'bg-blue-500': msg.ad_id == currentAdID,
+              }"
+            >
+              This Ad was removed.
             </div>
           </div>
         </div>
@@ -193,7 +204,13 @@ export default {
         };
         store.dispatch("messages", data);
       } else {
-        alert("Can't send empty message");
+        //alert("Can't send empty message");
+        this.$toast.add({
+          severity: "error",
+          summary: "Empty Chat!",
+          detail: "Can't send empty message",
+          life: 2500,
+        });
         this.chatMessage = "";
       }
     },

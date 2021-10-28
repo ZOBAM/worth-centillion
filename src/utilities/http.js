@@ -1,12 +1,9 @@
 import axios from "axios";
 
-export default function http(method, url, payload = false) {
-  alert("getting response from server");
+export default async function http(url, payload = false) {
   let responseData;
-  if (method == "get") {
-    axios.get(process.env.VUE_APP_APIURL + url).then((response) => {
-      responseData = response;
-    });
+  if (!payload) {
+    responseData = await axios.get(process.env.VUE_APP_APIURL + url);
   } else {
     axios.post(process.env.VUE_APP_APIURL + url, payload).then((response) => {
       responseData = response;

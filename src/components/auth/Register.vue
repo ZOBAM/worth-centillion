@@ -38,13 +38,13 @@
           @change="selectImage($event)"
         />
       </div>
-      <div class="flex -mx-3">
+      <div class="flex mx-3">
         <div class="w-1/2 px-3 mb-5">
           <label for="" class="text-xs font-semibold px-1">First name</label>
           <div class="flex flex-wrap">
             <div class="relative w-full flex items-center justify-center">
               <i
-                class="mdi mdi-account-outline absolute block left-0 -ml-10 w-10 pl-1 text-center pointer-events-none"
+                class="mdi mdi-account-outline absolute block left-0 -ml-6 w-10 pl-1 text-center pointer-events-none"
               ></i>
 
               <Field
@@ -67,7 +67,7 @@
           <div class="flex flex-wrap">
             <div class="relative w-full flex items-center justify-center">
               <i
-                class="mdi mdi-account-outline absolute block left-0 -ml-10 w-10 pl-1 text-center pointer-events-none"
+                class="mdi mdi-account-outline absolute block left-0 -ml-6 w-10 pl-1 text-center pointer-events-none"
               ></i>
 
               <Field
@@ -83,13 +83,13 @@
           </div>
         </div>
       </div>
-      <div class="flex -mx-3">
+      <div class="flex mx-3">
         <div class="w-full px-3 mb-5">
           <label for="" class="text-xs font-semibold px-1">Phone No.</label>
           <div class="flex flex-wrap">
             <div class="relative w-full flex items-center justify-center">
               <i
-                class="mdi mdi-cellphone absolute block left-0 -ml-10 w-10 pl-1 text-center pointer-events-none"
+                class="mdi mdi-cellphone absolute block left-0 -ml-6 w-10 pl-1 text-center pointer-events-none"
               ></i>
 
               <Field
@@ -107,13 +107,13 @@
         </div>
       </div>
       <template v-if="!isEditing">
-        <div class="flex -mx-3">
+        <div class="flex mx-3">
           <div class="w-full px-3 mb-5">
             <label for="" class="text-xs font-semibold px-1">Password</label>
             <div class="flex flex-wrap">
               <div class="relative w-full flex items-center justify-center">
                 <i
-                  class="mdi mdi-lock-outline absolute block left-0 -ml-10 w-10 pl-1 text-center pointer-events-none"
+                  class="mdi mdi-lock-outline absolute block left-0 -ml-6 w-10 pl-1 text-center pointer-events-none"
                 ></i>
 
                 <Field
@@ -130,7 +130,7 @@
             </div>
           </div>
         </div>
-        <div class="flex -mx-3">
+        <div class="flex mx-3">
           <div class="w-full px-3 mb-5">
             <label for="" class="text-xs font-semibold px-1"
               >Confirm Password</label
@@ -138,7 +138,7 @@
             <div class="flex flex-wrap">
               <div class="relative w-full flex items-center justify-center">
                 <i
-                  class="mdi mdi-lock-outline absolute block left-0 -ml-10 w-10 pl-1 text-center pointer-events-none"
+                  class="mdi mdi-lock-outline absolute block left-0 -ml-6 w-10 pl-1 text-center pointer-events-none"
                 ></i>
 
                 <Field
@@ -156,13 +156,13 @@
           </div>
         </div>
       </template>
-      <div class="flex -mx-3">
+      <div class="flex mx-3">
         <div class="w-1/2 px-3 mb-3">
           <label for="" class="text-xs font-semibold px-1">State</label>
           <div class="flex flex-wrap">
             <div class="relative w-full flex items-center justify-center">
               <i
-                class="mdi mdi-google-maps absolute block left-0 -ml-10 w-10 pl-1 text-center pointer-events-none"
+                class="mdi mdi-google-maps absolute block left-0 -ml-6 w-10 pl-1 text-center pointer-events-none"
               ></i>
 
               <Field
@@ -192,7 +192,7 @@
           <div class="flex flex-wrap">
             <div class="relative w-full flex items-center justify-center">
               <i
-                class="mdi mdi-location-enter absolute block left-0 -ml-10 w-10 pl-1 text-center pointer-events-none"
+                class="mdi mdi-location-enter absolute block left-0 -ml-6 w-10 pl-1 text-center pointer-events-none"
               ></i>
 
               <Field
@@ -221,7 +221,7 @@
       <div v-if="!isEditing" class="flex -mx-3">
         <div class="w-full px-3 mb-12">
           <label for="" class="text-xs font-semibold px-1">Gender</label>
-          <div class="flex">
+          <div class="flex justify-around">
             <p>
               <label>
                 <input
@@ -231,7 +231,7 @@
                   v-model="gender"
                   checked
                 />
-                <span>Male</span>
+                <span> Male</span>
               </label>
             </p>
             <p>
@@ -242,7 +242,7 @@
                   type="radio"
                   v-model="gender"
                 />
-                <span>Female</span>
+                <span> Female</span>
               </label>
             </p>
           </div>

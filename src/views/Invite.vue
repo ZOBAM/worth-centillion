@@ -4,25 +4,25 @@
       Invite & Earn Bonus
     </h1>
     <article class=" max-w-[54rem] m-auto">
-      <section class="flex justify-between text-center">
+      <section class="bg-blue-100 flex justify-between text-center">
         <div
           @click="setTab('sms')"
-          class="bg-blue-100 p-2 border-2 border-blue-600 w-1/3 cursor-pointer"
-          :class="{ 'bg-blue-100': currentTab == 'sms' }"
+          class="p-2 border-2 border-blue-600 w-1/3 cursor-pointer"
+          :class="{ 'bg-blue-200': currentTab == 'sms' }"
         >
           Text/SMS
         </div>
         <div
           @click="setTab('email')"
-          class="bg-blue-100 p-2 border-2 border-blue-600 w-1/3 cursor-pointer"
-          :class="{ 'bg-blue-100': currentTab == 'email' }"
+          class="p-2 border-2 border-blue-600 w-1/3 cursor-pointer"
+          :class="{ 'bg-blue-200': currentTab == 'email' }"
         >
           Email
         </div>
         <div
           @click="setTab('share')"
-          class="bg-blue-100 p-2 border-2 border-blue-600 w-1/3 cursor-pointer"
-          :class="{ 'bg-blue-100': currentTab == 'share' }"
+          class="p-2 border-2 border-blue-600 w-1/3 cursor-pointer"
+          :class="{ 'bg-blue-200': currentTab == 'share' }"
         >
           Share Link
         </div>
@@ -54,13 +54,13 @@
         </div>
         <Form @submit="invite" :validation-schema="schema" class="my-8">
           <div class="overflow-hidden">
-            <label for="tel">{{ inputLabel }}</label>
+            <label for="tel" class="ml-4">{{ inputLabel }}</label>
             <Field
               type="text"
               :name="inputName"
               :placeholder="inputPlaceholder"
               style="padding-left:1rem; background-color: white"
-              class="w-full bg-white"
+              class="w-full bg-white rounded-2xl"
               v-model="inputValue"
               id="inputField"
               @keyup="resistLinkChange"
@@ -71,14 +71,14 @@
               v-if="currentTab != 'share'"
             />
           </div>
-          <div>
+          <div class="mt-4 center">
             <Button :loading="loading">
               {{ currentTab == "share" ? copyClue : "Invite" }}
             </Button>
           </div>
         </Form>
         <div v-if="currentTab != 'share'" class="">
-          <div class="bg-blue-200 text-right px-2 py-1">
+          <div class="bg-blue-200 text-right px-2 py-1 text-xs">
             Invite Message Preview
           </div>
           <div class="bg-blue-200 px-2 pb-2">

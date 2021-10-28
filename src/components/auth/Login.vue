@@ -11,15 +11,14 @@
   >
     <div>
       <error-alert v-if="error" :messages="errorMessages"></error-alert>
-      <div class="flex -mx-3">
+      <div class="flex mx-3">
         <div class="w-full px-3 mb-5">
           <label for="" class="text-xs font-semibold px-1">Phone No.</label>
           <div class="flex flex-wrap">
             <div class="relative w-full flex items-center justify-center">
               <i
-                class="mdi mdi-cellphone absolute block left-0 -ml-10 w-10 pl-1 text-center pointer-events-none"
+                class="mdi mdi-cellphone absolute block left-0 -ml-6 w-10 pl-1 text-center pointer-events-none"
               ></i>
-
               <Field
                 type="text"
                 required
@@ -34,20 +33,19 @@
           </div>
         </div>
       </div>
-      <div class="flex -mx-3">
+      <div class="flex mx-3">
         <div class="w-full px-3 mb-5">
           <label for="" class="text-xs font-semibold px-1">Password</label>
           <div class="flex flex-wrap">
             <div class="relative w-full flex items-center justify-center">
               <i
-                class="mdi mdi-lock-outline absolute block left-0 -ml-10 w-10 pl-1 text-center pointer-events-none"
+                class="mdi mdi-lock-outline absolute block left-0 -ml-6 w-10 pl-1 text-center pointer-events-none"
               ></i>
-
               <Field
                 type="password"
                 v-model="password"
                 required
-                class="password w-full pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                 placeholder="************"
                 @keydown="error = false"
                 name="password"
@@ -157,7 +155,7 @@ export default {
           this.loading = false;
           //console.log(response.data);
           if (response.data.message) {
-            //console.log(response.data.message);
+            console.log(response.data.message);
             this.errorMessages.push(
               "The provided credentials are not correct. Please check and try again."
             );
@@ -167,26 +165,16 @@ export default {
           store.dispatch("login", response.data);
           //this.bearerToken = response.data.access_token;
         })
-        .catch(() => {
+        .catch((error) => {
           this.loading = false;
           this.errorMessages.push(
             "An error ocurred from the server. Please check and try again."
           );
           this.error = true;
-          //console.log(error);
+          console.log(error);
         }); // credentials didn't match
     },
   },
 };
 </script>
-<style lang="scss" scoped>
-input:not([type]),
-input[type="text"]:not(.browser-default),
-input[type="password"]:not(.browser-default) {
-  background-color: #fff;
-  border: 2px solid rgba(229, 231, 235, var(--border-opacity));
-  border-radius: 0.5rem;
-  padding-left: 2.5rem;
-  width: 100%;
-}
-</style>
+<style lang="scss" scoped></style>

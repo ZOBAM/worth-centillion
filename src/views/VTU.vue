@@ -55,14 +55,17 @@
                 class="px-2 py-1 bg-black text-gray-300 rounded-lg mb-8 inline-block"
                 v-html="currentAction"
               ></span>
-              <div class="row">
-                <div class="input-field col m6">
+              <div class="sm:grid grid-cols-2">
+                <div class="">
+                  <label for="number" class="text-xs font-semibold px-1"
+                    >Network</label
+                  >
                   <Field
                     as="select"
                     name="network"
                     id=""
                     v-model="network"
-                    class=""
+                    class="rounded-lg outline-none p-8 h-12 w-full border-2 border-gray-300"
                   >
                     <option value="">--choose network--</option>
                     <option
@@ -81,7 +84,7 @@
                     class="block text-red-500 text-sm"
                   />
                 </div>
-                <div class="input-field col m6">
+                <div class="mt-6 sm:mt-0">
                   <label for="number" class="text-xs font-semibold px-1"
                     ><span class="hidden md:inline">Phone</span> Number</label
                   >
@@ -90,7 +93,7 @@
                     name="phone_number"
                     v-model="phone_number"
                     id=""
-                    class=""
+                    class="rounded-lg outline-none p-8 h-12 w-full border-2 border-gray-300"
                   />
                   <ErrorMessage
                     name="phone_number"
@@ -98,8 +101,8 @@
                   />
                 </div>
               </div>
-              <div class="row">
-                <div class="input-field col m6">
+              <div class="sm:grid grid-cols-2 mt-6">
+                <div class="">
                   <template v-if="buyData">
                     <Field
                       as="select"
@@ -107,7 +110,7 @@
                       id=""
                       v-model="planIndex"
                       @change="setDataPlan()"
-                      class=""
+                      class="rounded-lg outline-none p-8 h-12 w-full border-2 border-gray-300"
                     >
                       <option value="">--Choose Data Plan--</option>
                       <template v-if="network">
@@ -134,7 +137,7 @@
                       min="100"
                       name="amount"
                       id=""
-                      class=""
+                      class="rounded-lg outline-none p-8 h-12 w-full border-2 border-gray-300"
                     />
                     <ErrorMessage
                       name="amount"
@@ -142,7 +145,7 @@
                     />
                   </template>
                 </div>
-                <div class="input-field col m6" v-if="buyData">
+                <div class="mt-6 sm:mt-0" v-if="buyData">
                   <input
                     type="text"
                     name="amount"
@@ -150,7 +153,7 @@
                     id=""
                     v-model="amount"
                     placeholder=""
-                    class=""
+                    class="rounded-lg outline-none p-8 h-12 w-full border-2 border-gray-300"
                   />
                   <span v-if="balanceError" class="block text-red-500 text-sm"
                     >Amount cannot be more than {{ getWalletBalance }}</span

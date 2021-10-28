@@ -6,6 +6,9 @@
   .btn-primary {
     @apply py-3 px-6 bg-blue-600 text-gray-100 hover:bg-blue-900;
   }
+  .center {
+    @apply flex justify-center items-center;
+  }
   .link {
     @apply text-blue-700 rounded-xl bg-gray-100 p-1;
   }

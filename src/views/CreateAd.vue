@@ -165,13 +165,13 @@
           </div>
           <div class="flex flex-wrap justify-around mt-8 text-left">
             <p class="mb-4 w-full">Location Details</p>
-            <div class="text-left w-1/2">
+            <div class="text-left w-2/6">
               <label for="" class="text-xs font-semibold px-1">State </label>
               <Field
                 as="select"
                 name="state"
                 id="state"
-                class="w-4/5 md:w-2/3 outline-none border-0 border-b-2 border-gray-400 focus:outline-none focus:border-transparent rounded"
+                class="w-full outline-none border-0 border-b-2 border-gray-400 focus:outline-none focus:border-transparent rounded"
                 @change="setOption(values.state)"
               >
                 <option
@@ -183,13 +183,13 @@
               </Field>
               <ErrorMessage name="state" class="block text-red-500 text-sm" />
             </div>
-            <div class="text-left w-1/2">
+            <div class="text-left w-2/6">
               <label for="" class="text-xs font-semibold px-1">Place</label>
               <Field
                 as="select"
                 name="place"
                 id="place"
-                class="w-4/5 md:w-2/3 outline-none border-0 border-b-2 border-gray-400 focus:outline-none focus:border-transparent rounded"
+                class="w-full outline-none border-0 border-b-2 border-gray-400 focus:outline-none focus:border-transparent rounded"
               >
                 <option
                   v-for="(lga, index) of lgas"
@@ -204,28 +204,28 @@
           <div class="mt-8" v-if="!editedAdID">
             <p>Boost Your Ad</p>
             <label
-              class="block cursor-pointer hover:shadow-md hover:text-blue-900"
+              class="block cursor-pointer hover:shadow-md hover:text-blue-900 p-2"
               style="display: block"
             >
               <Field type="radio" name="promoted" value="bronze" />
-              <span><strong>Bronze</strong> Free Ad</span>
+              <span><strong> Bronze</strong> Free Ad</span>
             </label>
             <label
-              class="block cursor-pointer hover:shadow-md hover:text-blue-900"
+              class="block cursor-pointer hover:shadow-md hover:text-blue-900 p-2"
             >
               <Field type="radio" name="promoted" value="silver" />
               <span
-                ><strong>Silver Ad</strong> - Stay on top list for 7 days
+                ><strong> Silver Ad</strong> - Stay on top list for 7 days
                 <strong class="blue-text"> (N{{ promotionPrices[0] }})</strong>
               </span>
             </label>
             <label
-              class="block cursor-pointer hover:shadow-md hover:text-blue-900"
+              class="block cursor-pointer hover:shadow-md hover:text-blue-900 p-2"
               style="display: block"
             >
               <Field type="radio" name="promoted" value="gold" />
               <span
-                ><strong>Gold Ad</strong> - Stay on top list for 30 days
+                ><strong> Gold Ad</strong> - Stay on top list for 30 days
                 <strong class="blue-text"
                   >(N{{ promotionPrices[1] }})</strong
                 ></span
@@ -570,25 +570,4 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-select,
-input:not([type]),
-input[type="text"]:not(.browser-default),
-input[type="number"]:not(.browser-default) {
-  display: block;
-  width: 80%;
-  padding: 0px 1rem;
-}
-label {
-  color: #302f2f;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
-@media (min-width: 640px) {
-}
-@media (min-width: 768px) {
-  select {
-    width: 66%;
-  }
-}
-</style>
+<style lang="scss" scoped></style>
