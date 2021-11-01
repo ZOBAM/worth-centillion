@@ -31,79 +31,56 @@
           v-if="user.vtuTransactions.length"
           class="w-full md:w-3/4 text-center m-auto"
         >
-          <table class="striped ">
-            <thead>
-              <tr>
-                <th>S/N</th>
-                <th>Type</th>
-                <th>Amount</th>
-                <th>Receipient</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              <template
-                v-for="(transaction, index) in items"
-                :key="transaction.id"
-              >
-                <tr v-if="index >= startIndex && index < endIndex">
-                  <td>{{ ++index }}</td>
-                  <td>{{ transaction.type }}</td>
-                  <td>{{ transaction.amount }}</td>
-                  <td>{{ transaction.recipient }}</td>
-                  <td><h-date :date="transaction.created_at" /></td>
-                </tr>
+          <DataTable
+            :value="items"
+            :paginator="true"
+            :rows="5"
+            responsiveLayout="scroll"
+          >
+            <Column field="vin" header="S/N">
+              <template #body="slotProps">
+                {{ slotProps.index + 1 }}
               </template>
-            </tbody>
-          </table>
-          <section>
-            <pagination
-              :rows="items.length"
-              :perPage="perPage"
-              @my-event="paginate"
-              :currentPage="currentPage"
-            ></pagination>
-          </section>
+            </Column>
+            <Column field="type" header="Type"></Column>
+            <Column field="amount" header="Amount"></Column>
+            <Column field="recipient" header="Receipient"></Column>
+            <Column field="created_at" header="Date">
+              <template #body="slotProps">
+                <h-date :date="slotProps.data.created_at" />
+              </template>
+            </Column>
+          </DataTable>
         </div>
         <div v-else>
           No vtu transactions
         </div>
       </div>
       <div v-if="vtuTransactions == false">
-        <div v-if="user.transactions.length">
-          <table class="striped ">
-            <thead>
-              <tr>
-                <th>S/N</th>
-                <th>Type</th>
-                <th>Amount</th>
-                <th>Ref ID</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              <template
-                v-for="(transaction, index) in items"
-                :key="transaction.id"
-              >
-                <tr v-if="index >= startIndex && index < endIndex">
-                  <td>{{ ++index }}</td>
-                  <td>{{ transaction.transaction_type }}</td>
-                  <td>{{ transaction.amount }}</td>
-                  <td>{{ transaction.transaction_ref }}</td>
-                  <td><h-date :date="transaction.created_at" /></td>
-                </tr>
+        <div
+          v-if="user.transactions.length"
+          class="w-full md:w-3/4 text-center m-auto"
+        >
+          <DataTable
+            :value="items"
+            :paginator="true"
+            :rows="5"
+            responsiveLayout="scroll"
+          >
+            <Column field="vin" header="S/N">
+              <template #body="slotProps">
+                {{ slotProps.index + 1 }}
               </template>
-            </tbody>
-          </table>
-          <section>
-            <pagination
-              :rows="items.length"
-              :perPage="perPage"
-              @my-event="paginate"
-              :currentPage="currentPage"
-            ></pagination>
-          </section>
+            </Column>
+            <Column field="transaction_type" header="Type"></Column>
+            <Column field="amount" header="Amount"></Column>
+            <Column field="transaction_ref" header="Ref ID"></Column>
+            <Column field="created_at" header="Date">
+              <template #body="slotProps">
+                <h-date :date="slotProps.data.created_at" />
+              </template>
+            </Column>
+          </DataTable>
         </div>
         <div v-else>
           No other transactions
@@ -118,14 +95,16 @@
 <script>
 import { mapState } from "vuex";
 import HDate from "@/components/HDate";
-import paginate from "@/utilities/mixins/paginate.js";
+import DataTable from "primevue/datatable";
+import Column from "primevue/column";
 
 export default {
   name: "Transactions",
   components: {
     HDate,
+    DataTable,
+    Column,
   },
-  mixins: [paginate],
   data() {
     return {
       vtuTransactions: false,
@@ -143,3 +122,11 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+td {
+  padding: 2px;
+}
+tr:nth-child(even) {
+  background-color: #eef;
+}
+</style>

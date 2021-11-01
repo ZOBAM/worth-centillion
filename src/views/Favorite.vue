@@ -32,7 +32,9 @@
                   href="#!"
                   class="secondary-content cursor-pointer"
                   title="remove from favorite"
-                  ><i class="material-icons red-text" @click="removeAd(ad.id)"
+                  ><i
+                    class="material-icons red-text text-red-500"
+                    @click="removeAd(ad.id)"
                     >delete</i
                   ></span
                 >
@@ -60,9 +62,9 @@
     </section>
     <section>
       <pagination
-        :rows="items.length"
+        :totalItemsCount="items.length"
         :perPage="perPage"
-        @my-event="paginate"
+        @page-event="paginate"
         :currentPage="currentPage"
       ></pagination>
     </section>
@@ -85,6 +87,9 @@ export default {
     ...mapState(["user"]),
   },
   methods: {
+    onPage(event) {
+      console.log(event);
+    },
     removeAd(adID) {
       store.dispatch("favorites", {
         adID: adID,
@@ -93,10 +98,11 @@ export default {
       this.axios
         .get(process.env.VUE_APP_APIURL + "/like/" + adID)
         .then(() => {
-          /* M.toast({
-            html: "Removed from Favorites",
-            displayLength: 4000,
-          }); */
+          this.$toast.add({
+            severity: "success",
+            summary: "Removed",
+            detial: "Removed from Favorites",
+          });
           //console.log(response.data);
         })
         .catch(() => {

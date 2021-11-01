@@ -7,6 +7,7 @@ import Primevue from "primevue/config";
 import ToastService from "primevue/toastservice";
 import Toast from "primevue/toast";
 import ScrollPanel from "primevue/scrollpanel";
+import  Paginator from "primevue/paginator";
 import "primevue/resources/themes/saga-blue/theme.css"; //theme
 import "primevue/resources/primevue.min.css"; //core css
 import "primeicons/primeicons.css"; //icons
@@ -36,6 +37,7 @@ createApp(App)
   .use(ToastService)
   .component("Toast", Toast)
   .component("ScrollPanel", ScrollPanel)
+  .component("Paginator", Paginator)
   .mount("#app");
 //command to compile tailwind css for production
 //NODE_ENV=production npx tailwindcss -i ./src/index.css -o ./src/style.css --watch --jit --purge="./src/**/*.vue"

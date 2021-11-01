@@ -23,10 +23,10 @@
 
       <!-- </div> -->
       <section class="bg-white border-b py-8 md:w-3/4">
-        <VTUAd class="-mt-1"></VTUAd>
+        <VTUAd class="sm:mt-1"></VTUAd>
         <div
           v-if="showCategories"
-          class="border-blue-200 gradient -mt-1 border-r-2 w-screen p-2 overflow-y-scroll overflow-x-hidden md:hidden"
+          class="border-blue-200 gradient -mt-2 border-r-2 w-screen p-2 overflow-y-scroll overflow-x-hidden md:hidden"
         >
           <category-list :forMobile="true"></category-list>
         </div>
@@ -373,7 +373,7 @@ export default {
     border-right: 9px solid var(--surface-b);
   }
   .p-scrollpanel-bar {
-    background-color: rgb(149, 149, 153);
+    background-color: rgb(213, 213, 219);
     opacity: 0.6;
     transition: background-color 0.3s;
     &:hover {

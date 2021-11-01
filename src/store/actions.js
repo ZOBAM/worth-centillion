@@ -45,7 +45,7 @@ const actions = {
         //alert("Message successfully sent to seller");
       })
       .catch(() => {
-        console.log("An error occurred on the server. Please try again.");
+        //console.log("An error occurred on the server. Please try again.");
         //console.log(error);
       });
   },
@@ -82,7 +82,7 @@ const actions = {
         commit("setStateProps", { adsIsLoading: false });
         let cacheNum = localStorage.getItem("cacheNum");
         if (response.data.clear_cache != cacheNum) {
-          alert("clearing all cache");
+          //alert("clearing all cache");
           localStorage.removeItem("categories");
           commit("logoutUser");
           localStorage.setItem("cacheNum", response.data.clear_cache);

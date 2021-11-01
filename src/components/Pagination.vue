@@ -1,42 +1,24 @@
 <template class="">
-  <ul class="pagination bg-gray-100 p-2 py-4">
-    <li class="">
-      <a href="#!"
-        ><i class="material-icons" @click="$emit('myEvent', currentPage - 1)"
-          >chevron_left</i
-        ></a
-      >
-    </li>
-    <!-- <li class="active"><a href="#!">1</a></li> -->
-    <li
-      v-for="page in numOfPage"
-      :key="page"
-      class="waves-effect"
-      :class="{ active: page == currentPage, blue: page == currentPage }"
-    >
-      <a href="#!" @click="$emit('myEvent', page)">{{ page }}</a>
-    </li>
-    <li class="waves-effect">
-      <a href="#!"
-        ><i class="material-icons" @click="$emit('myEvent', currentPage + 1)"
-          >chevron_right</i
-        ></a
-      >
-    </li>
-  </ul>
+  <Paginator
+    :rows="perPage"
+    :totalRecords="totalItemsCount"
+    @page="onPage($event)"
+  ></Paginator>
 </template>
 <script>
 export default {
   name: "Pagination",
-  props: ["rows", "perPage", "currentPage"],
+  props: ["totalItemsCount", "perPage", "currentPage"],
   data() {
     return {
       numOfPage: 0,
     };
   },
   methods: {
-    navigate() {
-      //this.$emit("myEvent");
+    onPage(event) {
+      console.log(event);
+      this.$emit("pageEvent", event.page + 1);
+      //<a href="#!" @click="$emit('myEvent', page)">{{ page }}</a>
     },
   },
   mounted() {

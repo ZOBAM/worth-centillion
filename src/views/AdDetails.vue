@@ -352,7 +352,7 @@ export default {
       //alert("ads found in the store");
       this.loading = true;
     }
-    console.log(this.ad);
+    //console.log(this.ad);
     let url = process.env.VUE_APP_APIURL + "/ads/" + adID;
     url += this.user ? "/" + this.user.id : "";
     this.axios.get(url).then((response) => {
@@ -371,7 +371,7 @@ export default {
         });
       }, 5);
       //this.loading = false;
-      console.log(this.ad);
+      //console.log(this.ad);
     });
   },
 };

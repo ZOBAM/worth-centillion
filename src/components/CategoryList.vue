@@ -27,7 +27,15 @@
           <div
             class="text-xs border border-gray-50 h-9 leading-4 flex justify-center items-center"
           >
-            {{ extractCategoryDetails(category).name }}
+            <span
+              :class="{
+                'text-gray-500':
+                  extractCategoryDetails(category).count <= 0 &&
+                  category.lastIndexOf('Fundme') != false,
+              }"
+            >
+              {{ extractCategoryDetails(category).name }}
+            </span>
           </div>
         </div>
       </div>
@@ -84,14 +92,20 @@
       class="bg-gray-800 opacity-60 absolute top-0 z-10 w-full"
       style="height: 140vh"
     ></div>
-    <div v-if="viewSubcategory" class="absolute top-1 bg-blue-500 z-20 w-full">
-      <div class="px-3">
-        {{ currentCategory }}
-        <span
-          class="float-right cursor-pointer"
+    <div
+      v-if="viewSubcategory"
+      class="absolute top-1 sm:top-0 bg-blue-500 z-20 w-full -ml-2 sm:m-0 p-1"
+    >
+      <div class="w-full pl-3 py-1 text-gray-300 flex">
+        <div class="w-3/4">
+          {{ currentCategory }}
+        </div>
+        <div
+          class="cursor-pointer border-2 border-blue-300 p-1 w-1/4 text-center hover:bg-red-600"
           @click="viewSubcategory = false"
-          >X</span
         >
+          X
+        </div>
       </div>
       <ul class="bg-blue-50 p-4">
         <li
@@ -115,7 +129,7 @@
         </li>
       </ul>
       <p
-        class="text-center cursor-pointer bg-red-300"
+        class="text-center cursor-pointer bg-red-300 hover:bg-red-600"
         @click="viewSubcategory = false"
       >
         Close Subcategory
@@ -192,12 +206,20 @@ export default {
       this.fetched = true;
       return this.categoryList;
     },
-    getSubcategory: function(selectedCategory, adsCount) {
+    getSubcategory(selectedCategory, adsCount) {
       if (selectedCategory.toLowerCase() == "fundme") {
         window.location = "http://www.fundme.hamsuper.com";
         return;
       }
-      if (adsCount == 0) return; //don't run this function if no ads in subcategory
+      if (adsCount == 0) {
+        this.$toast.add({
+          severity: "info",
+          summary: "Emty Category",
+          detail: "There is no ads in this category",
+          life: 2500,
+        });
+        return;
+      } //don't run this function if no ads in subcategory
       this.currentCategory = selectedCategory;
       this.subcategories = this.categories[selectedCategory].slice();
       this.subcategories.shift();

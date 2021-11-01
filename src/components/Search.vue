@@ -36,25 +36,28 @@
         type="submit"
         class="block text-white m-auto mt-2 p-2 gradient border-2 rounded-lg hover:text-blue-200 hover:border-blue-400"
       >
-        Search <span class="mdi mdi-search-web text-xl"></span>
+        {{ loading ? "Loading ..." : "Search" }}
+        <span class="mdi mdi-search-web text-xl"></span>
       </button>
     </form>
   </div>
 </template>
 <script>
 import { ref } from "@vue/reactivity";
-import http from "../utilities/http";
 import { useToast } from "primevue/usetoast";
 import { useRouter } from "vue-router";
 import { computed } from "vue";
+import axios from "axios";
 export default {
   name: "Search",
-  setup() {
+  setup(props, { emit }) {
+    props;
     let searchQuery = ref("");
     const category = ref("");
     const suggestions = ref([]);
     const toast = useToast();
     const router = useRouter();
+    let loading = ref(false);
     const gotSuggestions = computed(() => {
       return suggestions.value.length && searchQuery.value.length > 1
         ? true
@@ -62,13 +65,21 @@ export default {
     });
     const getSuggestions = () => {
       if (searchQuery.value.trim != "" && searchQuery.value.length > 1) {
-        http("/search?query=" + searchQuery.value + "&suggestions=phone").then(
-          (response) => {
+        loading.value = true;
+        suggestions.value = [];
+        //http("/search?query=" + searchQuery.value + "&suggestions=phone")
+        axios
+          .get(
+            process.env.VUE_APP_APIURL +
+              "/search?query=" +
+              searchQuery.value +
+              "&suggestions=phone"
+          )
+          .then((response) => {
             suggestions.value = response.data;
-            console.log(suggestions.value);
-            return response;
-          }
-        );
+            loading.value = false;
+            //return response;
+          });
         //alert("About fetching suggestions from the server.");
       }
     };
@@ -90,6 +101,7 @@ export default {
         if (category.value) {
           queryURL += "&category=" + category.value.replace("&", "_");
         }
+        emit("doneSearching");
         router.push(queryURL);
       }
     };
@@ -97,6 +109,7 @@ export default {
       searchQuery,
       gotSuggestions,
       suggestions,
+      loading,
       getSuggestions,
       search,
       setCategory,

@@ -342,7 +342,7 @@ export default {
           headers: { Authorization: `Bearer ${this.accessToken}` },
         })
         .then((response) => {
-          console.log(response.data);
+          //console.log(response.data);
           this.paymentData = response.data;
           if (response.data.status == 1) {
             store.dispatch("setProps", response.data);
@@ -401,7 +401,6 @@ export default {
     //check if wallet was funded and verify the payment
     let hasFundedWallet = localStorage.getItem("fundedWallet");
     if (this.$route.params.ref_id || hasFundedWallet == "true") {
-      console.log("was funding wallet");
       this.processing_payment = true;
       this.loading = true;
       let ref_id = this.$route.params.ref_id

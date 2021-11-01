@@ -142,7 +142,6 @@ export default {
     },
     login: function() {
       this.error = false;
-      //console.log("submitting to server");
       if (this.loading) return false;
       this.loading = true;
       this.errorMessages = [];
@@ -151,11 +150,9 @@ export default {
       this.axios
         .post(process.env.VUE_APP_APIURL + "/login", loginData)
         .then((response) => {
-          console.log("User signed in response received from server!");
           this.loading = false;
-          //console.log(response.data);
           if (response.data.message) {
-            console.log(response.data.message);
+            //console.log(response.data.message);
             this.errorMessages.push(
               "The provided credentials are not correct. Please check and try again."
             );
@@ -165,13 +162,12 @@ export default {
           store.dispatch("login", response.data);
           //this.bearerToken = response.data.access_token;
         })
-        .catch((error) => {
+        .catch(() => {
           this.loading = false;
           this.errorMessages.push(
             "An error ocurred from the server. Please check and try again."
           );
           this.error = true;
-          console.log(error);
         }); // credentials didn't match
     },
   },

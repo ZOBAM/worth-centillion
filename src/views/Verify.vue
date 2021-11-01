@@ -103,7 +103,6 @@ export default {
           }
         )
         .then((response) => {
-          //console.log(response.data);
           if (response.data.status == 2) {
             this.reachedResendLimit = true;
             this.resendLimitMessage = response.data.message;
@@ -134,7 +133,6 @@ export default {
           }
         )
         .then((response) => {
-          //console.log(response.data);
           if (response.data.status == 1) {
             store.dispatch("setProps", {
               user_tel_verified: response.data.status,
@@ -144,7 +142,6 @@ export default {
             this.error = true;
             this.errorMessage = response.data.message;
           }
-          //console.log(response.data);
         })
         .catch(() => {
           alert("An error occurred on the server. Try again later.");

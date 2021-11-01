@@ -1,10 +1,10 @@
 <template>
   <article class="flex sm:flex-row flex-col">
     <div
-      class="cursor-pointer flex h-28 w-full md:w-1/3 bg-gradient-to-r from-black to-blue-900 p-2 hover:from-indigo-900 -mt-8 sm:max-w-[23rem] m-auto"
+      class="cursor-pointer flex h-28 w-[94%] md:w-2/3 bg-gradient-to-r from-black to-blue-900 p-2 hover:from-indigo-900 -mt-8 sm:max-w-[23rem] m-auto"
       @click="go()"
     >
-      <div class="text-white w-2/3">
+      <div class="text-white w-2/3 pb-1">
         <span class="act-get bg-red-500 py-1 px-2 rounded-xl">Get</span>
         <br />
         <span
@@ -15,7 +15,7 @@
           <span class="text-blue-200 font-medium">& airtime</span>
         </span>
       </div>
-      <div class="vtu-title w-1/3 text-gray-300 text-right opacity-0">
+      <div class="vtu-title w-1/3 text-gray-300 text-right">
         Hamsuper VTU
       </div>
     </div>

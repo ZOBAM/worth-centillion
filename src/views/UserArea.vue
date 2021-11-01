@@ -37,7 +37,7 @@
           </div>
         </div>
       </div>
-      <div id="action-area" class=" bg-white text-red-900 p-4">
+      <div id="action-area" class=" bg-white p-4">
         <div v-if="currentAction == 'ads'">
           <user-ads :items="items"></user-ads>
         </div>

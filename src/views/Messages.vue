@@ -180,11 +180,10 @@ export default {
       }
     },
     getChats(adID, adTitle = "", chatter = {}, adImage = null) {
-      console.log("Heap from getChat function");
       this.currentAdID = adID;
       if (adImage) {
         //if this paramenters are set, it means it is the first time but if not, it is an update
-        console.log(adID);
+        //console.log(adID);
         this.adTitle = adTitle;
         this.chatter = chatter;
         this.adImage = adImage;

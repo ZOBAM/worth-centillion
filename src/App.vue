@@ -157,7 +157,7 @@
       class="pt-24 sm:hidden flex justify-center items-center"
     >
       <div class="">
-        <search></search>
+        <search @done-searching="searchIsOn = !searchIsOn"></search>
       </div>
     </div>
     <main class="about pt-16 text-gray-900">
@@ -168,9 +168,12 @@
       id="footer-links"
       class="footer-links flex fixed text-white bottom-0 justify-between w-full md:hidden h-12 text-center"
     >
-      <div class="px-4 w-1/3 bg-gray-800 rounded-tr-md" @click="showCategory()">
+      <div
+        class="px-4 w-1/3 bg-gray-800 rounded-tr-md"
+        @click="navigate('/vtu')"
+      >
         <span class="mdi mdi-menu"></span> <br />
-        Categories
+        Cheap Data!
       </div>
       <div class="w-1/3 gradient rounded-t-md" @click="navigate('/')">
         <span class="mdi mdi-home text-2xl"></span>
@@ -281,20 +284,10 @@ export default {
       store.dispatch("login", this.loginData);
     },
     navigate(address) {
-      address;
-      router.push("/");
+      router.push(address);
     },
     logout() {
       store.dispatch("logout");
-    },
-    getUsers: function() {
-      console.log("About to fetch users");
-      this.axios.withCredentials = true;
-      this.axios
-        .get("http://www.api.worthcentillion.net/api/user")
-        .then((response) => {
-          console.log(response);
-        });
     },
     searchOn: function() {
       this.searchIsOn = !this.searchIsOn;
@@ -354,17 +347,6 @@ export default {
         targets: "#footer-links",
       },
     });
-    //fetch user ad messages from server
-    /* setTimeout(() => {
-      if (this.user != {}) {
-        //console.log(this.user.favorites);
-        setInterval(() => {
-          store.dispatch("messages", {
-            user_id: this.user.id,
-          });
-        }, 30000);
-      }
-    }, 200); */
 
     var scrollpos = window.scrollY;
     var header = document.getElementById("header");
