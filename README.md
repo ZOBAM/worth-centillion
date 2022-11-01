@@ -43,6 +43,7 @@ npm run lint
 ```
 ## Authors
 - Chizoba Ugwuoke [LinkedIn](https://www.linkedin.com/in/chizoba-u-3a5636224), [Twitter](https://twitter.com/d_upc), [Github](https://github.com/ZOBAM)
+
 Chizoba is a full-stack web developer with many years of expereince building and maintaining different categories of websites. He loves learning new stuffs and music.
 
 ### Customize configuration
